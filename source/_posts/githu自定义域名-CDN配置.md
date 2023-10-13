@@ -56,9 +56,9 @@ A 记录的 IP 地址可以通过 Ping YOUNAME.github.io 得到
 
 ## dns解析
 
-![image-20231012194820619](./githu%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D-CDN%E9%85%8D%E7%BD%AE_image/image-20231012194820619.png)
+![image-20231013105843644](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231013105843644.png)
 
-## cdn的配置：
+## cdn的配置
 
 ##### 源站ip：
 
