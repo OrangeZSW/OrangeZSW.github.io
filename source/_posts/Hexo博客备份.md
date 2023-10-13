@@ -13,7 +13,7 @@ cover:
 
 然后在将Hexo博客发布在main分支下，改_config.yml下的配置，然后将发布pages的分支改为main。
 
-![image-20231013093125128](./Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD_image/image-20231013093125128.png)
+![image-20231013093125128](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231013093125128.png)
 
 ## 开始
 
