@@ -2,7 +2,7 @@
 title: Hexo博客备份
 date: 2023-10-13 09:26:16
 tags:
-cover: 
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/hexo%E5%A4%87%E4%BB%BD.png
 ---
 
 ## 准备
