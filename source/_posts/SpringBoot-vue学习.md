@@ -574,6 +574,124 @@ children: [
 
 ![image-20231009192355327](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009192355327.png)
 
+## Excel导出
+
+[hutool](https://loolly_admin.oschina.io/hutool-site/docs/#/poi/Excel%E7%94%9F%E6%88%90-ExcelWriter)
+
+### 安装依赖
+
+```xml
+<!--        hutool依赖-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+```
+
+### 别名
+
+在导入和导出时，使用别名，
+
+在`entity`对象加个`hutool`的`Alias`注解
+
+```java
+import cn.hutool.core.annotation.Alias;
+
+//hu-tool的注解,解决导入时字段为中文时识别不了的问题
+      @Alias("用户名")
+      @ApiModelProperty("用户名")
+      private String username;
+
+      @Alias("密码")
+      @ApiModelProperty("密码")
+      private String password;
+```
+
+用了注解之后下面代码里面起别名就可以去掉了。
+
+### 导出
+
+```java
+    //导出excel
+    @GetMapping("/export")
+    public void export(HttpServletResponse response) throws Exception {
+//        从数据库中查询出所有的数据
+          List<User> list = userService.list();
+//        导出    1.创建writer对象    2.设置excel表头    3.写出数据
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+
+//        别名，也可以用注解来设置
+        writer.addHeaderAlias("id","编号");
+        writer.addHeaderAlias("username","用户名");
+        writer.addHeaderAlias("password","密码");
+        writer.addHeaderAlias("nickname","昵称");
+        writer.addHeaderAlias("email","邮箱");
+        writer.addHeaderAlias("phone","电话");
+        writer.addHeaderAlias("address","地址");
+        writer.addHeaderAlias("creatTime","创建时间");
+//        将list对象写出到writer中
+        writer.write(list);
+
+
+//设置浏览器响应格式
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//        设置响应头信息
+        String fileName = URLEncoder.encode("用户列表", "UTF-8");
+//        设置响应头
+        response.setHeader("Content-Disposition", "attachment;filename="+fileName+".xls");
+
+//        将writer中的数据写出到浏览器
+        ServletOutputStream out = response.getOutputStream();
+        writer.flush(out,true);
+        out.close();
+        writer.close();
+    }
+```
+
+### 导入
+
+后端
+
+```java
+    //导入excel
+    @PostMapping("/import")
+    public boolean importUser(MultipartFile file) throws Exception {
+        //获取上传的文件流
+        InputStream in = file.getInputStream();
+        //读取excel
+        ExcelReader reader = ExcelUtil.getReader(in);
+        //读取第二行开始的数据
+        List<User> list = reader.readAll(User.class);
+        //批量保存到数据库中
+        System.out.println(list);
+        return userService.saveBatch(list);
+    }
+```
+
+前端
+
+element的组件
+
+```vue
+<el-upload
+        action="http://localhost:8181/user/import"  style="display: inline-block"
+        :show-file-list="false"
+        :accept="xlsx"
+        :on-success="handleExcelSuccess"
+        >
+        <el-button style="margin: 5px" type="primary" >导入<i class="el-icon-download"></i></el-button>
+      </el-upload>
+```
+
+
+
 # 问题：
 
 ## mybatis-plus
