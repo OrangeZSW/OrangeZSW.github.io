@@ -31,15 +31,7 @@ mybatis-plus:
   type-aliases-package: online.zorange.springboot.entity
 ```
 
-## spring boot 层
 
-1. controller
-2. entity
-3. mapper
-4. service
-5. config
-
-![image-20231003191657120](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231003191657120.png)
 
 ## sql 语句写的位置
 
@@ -697,6 +689,163 @@ element的组件
 ```java
 //Slf4j注解是lombok提供的，用于打印日志
 @Slf4j
+```
+
+## Spring Boot 层
+
+![image-20231017151940841](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231017151940841.png)
+
+common	统一包装
+
+config	过滤层
+
+controller	控制
+
+entity	实体类
+
+​	Dao 	数据包装类
+
+exception	自定义异常
+
+mapper		接口
+
+service	服务
+
+utils	工具
+
+### common 统一包装
+
+constants.java
+
+定义常量
+
+```java
+package online.zorange.springboot.common;
+
+/*
+ * 用于存放常量
+ * 常量接口
+ */
+public interface Constants {
+    //操作成功
+    String CODE_SUCCESS = "200";
+    String MSG_SUCCESS = "操作成功";
+
+    //系统错误
+    String CODE_ERROR = "500";
+    String MSG_ERROR = "系统错误";
+    //参数错误
+    String CODE_PARAM_ERROR = "400";
+    String MSG_PARAM_ERROR = "参数错误";
+    //其他业务异常
+    String CODE_OTHER_ERROR = "501";
+    String MSG_OTHER_ERROR = "其他业务异常";
+
+    String CODE_NOT_LOGIN = "401";
+    String MSG_NOT_LOGIN = "权限不足";
+
+}
+```
+
+Result.java
+
+接口，统一返回包装类
+
+```java
+package online.zorange.springboot.common;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/*
+* 接口，统一返回包装类
+ */
+@Data   
+//无参构造
+@NoArgsConstructor
+//有参构造
+@AllArgsConstructor
+public class Result {
+    private String code;
+    private String msg;
+    //泛型，可以是任意类型
+    private Object data;
+    //成功的方法，没有返回数据
+    public static Result success(){
+        return new Result(Constants.CODE_SUCCESS,Constants.MSG_SUCCESS,null);
+    }
+    //成功的方法，有返回数据
+    public static Result success(Object data){
+        return new Result(Constants.CODE_SUCCESS,Constants.MSG_SUCCESS,data);
+    }
+    //失败的方法，没有返回数据
+    public static Result error(){
+        return new Result(Constants.CODE_ERROR,Constants.MSG_ERROR,null);
+    }
+    //失败的方法，有返回的信息
+    public static Result error(String msg){
+        return new Result(Constants.CODE_ERROR,msg,null);
+    }
+    //失败的方法，有自定义的错误码和错误信息
+    public static Result error(String code,String msg){
+        return new Result(code,msg,null);
+    }
+}
+
+```
+
+
+
+### exception  自定义异常处理
+
+GlobalExceptionHandler.java
+
+全局异常处理
+
+```java
+package online.zorange.springboot.exception;
+
+import online.zorange.springboot.common.Result;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    /**
+     * 处理ServiceException异常,如果抛出ServiceException异常，就会被该方法捕获，然后运行该方法
+     * 继承了RuntimeException，所以不需要在方法上抛出异常
+    * @param e 业务异常
+    * @return Result
+    */
+    @ExceptionHandler(ServiceException.class)
+    @ResponseBody
+    public Result handle(ServiceException e){
+        return Result.error(e.getCode(),e.getMessage());
+    }
+}
+
+```
+
+ServiceException.java
+
+自定义服务类异常处理
+
+```java
+package online.zorange.springboot.exception;
+
+import lombok.Getter;
+
+@Getter
+public class ServiceException extends RuntimeException{
+    private final String code;
+    public ServiceException(String code, String msg){
+        //调用父类的构造方法
+        super(msg);
+        this.code=code;
+    }
+}
 ```
 
 # 问题：
