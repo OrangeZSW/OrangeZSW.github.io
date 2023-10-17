@@ -101,7 +101,7 @@ error_img:
 # A simple 404 page
 #
 error_404:
-  enable: false
+  enable: true
   subtitle: "Page Not Found"
   background: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/404.jpg
 

@@ -690,7 +690,12 @@ element的组件
       </el-upload>
 ```
 
+## 日志打印：
 
+```java
+//Slf4j注解是lombok提供的，用于打印日志
+@Slf4j
+```
 
 # 问题：
 
