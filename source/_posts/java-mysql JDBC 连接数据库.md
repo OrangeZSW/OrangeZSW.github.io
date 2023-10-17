@@ -1,6 +1,8 @@
 ---
 title: java-mysql JDBC 连接数据库
 date: 2022-9-30 00:16:34
+type: 学习
+tags: JDBC
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/java-mysql.png
 ---
 

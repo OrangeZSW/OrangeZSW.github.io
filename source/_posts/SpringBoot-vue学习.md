@@ -1,6 +1,8 @@
 ---
 title: SpringBoot+vue学习
 date: 2023-09-08 00:16:34
+type: 学习
+tags: SpringBoot 
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/wallhaven-jxyj3p_1920x1080.png
 # cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img\wallhaven-o5jy67_1920x1080.png
 ---

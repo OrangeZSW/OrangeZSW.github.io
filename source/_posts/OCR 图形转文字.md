@@ -1,6 +1,8 @@
 ---
 title: OCR 图形转文字
 date: 2022-12-20 00:16:34
+type: Code
+tags: OCR
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/ORC.png
 ---
 

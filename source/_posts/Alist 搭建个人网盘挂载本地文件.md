@@ -1,6 +1,8 @@
 ---
 title: Alist 搭建个人网盘挂载本地文件
 date: 2023-05-25
+type: Records
+tags: Alist
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/posts/alist.png
 ---
 
