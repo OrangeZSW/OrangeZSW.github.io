@@ -1,6 +1,7 @@
 ---
 title: gallery
 date: 2023-10-07
+comments: false
 ---
 
 # <center>gallery</center>
