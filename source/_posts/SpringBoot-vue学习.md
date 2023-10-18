@@ -1,8 +1,8 @@
 ---
 title: SpringBoot+vue学习
 date: 2023-09-08 00:16:34
-type: 学习
-tags: SpringBoot 
+categories: 学习
+tags: SpringBoot
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/wallhaven-jxyj3p_1920x1080.png
 # cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img\wallhaven-o5jy67_1920x1080.png
 ---
@@ -30,8 +30,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: online.zorange.springboot.entity
 ```
-
-
 
 ## sql 语句写的位置
 
@@ -329,8 +327,6 @@ export default request;
 
 ![image-20231004154555901](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004154555901.png)
 
-
-
 使用：
 
 ![image-20231005153840604](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231005153840604.png)
@@ -349,9 +345,7 @@ vue add axios
 
 ![image-20231004161101596](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004161101596.png)
 
-
-
-## Mybatis-plus代码生成器
+## Mybatis-plus 代码生成器
 
 ### 安装
 
@@ -517,7 +511,7 @@ public class ${table.controllerName} {
         return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize), wrapper);
     }
 
-    //批量删除用户	
+    //批量删除用户
     @DeleteMapping("del/batch")
     public boolean deleteBatchById(@RequestBody List<Integer> ids) {
         return ${table.entityPath}Service.removeBatchByIds(ids);
@@ -529,38 +523,23 @@ public class ${table.controllerName} {
 #end
 ```
 
-
-
-## Vue路由
+## Vue 路由
 
 ### 子路由
 
 ```vue
-children: [
-	{
-		子路由一
-	},
-	{
-		子路由二
-	}
-]
+children: [ { 子路由一 }, { 子路由二 } ]
 ```
 
 ![image-20231009185211177](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009185211177.png)
 
-
-
-
-
-
-
-1. 创建一个components.vue
+1. 创建一个 components.vue
 2. 将需要的组件复制过来
 3. 定义自定义的值
 
 ![image-20231009191648584](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191648584.png)
 
-4. 导入components
+4. 导入 components
 
 ![image-20231009191925407](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191925407.png)
 
@@ -568,7 +547,7 @@ children: [
 
 ![image-20231009192355327](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009192355327.png)
 
-## Excel导出
+## Excel 导出
 
 [hutool](https://loolly_admin.oschina.io/hutool-site/docs/#/poi/Excel%E7%94%9F%E6%88%90-ExcelWriter)
 
@@ -671,15 +650,16 @@ import cn.hutool.core.annotation.Alias;
 
 前端
 
-element的组件
+element 的组件
 
 ```vue
 <el-upload
-        action="http://localhost:8181/user/import"  style="display: inline-block"
-        :show-file-list="false"
-        :accept="xlsx"
-        :on-success="handleExcelSuccess"
-        >
+  action="http://localhost:8181/user/import"
+  style="display: inline-block"
+  :show-file-list="false"
+  :accept="xlsx"
+  :on-success="handleExcelSuccess"
+>
         <el-button style="margin: 5px" type="primary" >导入<i class="el-icon-download"></i></el-button>
       </el-upload>
 ```
@@ -695,23 +675,23 @@ element的组件
 
 ![image-20231017151940841](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231017151940841.png)
 
-common	统一包装
+common 统一包装
 
-config	过滤层
+config 过滤层
 
-controller	控制
+controller 控制
 
-entity	实体类
+entity 实体类
 
-​	Dao 	数据包装类
+​ Dao 数据包装类
 
-exception	自定义异常
+exception 自定义异常
 
-mapper		接口
+mapper 接口
 
-service	服务
+service 服务
 
-utils	工具
+utils 工具
 
 ### common 统一包装
 
@@ -761,7 +741,7 @@ import lombok.NoArgsConstructor;
 /*
 * 接口，统一返回包装类
  */
-@Data   
+@Data
 //无参构造
 @NoArgsConstructor
 //有参构造
@@ -795,9 +775,7 @@ public class Result {
 
 ```
 
-
-
-### exception  自定义异常处理
+### exception 自定义异常处理
 
 GlobalExceptionHandler.java
 
@@ -856,15 +834,15 @@ public class ServiceException extends RuntimeException{
 
 #### 描述：
 
- 改用 mybatis-plus 之后，改用 updateOrSave 或者 updateById 都会
+改用 mybatis-plus 之后，改用 updateOrSave 或者 updateById 都会
 
- 报错：can not execute. because can not find cache of TableInfo for entity!
+报错：can not execute. because can not find cache of TableInfo for entity!
 
- @TableName 和@TableId 都加了也不行
+@TableName 和@TableId 都加了也不行
 
 #### 解决：
 
- 降低 springboot 的版本
+降低 springboot 的版本
 
 ## 2 request 未定义
 

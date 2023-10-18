@@ -1,7 +1,7 @@
 ---
 title: java-mysql JDBC 连接数据库
 date: 2022-9-30 00:16:34
-type: 学习
+categories: 学习
 tags: JDBC
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/java-mysql.png
 ---
@@ -78,8 +78,6 @@ try{
 
 ## 基本的数据库操作
 
-
-
 1.select
 
 ```java
@@ -114,4 +112,3 @@ try{
 //记住一定要在try{catch(){}}里面写mysql代码，不然会报错。
 
 ```
-

@@ -1,7 +1,7 @@
 ---
 title: MarkdownPad 2 基础语法
 date: 2022-9-28 00:16:34
-type: 学习
+categories: 学习
 tags: Markdown
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 ---
@@ -16,10 +16,15 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 
 ```markdown
 # 一级标题
+
 ## 二级标题
+
 ### 三级标题
+
 #### 四级标题
+
 ##### 五级标题
+
 ###### 六级标题
 ```
 
@@ -29,12 +34,10 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 
 ## 无序列表
 
-语法很简单，只需要在你的文字前面加上一共 - 或 * 就行了.
+语法很简单，只需要在你的文字前面加上一共 - 或 \* 就行了.
 
 ```markdown
--我是第一行
-*我是第二行
--我是第三行
+-我是第一行 \*我是第二行 -我是第三行
 ```
 
 ## 有序列表
@@ -42,20 +45,18 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 在文字前加 1. 2. 3. 的符号
 
 ```markdown
-1.我是第一行
-2.我是第二行
-3.我是第三行
+1.我是第一行 2.我是第二行 3.我是第三行
 ```
 
-注意：- * 等符号要和文字之间加一共空格
+注意：- \* 等符号要和文字之间加一共空格
 
 ## 引用：
 
 只需要在文本在之前加入 > 这种尖括号
 
 ```markdown
->我一直在使用引用
->重开始到现在
+> 我一直在使用引用
+> 重开始到现在
 ```
 
 ## 图片和链接
@@ -73,16 +74,16 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 
 体与斜体
 Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就是粗体的语法，用一个 _ 包含一段文本就是斜体的语法。
-例如：这是__粗体__，这是_斜体_
+例如：这是**粗体**，这是*斜体*
 
 ## 表格
 
 ```markdown
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
 | col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
 ```
 
 表格还可以这样
@@ -117,24 +118,23 @@ Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就�
 
 连续三个反引号 `，就是按键 1 前面的那个符号再加代码类型.
 
-```代码```
+`代码`
 
 ## 横线
 
-分割线的语法只需要三个 * 号。
+分割线的语法只需要三个 \* 号。
 
 ```markdown
-***
+---
 ```
 
-***
+---
 
 ## 转义字符
 
 ```markdown
 \\ 反斜杠
-\` 反引号
-\* 星号
+\` 反引号 \* 星号
 \_ 下划线
 \{} 大括号
 \[] 中括号
@@ -144,7 +144,6 @@ Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就�
 \- 减号
 \. 英文句号
 \! 感叹号
-
 ```
 
 ## 快捷键
@@ -157,10 +156,9 @@ ctrl+shift+o 有序列表
 ctrl+u 无序列表
 ctrl+g 插入图片
 ctrl+l 插入超链接
-Ctrl+B　粗体
-Ctrl+I　斜体
-Ctrl+Q　引用
-Ctrl+K　代码块
+Ctrl+B 　粗体
+Ctrl+I 　斜体
+Ctrl+Q 　引用
+Ctrl+K 　代码块
 Ctrl+Shift+I 插入图片（复制的链接）
 ```
-

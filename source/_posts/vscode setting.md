@@ -1,7 +1,7 @@
 ---
 title: vscode setting
 date: 2022-9-29 00:16:34
-type: Records
+categories: Records
 tags: setting
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/vscode%20setting.png
 ---
@@ -82,4 +82,3 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/vscode%20setting.png
     }
 }
 ```
-

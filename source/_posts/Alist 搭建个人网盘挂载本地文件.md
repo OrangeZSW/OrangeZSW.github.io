@@ -1,7 +1,7 @@
 ---
 title: Alist 搭建个人网盘挂载本地文件
 date: 2023-05-25
-type: Records
+categories: Records
 tags: Alist
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/posts/alist.png
 ---
@@ -109,4 +109,3 @@ Wscript.quit
 如果没有云服务器，可以通过内网穿透的方式达到外网访问
 
 樱花穿透：[SakuraFrp (natfrp.com)]([SakuraFrp (natfrp.com)](https://www.natfrp.com/user/))
-
