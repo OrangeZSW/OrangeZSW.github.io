@@ -683,7 +683,7 @@ controller 控制
 
 entity 实体类
 
-​ Dao 数据包装类
+ Dao 数据包装类
 
 exception 自定义异常
 
@@ -695,7 +695,7 @@ utils 工具
 
 ### common 统一包装
 
-constants.java
+`constants.java`
 
 定义常量
 
@@ -727,7 +727,7 @@ public interface Constants {
 }
 ```
 
-Result.java
+`Result.java`
 
 接口，统一返回包装类
 
@@ -777,7 +777,7 @@ public class Result {
 
 ### exception 自定义异常处理
 
-GlobalExceptionHandler.java
+`GlobalExceptionHandler.java`
 
 全局异常处理
 
@@ -806,7 +806,7 @@ public class GlobalExceptionHandler {
 
 ```
 
-ServiceException.java
+`ServiceException.java`
 
 自定义服务类异常处理
 
@@ -825,6 +825,260 @@ public class ServiceException extends RuntimeException{
     }
 }
 ```
+
+## JWT登录
+
+### 依赖
+
+```xml
+<!--        jwt依赖-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.10.3</version>
+        </dependency>
+```
+
+### 生成token
+
+utils.tokenUtil.java
+
+```java
+package online.zorange.springboot.utils;
+
+import cn.hutool.core.date.DateUtil;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import online.zorange.springboot.entity.User;
+
+import java.util.Date;
+
+/***
+ * 生成token
+ */
+public class TokenUtil {
+    public static String genToken(User user){
+        return JWT.create().withAudience(String.valueOf(user.getId()))   //将user id保存在token里面，作为载荷
+                .withExpiresAt(DateUtil.offsetHour(new Date(),2))  //2小时token失效
+                .sign(Algorithm.HMAC256(user.getPassword()));  //将password  作为token密钥
+    }
+}
+
+```
+
+### 前端放开请求头
+
+```js
+    let user=localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '';
+    if(user){
+        config.headers['token'] = user.token;  // 设置请求头
+    }
+```
+
+### 创建拦截器
+
+`config.interceptor.JWTinterceptor.java`
+
+```java
+package online.zorange.springboot.config.interceptor;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import online.zorange.springboot.common.Constants;
+import online.zorange.springboot.entity.User;
+import online.zorange.springboot.exception.ServiceException;
+import online.zorange.springboot.service.IUserService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class JwtInterceptor implements HandlerInterceptor {
+    private IUserService userService;
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String token= request.getHeader("token");
+        //如果不是映射到方法就直接通过
+        if(!(handler instanceof HandlerMethod)){
+            return true;
+        }
+        //执行认证
+        if(token.equals("")){
+            throw  new ServiceException(Constants.CODE_NOT_LOGIN,"无token");
+        }
+        //获取token中的用户id
+        String userId;
+        try{
+            userId=JWT.decode(token).getAudience().get(0);
+        }catch (JWTDecodeException j){
+            throw new ServiceException(Constants.CODE_NOT_LOGIN,"token验证失败");
+        }
+        //验证
+        User user=userService.getById(userId);
+        if(user==null){
+            throw  new ServiceException(Constants.CODE_NOT_LOGIN,"用户不存在，请重新登录");
+        }
+        //验证token,用户密码加签
+        JWTVerifier jwtVerifier=JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+        try{
+            jwtVerifier.verify(token);
+        }catch (JWTVerificationException j){
+            throw new ServiceException(Constants.CODE_NOT_LOGIN,"token验证失败,请重新登录");
+        }
+
+        return HandlerInterceptor.super.preHandle(request, response, handler);
+
+    }
+
+}
+
+```
+
+### 注册拦截器
+
+`config.interceptorCongif.java`
+
+```java
+package online.zorange.springboot.config;
+
+import online.zorange.springboot.config.interceptor.JwtInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class interceptorConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        WebMvcConfigurer.super.addInterceptors(registry);
+        registry.addInterceptor(jwtInterceptor())
+                .addPathPatterns("/**")  //拦截所有请求，通过判断token是否合法来确定是否登录
+                .excludePathPatterns("/user/login","user/register","**/export","**/import"); //放开登录，注册，导入，导出
+    }
+    //注册对象
+    @Bean
+    public JwtInterceptor jwtInterceptor(){
+        return new JwtInterceptor();
+    }
+}
+
+```
+
+## 上传文件
+
+1. 创建数据库表
+
+```sql
+CREATE TABLE `file` (
+  `id` int(11) NOT NULL COMMENT 'id',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件名称',
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件类型',
+  `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '链接',
+  `is_delete` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT ' 是否删除',
+  `enable` tinyint(1) DEFAULT '1' COMMENT '是否禁用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+2. 实体类
+
+```java
+package online.zorange.springboot.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+@Data
+@TableName("file")
+public class File {
+    @TableId(value = "id",type = IdType.AUTO)
+    private String id;
+    private String name;
+    private String type;
+    private Long size;
+    private String url;
+    private boolean is_delete;
+    private boolean enable;
+}
+```
+
+3. 创建上传文件接口`controller.FileController.java`
+
+先保存在磁盘里面
+
+![image-20231024170047504](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
+
+```java
+package online.zorange.springboot.controller;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+
+/***
+ * 文件上传相关接口
+ */
+@RestController
+@RequestMapping("/file")
+public class FileController {
+    @Value("${files.upload.path}")
+    private String uploadPath;
+    /**
+     * 上传文件
+     * @param file 前端传递过来的文件
+     * @return String
+     * @throws IOException io异常
+     */
+    @PostMapping("/upload")
+    public String upload(@RequestParam MultipartFile file) throws IOException {
+        //获取文件名
+        String originalFilename = file.getOriginalFilename();
+        //获取文件后缀
+        String type = FileUtil.extName(originalFilename);
+        //获取文件大小
+        long size = file.getSize();
+        //获取文件的父目录
+        File upLoadParentFile=new File(uploadPath);
+        //判断父目录是否存在
+        if(!upLoadParentFile.exists()){
+            upLoadParentFile.mkdirs();
+        }
+        //定义一个文件的唯一的一个标识码
+        String uuid= IdUtil.fastSimpleUUID();
+        //实际上传文件的路径
+        File upLoadFilePath= new File(uploadPath+uuid+"."+type);
+        //将文件写入到指定的路径
+        file.transferTo(upLoadFilePath);
+        return "";
+    }
+    /*
+      下载文件
+      @return String
+     */
+
+}
+
+```
+
+ 创建对应的`Mapper,Mapper.xml,IService，ServiceImpl`
 
 # 问题：
 
