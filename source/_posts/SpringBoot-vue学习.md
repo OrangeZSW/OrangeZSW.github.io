@@ -683,7 +683,7 @@ controller 控制
 
 entity 实体类
 
- Dao 数据包装类
+ 		Dao 数据包装类
 
 exception 自定义异常
 
@@ -866,7 +866,7 @@ public class TokenUtil {
 
 ```
 
-### 前端放开请求头
+### 前端放开请求头	
 
 ```js
     let user=localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '';
@@ -973,22 +973,24 @@ public class interceptorConfig implements WebMvcConfigurer {
 
 ## 上传文件
 
-1. 创建数据库表
+### 创建数据库表
 
 ```sql
 CREATE TABLE `file` (
-  `id` int(11) NOT NULL COMMENT 'id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件名称',
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件类型',
   `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
   `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '链接',
   `is_delete` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT ' 是否删除',
   `enable` tinyint(1) DEFAULT '1' COMMENT '是否禁用',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `md5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件md5',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_md5` (`md5`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-2. 实体类
+### 实体类entity层
 
 ```java
 package online.zorange.springboot.entity;
@@ -1012,25 +1014,20 @@ public class File {
 }
 ```
 
-3. 创建上传文件接口`controller.FileController.java`
+### 文件controller层
 
-先保存在磁盘里面
-
-![image-20231024170047504](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
+`controller.FileController.java`
 
 ```java
 package online.zorange.springboot.controller;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.IdUtil;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import online.zorange.springboot.common.Result;
+import online.zorange.springboot.service.IFileService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /***
@@ -1039,16 +1036,75 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/file")
 public class FileController {
-    @Value("${files.upload.path}")
-    private String uploadPath;
+    @Resource
+    private IFileService fileService;
+
     /**
      * 上传文件
+     *
      * @param file 前端传递过来的文件
      * @return String
-     * @throws IOException io异常
      */
     @PostMapping("/upload")
     public String upload(@RequestParam MultipartFile file) throws IOException {
+        return fileService.upload(file);
+    }
+
+    /*
+      下载文件
+      @return String
+     */
+    @GetMapping("/download/{fileUuid}")
+    public Result download(@PathVariable String fileUuid, HttpServletResponse response) throws IOException {
+        return fileService.download(fileUuid, response);
+    }
+
+}
+
+```
+
+先保存在磁盘里面
+
+![image-20231024170047504](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
+
+### 文件Srevice层
+
+`FileServiceImpl.java`
+
+```java
+package online.zorange.springboot.service.impl;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.crypto.SecureUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import online.zorange.springboot.common.Result;
+import online.zorange.springboot.entity.Files;
+import online.zorange.springboot.mapper.FileMapper;
+import online.zorange.springboot.service.IFileService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+
+@Service
+public class FileServiceImpl extends ServiceImpl<FileMapper, Files> implements IFileService {
+
+    @Value("${files.upload.path}")
+    private String uploadPath;
+    /**
+     上传文件
+     @return String 文件的访问路径
+     @throws IOException IO异常
+     */
+    @Override
+    public String upload(MultipartFile file) throws IOException {
         //获取文件名
         String originalFilename = file.getOriginalFilename();
         //获取文件后缀
@@ -1056,24 +1112,81 @@ public class FileController {
         //获取文件大小
         long size = file.getSize();
         //获取文件的父目录
-        File upLoadParentFile=new File(uploadPath);
+        File upLoadParentFile = new File(uploadPath);
         //判断父目录是否存在
-        if(!upLoadParentFile.exists()){
+        if (!upLoadParentFile.exists()) {
             upLoadParentFile.mkdirs();
         }
-        //定义一个文件的唯一的一个标识码
-        String uuid= IdUtil.fastSimpleUUID();
-        //实际上传文件的路径
-        File upLoadFilePath= new File(uploadPath+uuid+"."+type);
-        //将文件写入到指定的路径
-        file.transferTo(upLoadFilePath);
-        return "";
-    }
-    /*
-      下载文件
-      @return String
-     */
 
+        //定义一个文件的唯一的一个标识码
+        String uuid = IdUtil.fastSimpleUUID();
+        //文件的唯一标识码+文件的后缀
+        String FileUuid = uuid + "." + type;
+
+        //实际上传文件的路径
+        File upLoadFile = new File(uploadPath + FileUuid);
+        //获取文件的md5,用于判断文件是否存在
+        String md5 = SecureUtil.md5(file.getInputStream());
+        //文件的访问路径
+        String Url;
+        //判断文件是否存在,如果存在,则直接返回文件的访问路径
+        Files one = getFilesMd5(md5);
+        if (one != null) {
+            return one.getUrl();
+        } else {
+            //将文件写入到指定的路径
+            file.transferTo(upLoadFile);
+            Url = "http://localhost:8181/file/download/" + FileUuid;
+        }
+        //将文件信息保存到数据库中
+        Files saveFile = new Files();
+        saveFile.setName(originalFilename);
+        saveFile.setType(type);
+        saveFile.setSize(size / 1024);
+        saveFile.setUrl(Url);
+        saveFile.setMd5(md5);
+        this.save(saveFile);
+        return Url;
+    }
+
+    /**
+        下载文件
+        @param fileUuid 文件的唯一标识码
+        @param response 响应对象
+        @return String 文件的唯一标识码
+     */
+    @Override
+    public Result download(String fileUuid, HttpServletResponse response) throws IOException {
+        //根据文件的唯一标识码查询文件信息
+        File file = new File(uploadPath + fileUuid);
+        //设置响应头,告诉浏览器下载文件
+        ServletOutputStream os = response.getOutputStream();
+        //将文件写入到响应流中
+        response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileUuid, "UTF-8"));
+        //设置响应类型
+        response.setContentType("application/octet-stream");
+        //读取上传的文件,写入到响应流中
+        os.write(FileUtil.readBytes(file));
+        //刷新流
+        os.flush();
+        //关闭流
+        os.close();
+        return Result.success("下载成功");
+    }
+    /**
+    查询文件的md5
+    @return Files
+     */
+    private Files getFilesMd5(String md5){
+        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("md5", md5);
+        Files one = this.getOne(queryWrapper);
+        if (one != null) {
+            return one;
+        } else {
+            return null;
+        }
+    }
 }
 
 ```
