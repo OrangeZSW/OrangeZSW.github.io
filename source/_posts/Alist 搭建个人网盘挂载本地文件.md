@@ -3,7 +3,7 @@ title: Alist 搭建个人网盘挂载本地文件
 date: 2023-05-25
 categories: Records
 tags: Alist
-cover:https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
 ---
 
 # windows 版本部署 ALis
