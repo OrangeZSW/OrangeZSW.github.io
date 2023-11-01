@@ -69,7 +69,7 @@ public class CorsConfig {
         corsConfiguration.addAllowedOriginPattern("http://localhost:8080");
         //允许所有请求头
         corsConfiguration.addAllowedHeader("*");
-        //允许所有请求方法
+        //允许所有请求方法	
         corsConfiguration.addAllowedMethod("*");
         //配置跨域请求的域名
         corsConfiguration.setMaxAge(MAX_AGE);
@@ -125,7 +125,7 @@ private String password;
 ### Mapper.interface
 
 ```java
-/***
+/**
  * 分页查询
  * 不使用mybatis-plus的分页插件
  */
@@ -263,6 +263,17 @@ public class SwaggerConfig {
 ```
 
 访问地址：http://localhost:8181/swagger-ui/index.html
+
+如果配置了拦截器，要放开以下路由
+
+```
+//swagger2
+"/swagger-ui/**",
+"/swagger-resources/**",
+"/swagger-ui.html",
+"/v2/api-docs",
+"/webjars/**"
+```
 
 ## axios
 
@@ -971,7 +982,7 @@ public class interceptorConfig implements WebMvcConfigurer {
 
 ```
 
-## 上传文件
+## 文件操作
 
 ### 创建数据库表
 
@@ -983,11 +994,10 @@ CREATE TABLE `file` (
   `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
   `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '链接',
   `is_delete` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT ' 是否删除',
-  `enable` tinyint(1) DEFAULT '1' COMMENT '是否禁用',
+  `enable` tinyint(1) unsigned zerofill DEFAULT '1' COMMENT '是否禁用',
   `md5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件md5',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uni_md5` (`md5`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
 ### 实体类entity层
@@ -1041,7 +1051,7 @@ public class FileController {
 
     /**
      * 上传文件
-     *
+   
      * @param file 前端传递过来的文件
      * @return String
      */
@@ -1192,6 +1202,49 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, Files> implements I
 ```
 
  创建对应的`Mapper,Mapper.xml,IService，ServiceImpl`
+
+## element-ui的upload添加header
+
+1. 添加：header属性
+
+```vue
+<el-upload
+    class="avatar-uploader"
+    action="http://localhost:8181/file/upload"
+    :headers="headersO"
+    :show-file-list="false"
+    :on-success="handleAvatarSuccess">
+  <img v-if="form.avatar" :src="form.avatar" class="avatar">
+  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+</el-upload>
+```
+
+2. 设置headersO
+
+```js
+computed:{
+  headersO(){
+    const token = this.user.token
+    return {
+      token: token
+    }
+  }
+},
+```
+
+
+
+## Echarts
+
+[Echa](https://echarts.apache.org/zh/index.html)
+
+### 安装
+
+```sh
+npm i echarts -S
+```
+
+
 
 # 问题：
 
