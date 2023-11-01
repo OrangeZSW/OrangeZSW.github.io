@@ -1244,7 +1244,11 @@ computed:{
 npm i echarts -S
 ```
 
+### 引入
 
+```js
+import  * as  echarts from 'echarts';
+```
 
 # 问题：
 
