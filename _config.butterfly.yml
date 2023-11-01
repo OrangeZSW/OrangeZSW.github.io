@@ -2,6 +2,18 @@
 # see https://butterfly.js.org/posts/4aa8abbe/##導航欄設置-Navigation-bar-settings
 # --------------------------------------
 
+# 正确渲染emoji
+marked:
+  gfm: true
+  breaks: false
+  pedantic: false
+  sanitize: false
+  smartLists: true
+  smartypants: true
+  modifyAnchors: ""
+  autolink: true
+  emoji: true
+
 nav:
   logo: # image
   display_title: true #
