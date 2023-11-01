@@ -1,7 +1,8 @@
 ---
 title: markdown-Emoji
 date: 2022-11-01 18:31:10
-tags:
+tags: Markdown
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/markdown-Emoji.jpg
 ---
 
 People
