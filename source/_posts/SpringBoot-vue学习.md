@@ -1234,22 +1234,6 @@ computed:{
 
 
 
-## Echarts
-
-[Echa](https://echarts.apache.org/zh/index.html)
-
-### 安装
-
-```sh
-npm i echarts -S
-```
-
-### 引入
-
-```js
-import  * as  echarts from 'echarts';
-```
-
 # 问题：
 
 ## mybatis-plus
