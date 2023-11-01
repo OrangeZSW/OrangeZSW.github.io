@@ -69,7 +69,7 @@ People
 | :ear: `:ear:`                                                | :eyes: `:eyes:`                                              | :nose: `:nose:`                             |
 | :tongue: `:tongue:`                                          | :love_letter: `:love_letter:`                                | :bust_in_silhouette: `:bust_in_silhouette:` |
 | :busts_in_silhouette: `:busts_in_silhouette:`                | :speech_balloon: `:speech_balloon:`                          | :thought_balloon: `:thought_balloon:`       |
-| :feelsgood: `:feelsgood:`                                    | :finnadie: `:finnadie:`                                      | :goberserk: `:goberserk:`                   |
+| :feelsgood `:feelsgood:`                                     | :finnadie: `:finnadie:`                                      | :goberserk: `:goberserk:`                   |
 | :godmode: `:godmode:`                                        | :hurtrealbad: `:hurtrealbad:`                                | :rage1: `:rage1:`                           |
 | :rage2: `:rage2:`                                            | :rage3: `:rage3:`                                            | :rage4: `:rage4:`                           |
 | :suspect: `:suspect:`                                        | :trollface: `:trollface:`                                    |                                             |
