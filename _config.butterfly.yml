@@ -2,18 +2,6 @@
 # see https://butterfly.js.org/posts/4aa8abbe/##導航欄設置-Navigation-bar-settings
 # --------------------------------------
 
-# 正确渲染emoji
-marked:
-  gfm: true #这个选项允许GitHub标准的markdown语法，而不是严格的markdown语法。
-  breaks: false #这个选项允许回车换行。该选项要求gfm为true。
-  pedantic: false #这个选项只修正一些没有必要的、比较容易出错的标识。该选项要求gfm为true。
-  sanitize: false #这个选项忽略html标签，不解析它们。
-  smartLists: true #这个选项可以渲染列表，列表的项目可以通过三个空格或者一个制表符来缩进。
-  smartypants: true #这个选项可以使用更为时髦的标点符号，比如在引用语法中使用破折号。
-  modifyAnchors: "" #这个选项可以修改锚点的生成方式，比如可以将锚点的生成方式修改为GitHub的方式。
-  autolink: true #这个选项可以将链接中的url自动转换为链接。
-  emoji: true #这个选项可以将emoji表情转换为对应的图片。
-
 nav:
   logo: # image
   display_title: true #
