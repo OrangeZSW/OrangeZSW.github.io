@@ -3,12 +3,12 @@ title: 将个人博客收录进 Bing
 date: 2023-05-4
 categories: Records
 tags: Bing
-cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/%E8%83%8C%E6%99%AF/%E8%83%8C%E6%99%AF3.png
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/%E5%B0%86%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%94%B6%E5%BD%95%E8%BF%9B%20Bing.png
 ---
 
 # Bing 收录个人博客
 
-## 配置
+## :gear:配置
 
 1. [登录必应网站管理](https://www.bing.com/webmasters/about)
 

@@ -3,7 +3,7 @@ title: github pages自定义域名&CDN配置
 date: 2023-10-11 11:02:41
 categories: Records
 tags: CDN
-cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/cdn.png
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/cdn.jpg
 ---
 
 # github 自定义域名
