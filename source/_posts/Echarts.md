@@ -10,13 +10,13 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231101170
 
 [Echarts 官网](https://echarts.apache.org/zh/index.html)
 
-## 安装
+## :book:安装
 
 ```sh
 npm i echarts -S
 ```
 
-## 引入
+## :link:引入
 
 ```js
 import * as echarts from "echarts";

@@ -1,18 +1,24 @@
 ---
-title: MarkdownPad 2 基础语法
+title: Markdown 2 基础语法
 date: 2022-9-28 00:16:34
 categories: 学习
 tags: Markdown
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 ---
 
-# MarkdownPad 2 基础语法
+# Markdown 2 基础语法
+
+[Markdown 列表语法 | Markdown 官方教程](https://markdown.com.cn/basic-syntax/lists.html)
+
+[Markdown 扩展语法入门 | Markdown 官方教程](https://markdown.com.cn/extended-syntax/)
+
+[Markdown 工具 | Markdown 官方教程](https://markdown.com.cn/tools.html#编辑器)
 
 前言：
 
 这篇是我为了写自己博客在网上自己找的一篇教程下对着做的，作者教程:https://blog.csdn.net/a1b2c300/article/details/53891125 因为以后写博客需要使用 MarkdownPad 2，因为想练一下手
 
-## 标题：
+# 标题：
 
 ```markdown
 # 一级标题
@@ -30,7 +36,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 
 标题除了可以通过 #来设置，还可以通过 ctrl + 数字键 1,2,3 来设置
 
-## 列表:
+# 列表:
 
 ## 无序列表
 
@@ -50,7 +56,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 
 注意：- \* 等符号要和文字之间加一共空格
 
-## 引用：
+# 引用：
 
 只需要在文本在之前加入 > 这种尖括号
 
@@ -59,7 +65,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 > 重开始到现在
 ```
 
-## 图片和链接
+# 图片和链接
 
 ```markdown
 图片为:![]()
@@ -76,7 +82,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/Markdown.png
 Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就是粗体的语法，用一个 _ 包含一段文本就是斜体的语法。
 例如：这是**粗体**，这是*斜体*
 
-## 表格
+# 表格
 
 ```markdown
 | Tables        |      Are      |  Cool |
@@ -114,13 +120,13 @@ Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就�
   </tr>
 </table>
 
-## 代码框
+# 代码框
 
 连续三个反引号 `，就是按键 1 前面的那个符号再加代码类型.
 
 `代码`
 
-## 横线
+# 横线
 
 分割线的语法只需要三个 \* 号。
 
@@ -130,7 +136,7 @@ Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就�
 
 ---
 
-## 转义字符
+# 转义字符
 
 ```markdown
 \\ 反斜杠
@@ -146,7 +152,7 @@ Markdown 的粗体和斜体也非常简单，用两个 _ 包含一段文本就�
 \! 感叹号
 ```
 
-## 快捷键
+# 快捷键
 
 ```markdown
 ctrl+1 一级标题
@@ -162,3 +168,19 @@ Ctrl+Q 　引用
 Ctrl+K 　代码块
 Ctrl+Shift+I 插入图片（复制的链接）
 ```
+
+## Emoji表情
+
+复制粘贴：[📙 Emojipedia — 😃 Home of Emoji Meanings 💁👌🎍😍](https://emojipedia.org/)
+
+[表情符号简码列表](https://gist.github.com/rxaviers/7360908)
+
+```markdown
+去露营了！ :tent: 很快回来。
+
+真好笑！ :joy:
+```
+
+去露营了！ :tent: 很快回来。
+
+真好笑！ :joy:
