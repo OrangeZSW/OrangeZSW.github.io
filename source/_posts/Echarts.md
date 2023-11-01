@@ -3,6 +3,7 @@ title: Echarts
 date: 2023-11-01 16:48:10
 categories: 学习
 tags: Echarts
+cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231101170341911.png
 ---
 
 # Echarts
