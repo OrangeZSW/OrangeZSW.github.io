@@ -10,17 +10,17 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/%E5%B0%86%E4%B8%A
 
 ## :gear:配置
 
-1. [登录必应网站管理](https://www.bing.com/webmasters/about)
+​	:one:[登录必应网站管理](https://www.bing.com/webmasters/about)
 
-2. 选择从 GSC 导入
+​	:two:选择从 GSC 导入
 
 ![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/posts/%E5%B0%86%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%94%B6%E5%BD%95%E8%BF%9BBing/20230504222950.png)
 
-3. 将下载到的 xml 文件放入网站资源文件夹的根目录下，比如我的是 Hexo 的 source 文件夹下。
+​	:three: 将下载到的 xml 文件放入网站资源文件夹的根目录下，比如我的是 Hexo 的 source 文件夹下。
 
-4. 然后三部曲将网站重新部署，hexo clean 、hexo g、hexo d
+​	:four:然后三部曲将网站重新部署，hexo clean 、hexo g、hexo d
 
-5. 重新部署之后就可以验证了，这样就可以搜索到网站了。
+​	:five:重新部署之后就可以验证了，这样就可以搜索到网站了。
 
 ## 优化
 

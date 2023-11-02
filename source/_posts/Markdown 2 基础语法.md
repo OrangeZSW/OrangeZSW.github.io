@@ -14,10 +14,6 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/Markdown.jpg
 
 [Markdown 工具 | Markdown 官方教程](https://markdown.com.cn/tools.html#编辑器)
 
-前言：
-
-这篇是我为了写自己博客在网上自己找的一篇教程下对着做的，作者教程:https://blog.csdn.net/a1b2c300/article/details/53891125 因为以后写博客需要使用 MarkdownPad 2，因为想练一下手
-
 # 标题：
 
 ```markdown
