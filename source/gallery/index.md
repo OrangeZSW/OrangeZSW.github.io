@@ -2,6 +2,7 @@
 title: 相册
 date: 2023-10-07
 comments: false
+aside: false
 ---
 
 # <center>gallery</center>
