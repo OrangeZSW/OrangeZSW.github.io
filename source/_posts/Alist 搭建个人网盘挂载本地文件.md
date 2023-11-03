@@ -18,7 +18,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
 
 ![image_2](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525212801.png)
 
-## 运行
+## :running:运行
 
 1. 在解压之后的那个目录下面打开 cmd，输入：.\alist.exe server 运行程序
 

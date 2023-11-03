@@ -22,7 +22,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/%E5%B0%86%E4%B8%A
 
 ​	:five:重新部署之后就可以验证了，这样就可以搜索到网站了。
 
-## 优化
+## :arrow_double_up:优化
 
 ### 添加网站地图
 

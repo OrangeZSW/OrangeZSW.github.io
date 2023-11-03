@@ -8,9 +8,9 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/cdn.jpg
 
 # github 自定义域名
 
-1. ## DNS 配置
+## DNS 配置
 
-   ![image-20231011110553135](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231011110553135.png)
+![image-20231011110553135](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231011110553135.png)
 
 Github 的自定义域名：[官方文档](https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages)
 
@@ -27,7 +27,7 @@ Github 的自定义域名：[官方文档](https://docs.github.com/zh/pages/conf
 
 A 记录的 IP 地址可以通过 Ping YOUNAME.github.io 得到
 
-2. ## CNAME
+## CNAME
 
 在 github 项目的根目录下新建文件 CNAME，里面填写自己的域名就行了
 
