@@ -128,7 +128,7 @@ index_post_content:
   method: 3
   length: 500 # if you set method to 2 or 3, the length need to config
 
-# anchor
+# anchor,
 anchor:
   button:
     enable: true
@@ -728,9 +728,9 @@ display_mode: light
 # Beautify (美化頁面顯示)
 beautify:
   enable: true
-  field: site # site/post
-  title-prefix-icon: '\f0c1'
-  title-prefix-icon-color: "#F47466"
+  field: post # site/post
+  title-prefix-icon: #'\f0c1'
+  title-prefix-icon-color: #"#F47466"
 
 # Global font settings
 # Don't modify the following settings unless you know how they work (非必要不要修改)
@@ -830,7 +830,7 @@ note:
   #  - modern    bs-callout new (v2-v3) alert style.
   #  - flat      flat callout style with background, like on Mozilla or StackOverflow.
   #  - disabled  disable all CSS styles import of note tag.
-  style: flat
+  style: modern
   icons: true
   border_radius: 3
   # Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).
