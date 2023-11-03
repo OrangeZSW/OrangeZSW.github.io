@@ -1,5 +1,5 @@
 ---
-title: message
+title: 留言板
 date: 2023-10-09 15:42:32
 ---
 

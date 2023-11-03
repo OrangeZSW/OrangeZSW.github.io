@@ -1,5 +1,5 @@
 ---
-title: gallery
+title: 相册
 date: 2023-10-07
 comments: false
 ---
