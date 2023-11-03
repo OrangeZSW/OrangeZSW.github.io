@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: # image
+  logo: url(https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/preview.jpg)
   display_title: true #
   fixed: false # fixed navigation bar
 
