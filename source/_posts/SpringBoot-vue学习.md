@@ -7,8 +7,6 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/wallhaven-jxyj3p_
 # cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img\wallhaven-o5jy67_1920x1080.png
 ---
 
-# Spring Boot+Vue+element Ui
-
 ## Application.yml 配置
 
 ```yaml
@@ -1153,9 +1151,9 @@ computed:{
 
 
 
-# 问题：
+## 问题：
 
-## mybatis-plus
+### mybatis-plus
 
 ### 1
 
@@ -1171,7 +1169,7 @@ computed:{
 
 降低 springboot 的版本
 
-## 2 request 未定义
+### 2 request 未定义
 
 ### 描述：
 
