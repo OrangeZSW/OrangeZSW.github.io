@@ -2,6 +2,15 @@
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
+# $ npm i hexo-filter-nofollow --save
+# 为网站使用到的所有外链添加rel="noopener external nofollow noreferrer", 可以有效地加强网站SEO和防止权重流失
+nofollow:
+  enable: true
+  field: site
+  exclude:
+    - "exclude1.com"
+    - "exclude2.com"
+
 ## markdown 渲染引擎配置，默认是hexo-renderer-marked，这个插件渲染速度更快，且有新特性
 markdown:
   render:
