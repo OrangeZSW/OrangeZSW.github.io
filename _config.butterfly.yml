@@ -36,7 +36,7 @@ code_word_wrap: false # true / false / inherit # 是否自動換行
 # formal:
 #   icon: link || the description || color
 social:
-  fab fa-github: https://github.com/xxxxx || Github || '#24292e'
+  fab fa-github: https://github.com/OrangeZSW || Github || '#24292e'
   # fas fa-envelope: mailto:xxxxxx@gmail.com || Email || '#4a7dbe'
 
 # Image (圖片設置)
