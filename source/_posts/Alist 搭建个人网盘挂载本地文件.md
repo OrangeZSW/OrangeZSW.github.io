@@ -10,7 +10,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
 
 ## :arrow_down:下载：
 
-下载地址：https://github.com/alist-org/alist/releases
+{%note info no-icon%}下载地址：https://github.com/alist-org/alist/releases{%endnote%}
 
 ![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525212652.png)
 
