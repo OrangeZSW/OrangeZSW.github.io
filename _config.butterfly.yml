@@ -647,7 +647,7 @@ tag_ui: # 留空或 index
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
 
 #  url(https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/posts/bakground5.png)
-background: url(https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/background.jpg)
+background:
 
 # Footer Background (設置底部背景)
 footer_bg: true

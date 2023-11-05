@@ -6,9 +6,7 @@ tags: Echarts
 cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231101170341911.png
 ---
 
-# Echarts
-
-[Echarts 官网](https://echarts.apache.org/zh/index.html)
+[Echarts 官网](https://echarts.apache.org/zh/index.html)																																									:star:
 
 ## :book:安装
 
