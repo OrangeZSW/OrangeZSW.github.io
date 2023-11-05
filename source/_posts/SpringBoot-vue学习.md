@@ -33,11 +33,11 @@ mybatis-plus:
 
 1. #### 注解
 
-![image-20231001103758694](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103758694.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103758694.png)
 
 2. mybatis 的 xml 文件里面
 
-![image-20231001103944233](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103944233.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103944233.png)
 
 ## 跨域问题
 
@@ -87,11 +87,11 @@ public class CorsConfig {
 private String password;
 ```
 
-![image-20231004145243587](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004145243587.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004145243587.png)
 
 ## Mybatis plus 实体类的注解
 
-![image-20231004103440387](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004103440387.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004103440387.png)
 
 ## 后端分页（UserController.java）
 
@@ -253,11 +253,11 @@ export default request;
 
 #### main.js
 
-![image-20231004154555901](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004154555901.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004154555901.png)
 
 使用：
 
-![image-20231005153840604](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231005153840604.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231005153840604.png)
 
 ### 2. vue add axios
 
@@ -267,11 +267,11 @@ vue add axios
 
 使用：
 
-![image-20231004160946025](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004160946025.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004160946025.png)
 
 返回的数据：
 
-![image-20231004161101596](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004161101596.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004161101596.png)
 
 ## Mybatis-plus 代码生成器
 
@@ -459,21 +459,21 @@ public class ${table.controllerName} {
 children: [ { 子路由一 }, { 子路由二 } ]
 ```
 
-![image-20231009185211177](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009185211177.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009185211177.png)
 
 1. 创建一个 components.vue
 2. 将需要的组件复制过来
 3. 定义自定义的值
 
-![image-20231009191648584](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191648584.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191648584.png)
 
 4. 导入 components
 
-![image-20231009191925407](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191925407.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191925407.png)
 
 5. 引用+传值
 
-![image-20231009192355327](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009192355327.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009192355327.png)
 
 ## Excel 导出
 
@@ -601,7 +601,7 @@ element 的组件
 
 ## Spring Boot 层
 
-![image-20231017151940841](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231017151940841.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231017151940841.png)
 
 common 统一包装
 
@@ -992,7 +992,7 @@ public class FileController {
 
 先保存在磁盘里面
 
-![image-20231024170047504](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
 
 ### 文件Srevice层
 
@@ -1175,9 +1175,9 @@ computed:{
 
 定义 request.js , 使用 Vue.prototype.request = request;引入
 
-使用 request 报错：未定义![image-20231004164521605](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164521605.png)
+使用 request 报错：未定义![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164521605.png)
 
 解决：
 
 1. import request from '@/utils/request.js'
-2. 使用时加 this![image-20231004164721465](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164721465.png)
+2. 使用时加 this![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164721465.png)

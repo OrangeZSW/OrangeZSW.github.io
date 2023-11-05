@@ -16,7 +16,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
 
 下载之后解压打开
 
-![image_2](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525212801.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525212801.png)
 
 ## :running:运行
 
@@ -32,7 +32,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/alist.jpg
 .\alist.exe admin
 ```
 
-![iamge_3](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525213431.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/20230525213431.png)
 
 3. 再次运行 alist：在 alist 目录下打开 cmd 运行
 

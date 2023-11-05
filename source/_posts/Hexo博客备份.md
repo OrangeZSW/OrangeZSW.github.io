@@ -14,7 +14,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/hexo%E5%A4%87%E4%
 
 然后在将 Hexo 博客发布在 main 分支下，改\_config.yml 下的配置，然后将发布 pages 的分支改为 main。
 
-![image-20231013093125128](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231013093125128.png)
+![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231013093125128.png)
 
 ## 开始
 
