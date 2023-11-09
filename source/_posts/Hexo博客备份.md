@@ -8,8 +8,9 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/hexo%E5%A4%87%E4%
 
 ## 准备
 
+{%note danger no-icon%}
 先备份！！！
-
+{%endnote%}
 将 github 发布 pages 的页面主分支改名为 Hexo，再创建一个分支 main。
 
 然后在将 Hexo 博客发布在 main 分支下，改\_config.yml 下的配置，然后将发布 pages 的分支改为 main。
