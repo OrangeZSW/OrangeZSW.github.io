@@ -1,3 +1,4 @@
+https://www.zorange.online/cloud/index.html
 https://www.zorange.online/2023/11/16/%E6%9D%83%E9%99%90%E8%8F%9C%E5%8D%95/
 https://www.zorange.online/2022/09/29/vscode%20setting/
 https://www.zorange.online/2023/10/13/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/
@@ -23,14 +24,14 @@ https://www.zorange.online/gallery/%E4%BA%94%E4%B8%80/%E5%8E%9F%E5%9B%BE/index.h
 https://www.zorange.online/valine.json
 https://www.zorange.online/
 https://www.zorange.online/tags/Alist/
-https://www.zorange.online/tags/Echarts/
 https://www.zorange.online/tags/Hexo/
-https://www.zorange.online/tags/OCR/
+https://www.zorange.online/tags/Echarts/
 https://www.zorange.online/tags/Markdown/
+https://www.zorange.online/tags/OCR/
 https://www.zorange.online/tags/Swagger/
 https://www.zorange.online/tags/CDN/
-https://www.zorange.online/tags/JDBC/
 https://www.zorange.online/tags/setting/
+https://www.zorange.online/tags/JDBC/
 https://www.zorange.online/tags/Bing/
 https://www.zorange.online/tags/SpringBoot/
 https://www.zorange.online/categories/Records/
