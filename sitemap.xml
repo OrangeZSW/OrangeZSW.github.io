@@ -232,13 +232,6 @@
   </url>
   
   <url>
-    <loc>https://www.zorange.online/tags/OCR/</loc>
-    <lastmod>2024-07-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zorange.online/tags/Markdown/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -247,6 +240,13 @@
   
   <url>
     <loc>https://www.zorange.online/tags/Hexo/</loc>
+    <lastmod>2024-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zorange.online/tags/OCR/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -267,13 +267,6 @@
   </url>
   
   <url>
-    <loc>https://www.zorange.online/tags/JDBC/</loc>
-    <lastmod>2024-07-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.zorange.online/tags/setting/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -282,6 +275,13 @@
   
   <url>
     <loc>https://www.zorange.online/tags/Bing/</loc>
+    <lastmod>2024-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.zorange.online/tags/JDBC/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
