@@ -3,7 +3,7 @@ title: OCR 图形转文字
 date: 2022-12-20 00:16:34
 categories: Code
 tags: OCR
-cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/ORC.png
+cover: http://oss.zorange.online/blog/ORC.png
 ---
 
 # OCR 图像转文字
@@ -19,9 +19,9 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/ORC.png
 
 1. 功能：Tesseract-OCR 是一种开源的文本识别软件，可以将扫描的文档或者图片中的文本识别成电子文本。它可以识别多种语言，包括英语、法语、德语、西班牙语、意大利语和许多其他语言。
 
-​ Tesseract-OCR 使用神经网络技术来识别文本，并且可以在许多操作系统上运行，包括 Windows、Linux 和 MacOS。它可以被用于 自 动化文档处理、文本挖掘和其他应用程序中。
+ Tesseract-OCR 使用神经网络技术来识别文本，并且可以在许多操作系统上运行，包括 Windows、Linux 和 MacOS。它可以被用于 自 动化文档处理、文本挖掘和其他应用程序中。
 
-​ Tesseract-OCR 还可以支持自定义字体，并且可以通过训练来提高识别精度。它提供了一组命令行工具，可以用来进行文本识别和处 理。
+ Tesseract-OCR 还可以支持自定义字体，并且可以通过训练来提高识别精度。它提供了一组命令行工具，可以用来进行文本识别和处 理。
 
 2. 优点：优点：开源、多语言支持、自定义字体、跨平台等。
 

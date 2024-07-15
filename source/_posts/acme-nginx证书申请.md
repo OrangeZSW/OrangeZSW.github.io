@@ -1,7 +1,7 @@
 ---
 title: acme+nginx证书申请
 date: 2024-07-15 19:41:45
-cover: https://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/guigu/wallhaven-5g8wq1_1920x1080.png
+cover: http://oss.zorange.online/blog/wallhaven-5g8wq1_1920x1080.png
 ---
 
 # acme.sh 网站申请证书（nginx）
@@ -26,7 +26,7 @@ source ~/.bashrc
 `--nginx /usr/local/nginx/conf/nginx.conf`是你的 nginx.conf 路径
 `alist.zorange.online` 是要申请的网站的域名
 
-![image.png](https://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/guigu/a6fe12cbcb6949a99ac3c47eca410e36.png)
+![image.png](http://oss.zorange.online/blog/a6fe12cbcb6949a99ac3c47eca410e36.png)
 
 ## :four:拷贝证书
 
@@ -37,7 +37,7 @@ source ~/.bashrc
 --reloadcmd     "service nginx force-reload"
 ```
 
-![Description](https://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/guigu/eae53845b18e4be38e2abbc73f2624fc.png)
+![Description](http://oss.zorange.online/blog/eae53845b18e4be38e2abbc73f2624fc.png)
 
 ## 更新证书
 

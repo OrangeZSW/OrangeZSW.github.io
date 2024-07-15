@@ -3,7 +3,7 @@ title: Hexo博客备份
 date: 2023-10-13 09:26:16
 categories: Records
 tags: Hexo
-cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/hexo%E5%A4%87%E4%BB%BD.png
+cover: http://oss.zorange.online/blog/hexo备份.png
 ---
 
 ## 准备
@@ -15,7 +15,7 @@ cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/hexo%E5%A4%87%E4%
 
 然后在将 Hexo 博客发布在 main 分支下，改\_config.yml 下的配置，然后将发布 pages 的分支改为 main。
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231013093125128.png)
+![](http://oss.zorange.online/blog/image-20231013093125128.png)
 
 ## 开始
 

@@ -3,8 +3,7 @@ title: SpringBoot+vue学习
 date: 2023-09-08 00:16:34
 categories: 学习
 tags: SpringBoot
-cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/wallhaven-jxyj3p_1920x1080.png
-# cover: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img\wallhaven-o5jy67_1920x1080.png
+cover: http://oss.zorange.online/blog/wallhaven-jxyj3p_1920x1080.png
 ---
 
 ## Application.yml 配置
@@ -33,11 +32,11 @@ mybatis-plus:
 
 1. #### 注解
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103758694.png)
+![](http://oss.zorange.online/blog/image-20231001103758694.png)
 
 2. mybatis 的 xml 文件里面
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231001103944233.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231001103944233.png)
 
 ## 跨域问题
 
@@ -87,11 +86,11 @@ public class CorsConfig {
 private String password;
 ```
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004145243587.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231004145243587.png)
 
 ## Mybatis plus 实体类的注解
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004103440387.png)
+![](http://oss.zorange.online/blog/image-20231004103440387.png)
 
 ## 后端分页（UserController.java）
 
@@ -253,11 +252,11 @@ export default request;
 
 #### main.js
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004154555901.png)
+![](http://oss.zorange.online/blog/image-20231004154555901.png)
 
 使用：
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231005153840604.png)
+![](http://oss.zorange.online/blog/image-20231005153840604.png)
 
 ### 2. vue add axios
 
@@ -267,11 +266,11 @@ vue add axios
 
 使用：
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004160946025.png)
+![](http://oss.zorange.online/blog/image-20231004160946025.png)
 
 返回的数据：
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004161101596.png)
+![](http://oss.zorange.online/blog/image-20231004161101596.png)
 
 
 
@@ -283,21 +282,21 @@ vue add axios
 children: [ { 子路由一 }, { 子路由二 } ]
 ```
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009185211177.png)
+![](http://oss.zorange.online/blog/image-20231009185211177.png)
 
 1. 创建一个 components.vue
 2. 将需要的组件复制过来
 3. 定义自定义的值
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191648584.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231009191648584.png)
 
 4. 导入 components
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009191925407.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231009191925407.png)
 
 5. 引用+传值
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231009192355327.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231009192355327.png)
 
 ## Excel 导出
 
@@ -425,7 +424,7 @@ element 的组件
 
 ## Spring Boot 层
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231017151940841.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231017151940841.png)
 
 common 统一包装
 
@@ -816,7 +815,7 @@ public class FileController {
 
 先保存在磁盘里面
 
-![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231024170047504.png)
+![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231024170047504.png)
 
 ### 文件Srevice层
 
@@ -999,9 +998,9 @@ computed:{
 
 定义 request.js , 使用 Vue.prototype.request = request;引入
 
-使用 request 报错：未定义![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164521605.png)
+使用 request 报错：未定义![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231004164521605.png)
 
 解决：
 
 1. import request from '@/utils/request.js'
-2. 使用时加 this![](https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/image-20231004164721465.png)
+2. 使用时加 this![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231004164721465.png)
