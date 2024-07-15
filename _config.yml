@@ -134,5 +134,5 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: "git"
-  repo: git@github.com:OrangeZSW/OrangeZSW.github.io.git
+  repo: https://github.com/OrangeZSW/OrangeZSW.github.io.git
   branch: main
