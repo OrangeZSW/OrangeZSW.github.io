@@ -26,7 +26,7 @@ source ~/.bashrc
 `--nginx /usr/local/nginx/conf/nginx.conf`是你的 nginx.conf 路径
 `alist.zorange.online` 是要申请的网站的域名
 
-![image.png](https://server.blog.zorange.online/files/download/a6fe12cbcb6949a99ac3c47eca410e36.png)
+![image.png](https://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/guigu/a6fe12cbcb6949a99ac3c47eca410e36.png)
 
 ## :four:拷贝证书
 
@@ -37,7 +37,7 @@ source ~/.bashrc
 --reloadcmd     "service nginx force-reload"
 ```
 
-![Description](https://server.blog.zorange.online/files/download/eae53845b18e4be38e2abbc73f2624fc.png)
+![Description](https://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/guigu/eae53845b18e4be38e2abbc73f2624fc.png)
 
 ## 更新证书
 
