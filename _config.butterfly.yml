@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/blog_img/logo.png
+  logo: http://oss.zorange.online/blog/logo.png
   display_title: true #
   fixed: false # fixed navigation bar
 
