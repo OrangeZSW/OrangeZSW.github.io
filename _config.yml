@@ -44,7 +44,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project' #这里是你的域名，如果你是用github的话，就是你的github的用户名.github.io/你的项目名字
-url: https://www.zorange.online
+url: http://www.zorange.online
 permalink: :year/:month/:day/:title/ #这里是你的文章的链接格式，我这里是年/月/日/标题
 permalink_defaults:
 pretty_urls:
