@@ -22,8 +22,8 @@ http://www.zorange.online/tags/index.html
 http://www.zorange.online/categories/index.html
 http://www.zorange.online/valine.json
 http://www.zorange.online/
-http://www.zorange.online/tags/Alist/
 http://www.zorange.online/tags/Echarts/
+http://www.zorange.online/tags/Alist/
 http://www.zorange.online/tags/Hexo/
 http://www.zorange.online/tags/Markdown/
 http://www.zorange.online/tags/OCR/
@@ -33,6 +33,6 @@ http://www.zorange.online/tags/JDBC/
 http://www.zorange.online/tags/setting/
 http://www.zorange.online/tags/Bing/
 http://www.zorange.online/tags/SpringBoot/
-http://www.zorange.online/categories/Records/
 http://www.zorange.online/categories/%E5%AD%A6%E4%B9%A0/
+http://www.zorange.online/categories/Records/
 http://www.zorange.online/categories/Code/
