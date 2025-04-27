@@ -47,7 +47,7 @@ favicon: https://raw.githubusercontent.com/OrangeZSW/blog_img/preview.jpg
 
 # Avatar (頭像)
 avatar:
-  img: https://cdn.jsdelivr.net/gh/OrangeZSW/blog_img/orange.jpg
+  img: http://oss.zorange.online/blog/428565553df343e6afb6b6b694e85432.jpg
   effect: false
 
 # Disable all banner image (禁用所有的 banner 圖片)
