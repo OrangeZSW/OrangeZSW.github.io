@@ -9,7 +9,7 @@ on:
 env:
   HEXO_BRANCH: Hexo  # 修改为您的Hexo分支名
   ARTICLE_BRANCH: article
-  BLOG_REPO: https://github.com/OrangeZSW/OrangeZSW.github.io.git  # 修改为您的Hexo博客仓库
+  BLOG_REPO: OrangeZSW.github.io.git  # 修改为您的Hexo博客仓库
 
 jobs:
   build-and-deploy:
