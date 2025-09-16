@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - article
+  workflow_dispatch:
+
+env:
+
+jobs:
+  # 思路：拉取Hexo分支和article分支。将article分支中的articles文件夹下的所有文件复制到Hexo的
+  pull:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+              ref: article
+              path: article
+
