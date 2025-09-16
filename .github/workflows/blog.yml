@@ -3,60 +3,9 @@ name: Docker Image CI
 on:
   push:
     branches:
-      - master_blog
-      - master_blog_ui
+      - article
   workflow_dispatch:
 
 env:
-  # 后端源代码目录
-  BACKEND_DIR: ./blog/service
-  # 前端源代码目录
-  FRONTEND_DIR: ./blog/ui
-  # Dockerfile 项目路径
-  DOCKERFILE_DIR: ./blog
-  # 服务器目标目录
-  DEPLOY_TARGET: /home/nginx-ui/www/dist
-  # 镜像名称
-  IMAGE_PATH: /zorange/blog
-  # 阿里云镜像仓库
-  DOCKER_REGISTRY: ${{ secrets.ALIYUN_REGISTRY }}
 
 jobs:
-  build-backend:
-    if: github.ref == 'refs/heads/master_blog'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Build orange-cache
-        working-directory: ./starter
-        run: mvn clean install -DskipTests
-
-      - name: Build blog
-        working-directory: ./blog
-        run: mvn clean install -DskipTests
-
-      - name: Log in to ACR
-        uses: docker/login-action@v2
-        with:
-          registry: ${{ env.DOCKER_REGISTRY }}
-          username: ${{ secrets.ALIYUN_USERNAME }}
-          password: ${{ secrets.ALIYUN_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ env.DOCKERFILE_DIR }}
-          push: true
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}${{env.IMAGE_PATH}}:latest
-            ${{ env.DOCKER_REGISTRY }}${{env.IMAGE_PATH}}:${{ github.sha }}
-          labels: |
-            org.opencontainers.image.source=${{ github.repositoryUrl }}
