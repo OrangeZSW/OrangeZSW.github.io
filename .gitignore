@@ -7,3 +7,4 @@ public/
 .deploy*/
 _multiconfig.yml
 .deploy_git/
+.idea
