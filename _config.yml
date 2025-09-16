@@ -134,6 +134,6 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: "git"
-  repo: https://${{ secrets.GITHUB_TOKEN }}@github.com/OrangeZSW/OrangeZSW.github.io.git
+  repo: https://github.com/OrangeZSW/OrangeZSW.github.io.git
   branch: main
   message: "Deploy via GitHub Actions - {{ now('YYYY-MM-DD HH:mm:ss') }}"
