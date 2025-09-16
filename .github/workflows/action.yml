@@ -72,14 +72,33 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           cd hexo-blog
+
+          # 设置git配置
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-          # 使用GitHub Actions内置的token
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/OrangeZSW/OrangeZSW.github.io.git
+          # 修改Hexo配置中的repo地址
+          REPO_WITH_TOKEN="https://x-access-token:$GITHUB_TOKEN@github.com/OrangeZSW/OrangeZSW.github.io.git"
+
+          # 使用yq工具修改YAML文件（如果已安装）
+          # 或者使用sed简单替换
+          if grep -q "repo:" _config.yml; then
+            sed -i "s|repo:.*|repo: $REPO_WITH_TOKEN|" _config.yml
+          else
+            # 如果deploy配置不存在，创建它
+            echo "deploy:" >> _config.yml
+            echo "  type: git" >> _config.yml
+            echo "  repo: $REPO_WITH_TOKEN" >> _config.yml
+            echo "  branch: main" >> _config.yml
+          fi
+
+          echo "Updated config:"
+          grep -A 3 "deploy:" _config.yml
 
           # 部署
           hexo deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify deployment
         run: |
