@@ -1,3 +1,12 @@
+---
+title: Gateway组件
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # Gateway组件
 
 ## 概述

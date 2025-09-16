@@ -1,3 +1,12 @@
+---
+title: js定时任务
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # js定时任务
 
 ```js

@@ -1,3 +1,12 @@
+---
+title: redis
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # redis
 
 常见5种数据类型：string（字符串），list（列表），hash（哈希），set（集合），zset(有序集合)

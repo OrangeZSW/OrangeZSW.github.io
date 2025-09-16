@@ -1,3 +1,12 @@
+---
+title: Mysql 高级
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # Mysql 高级
 
 ## 配置

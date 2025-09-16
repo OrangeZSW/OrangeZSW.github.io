@@ -1,3 +1,12 @@
+---
+title: Elasticsearch
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # Elasticsearch概述
 
 ## Elasticsearch的特性

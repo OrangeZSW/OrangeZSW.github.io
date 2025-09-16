@@ -1,3 +1,12 @@
+---
+title: spring相关注解
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 1. **IoC** (控制反转) 和 依赖注入
 
 ## 		Spring 核心注解:

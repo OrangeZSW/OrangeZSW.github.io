@@ -1,3 +1,12 @@
+---
+title: find_in_set
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 - find_in_set可以查询以逗号分隔中是否存在某一个数据
 
 ```sql

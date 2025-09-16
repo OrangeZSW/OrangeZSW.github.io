@@ -1,3 +1,12 @@
+---
+title: ShardingSphere
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
  # 高性能架构模式
 
  - 性能数据库集群的方式是:

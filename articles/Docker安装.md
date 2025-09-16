@@ -1,3 +1,12 @@
+---
+title: Docker安装
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## 更新yum源
 
 ### 步骤 1：备份现有的 YUM 源配置

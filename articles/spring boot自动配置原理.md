@@ -1,3 +1,12 @@
+---
+title: spring boot自动配置原理
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## spring boot自动配置原理
 
 1. **导入场景**：导入依赖和bean对象

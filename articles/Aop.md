@@ -1,3 +1,12 @@
+---
+title: Aop
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## Aop
 
 1. 切面：用于实现通知方法的类

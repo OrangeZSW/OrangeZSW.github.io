@@ -1,3 +1,12 @@
+---
+title: git命令
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # git命令
 
 ## 撤销已提交的更改

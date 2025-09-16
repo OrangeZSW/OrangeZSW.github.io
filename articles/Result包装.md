@@ -1,3 +1,12 @@
+---
+title: Result包装
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## Result包装
 
 ### Result.java

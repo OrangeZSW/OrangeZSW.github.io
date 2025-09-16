@@ -1,3 +1,12 @@
+---
+title: Nacos源码解析
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 1. jar包指定配置文件
 
    --spring.config.location=/ect/server/application.yml 

@@ -1,3 +1,12 @@
+---
+title: JDBCUtil
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ```java
 package zorange.utils;
 

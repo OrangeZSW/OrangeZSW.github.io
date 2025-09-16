@@ -1,3 +1,12 @@
+---
+title: ssh
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 
 
 # Linux 安装 Git + 生成 SSH 公钥 + 配置公钥 + 自定义 SSH 名称连接服务器教程

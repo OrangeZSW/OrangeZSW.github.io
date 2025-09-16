@@ -1,3 +1,12 @@
+---
+title: 分布式链路追踪技术Zipkin+Micrometer Tracing
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # 分布式链路追踪技术Zipkin+Micrometer Tracing
 
 ## zipkin介绍

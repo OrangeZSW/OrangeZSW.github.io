@@ -1,3 +1,12 @@
+---
+title: spring 监听器
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## 实现方式:
 
 :one: Spring 框架自带的ApplicationListener

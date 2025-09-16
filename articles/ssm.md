@@ -1,3 +1,12 @@
+---
+title: ssm
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 ## SSM整合
 
 spring + spring mvc + mybatis 

@@ -1,3 +1,12 @@
+---
+title: RabbitMQ
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # RabbitMQ
 
 ## 消息中间件概述

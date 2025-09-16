@@ -1,3 +1,12 @@
+---
+title: linux脚本
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 
 
 # Linux 脚本（Bash）基础教程

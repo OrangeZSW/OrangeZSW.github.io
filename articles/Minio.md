@@ -1,3 +1,12 @@
+---
+title: Minio
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # MinioConfig
 minio操作：1.上传  2.生命周期等
 

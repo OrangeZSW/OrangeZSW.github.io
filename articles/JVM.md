@@ -1,3 +1,12 @@
+---
+title: JVM
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # JVM
 
 ![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/93e6ed456e2dd92477e61ce35e6cefa7.png)

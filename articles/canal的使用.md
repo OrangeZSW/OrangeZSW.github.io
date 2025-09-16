@@ -1,3 +1,12 @@
+---
+title: canal的使用
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # canal的使用
 
 >由于canal的starter只支持spring 2.x

@@ -1,3 +1,12 @@
+---
+title: logback配置文件
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
 

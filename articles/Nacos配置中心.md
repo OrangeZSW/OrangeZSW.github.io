@@ -1,3 +1,12 @@
+---
+title: Nacos配置中心
+date: 2025-09-16
+categories: 技术
+tags: 
+cover: 
+---
+
+
 # Nacos配置中心
 
 ## 统一配置管理
