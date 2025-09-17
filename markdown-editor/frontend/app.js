@@ -20,7 +20,7 @@ const fileListContainer = document.getElementById('file-list-container');
 const statusMessage = document.getElementById('status-message');
 
 // 示例内容
-const defaultContent = `# 欢迎使用 Markdown 编辑器
+const defaultContent = `
 
 ---
 title: 
@@ -29,7 +29,7 @@ categories:
 tags: 
 cover:
 ---
-
+# 欢迎使用 Markdown 编辑器
 
 这是一个在线 Markdown 编辑器，可以将内容保存到 GitHub 仓库。
 
