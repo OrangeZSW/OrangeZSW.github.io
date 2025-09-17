@@ -285,3 +285,60 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+/* 编辑按钮样式 */
+.btn-edit {
+    background: #ffc107 !important;
+    color: #000 !important;
+}
+
+.btn-edit:hover {
+    background: #e0a800 !important;
+}
+
+.btn-new {
+    background: #6f42c1 !important;
+    color: white !important;
+}
+
+.btn-new:hover {
+    background: #5a2d91 !important;
+}
+
+.btn-cancel {
+    background: #6c757d !important;
+    color: white !important;
+}
+
+.btn-cancel:hover {
+    background: #545b62 !important;
+}
+
+/* 编辑状态指示器 */
+.edit-status-hidden {
+    display: none;
+}
+
+.edit-status-show {
+    display: block;
+    padding: 10px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #856404;
+}
+
+/* 文件操作按钮优化 */
+.file-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.file-actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+}

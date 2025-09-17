@@ -49,18 +49,32 @@
         </div>
 
         <div class="button-group">
-            <button onclick="saveToGitHub()" class="btn-primary">
-                <i class="fas fa-cloud-upload-alt"></i> 保存到 GitHub
+            <button onclick="newFile()" class="btn-new">
+                <i class="fas fa-plus"></i> 新建
+            </button>
+            <button onclick="saveFile()" class="btn-primary">
+                <i class="fas fa-cloud-upload-alt"></i> 保存文件
             </button>
             <button onclick="loadFileList()" class="btn-secondary">
-                <i class="fas fa-sync"></i> 刷新文件列表
+                <i class="fas fa-sync"></i> 刷新
             </button>
+        </div>
+
+        <div id="edit-status" class="edit-status-hidden">
+            <span id="current-file-name"></span>
         </div>
     </div>
 
     <div class="file-list">
         <h3><i class="fas fa-files"></i> 仓库中的 Markdown 文件</h3>
         <div id="file-list-container"></div>
+    </div>
+    <!-- 在文件列表后面添加调试信息 -->
+    <div class="debug-info" style="display: none; background: #f8f9fa; padding: 10px; margin: 10px; border-radius: 5px; font-family: monospace;">
+        <h4>调试信息</h4>
+        <div>当前编辑文件: <span id="debug-current-file">无</span></div>
+        <div>当前SHA: <span id="debug-current-sha">无</span></div>
+        <button onclick="toggleDebug()">隐藏调试信息</button>
     </div>
 
     <div id="status-message" class="status-hidden"></div>
