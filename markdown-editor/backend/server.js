@@ -90,33 +90,50 @@ app.get('/api/files', async (req, res) => {
     try {
         const { folder = '' } = req.query;
 
-        const response = await octokit.repos.getContent({
+        // 明确指定分支参数
+        const requestOptions = {
             owner: process.env.GITHUB_OWNER,
             repo: process.env.GITHUB_REPO,
-            branch: process.env.GITHUB_BRANCH,
             path: folder
-        });
+        };
+
+        // 只有在提供了分支时才添加 branch 参数
+        if (process.env.GITHUB_BRANCH) {
+            requestOptions.ref = process.env.GITHUB_BRANCH; // 使用 ref 而不是 branch
+        }
+
+        const response = await octokit.repos.getContent(requestOptions);
 
         const files = response.data
-            .filter(item => item.name.endsWith('.md'))
+            .filter(item => item.type === 'file' && item.name.endsWith('.md'))
             .map(item => ({
                 name: item.name,
                 path: item.path,
                 url: item.html_url,
-                download_url: item.download_url
+                download_url: item.download_url,
+                sha: item.sha,
+                size: item.size
             }));
 
         res.json({ success: true, files });
 
     } catch (error) {
         console.error('Error fetching files:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message || '获取文件列表时发生错误'
-        });
+
+        // 提供更详细的错误信息
+        if (error.status === 404) {
+            res.status(404).json({
+                success: false,
+                error: '文件夹不存在或仓库路径错误'
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                error: error.message || '获取文件列表时发生错误'
+            });
+        }
     }
 });
-
 // 错误处理中间件
 app.use((error, req, res, next) => {
     console.error('Unhandled error:', error);
@@ -124,6 +141,96 @@ app.use((error, req, res, next) => {
         success: false,
         error: '服务器内部错误'
     });
+});
+
+// 删除文件
+app.delete('/api/delete-file', async (req, res) => {
+    try {
+        const { filename, message, folder = '' } = req.body;
+
+        // 验证输入
+        if (!filename) {
+            return res.status(400).json({
+                success: false,
+                error: '文件名是必需的'
+            });
+        }
+
+        // 构建文件路径
+        const filePath = folder ? `${folder}/${filename}` : filename;
+
+        console.log('Deleting file:', {
+            owner: process.env.GITHUB_OWNER,
+            repo: process.env.GITHUB_REPO,
+            branch: process.env.GITHUB_BRANCH,
+            path: filePath
+        });
+
+        // 首先获取文件信息（包括 SHA）
+        let sha;
+        try {
+            const existingFile = await octokit.repos.getContent({
+                owner: process.env.GITHUB_OWNER,
+                repo: process.env.GITHUB_REPO,
+                ref: process.env.GITHUB_BRANCH,
+                path: filePath
+            });
+            sha = existingFile.data.sha;
+            console.log('File SHA:', sha);
+        } catch (error) {
+            if (error.status === 404) {
+                return res.status(404).json({
+                    success: false,
+                    error: '文件不存在'
+                });
+            }
+            throw error;
+        }
+
+        // 删除文件
+        const response = await octokit.repos.deleteFile({
+            owner: process.env.GITHUB_OWNER,
+            repo: process.env.GITHUB_REPO,
+            branch: process.env.GITHUB_BRANCH,
+            path: filePath,
+            message: message || `Delete ${filename}`,
+            sha: sha,
+            committer: {
+                name: process.env.COMMITTER_NAME || 'Markdown Editor',
+                email: process.env.COMMITTER_EMAIL || 'editor@example.com'
+            }
+        });
+
+        console.log('File deleted successfully:', filename);
+
+        res.json({
+            success: true,
+            message: '文件删除成功',
+            deleted_file: filename,
+            commit: response.data.commit
+        });
+
+    } catch (error) {
+        console.error('Error deleting file:', error);
+        console.error('Error details:', error.response?.data || error.message);
+
+        let errorMessage = '删除文件时发生错误';
+        let statusCode = 500;
+
+        if (error.status === 403) {
+            errorMessage = '权限不足，无法删除文件';
+            statusCode = 403;
+        } else if (error.status === 404) {
+            errorMessage = '文件不存在';
+            statusCode = 404;
+        }
+
+        res.status(statusCode).json({
+            success: false,
+            error: errorMessage,
+            details: error.response?.data || error.message
+        });
+    }
 });
 
 // 启动服务器

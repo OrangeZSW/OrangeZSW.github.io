@@ -22,6 +22,15 @@ const statusMessage = document.getElementById('status-message');
 // 示例内容
 const defaultContent = `# 欢迎使用 Markdown 编辑器
 
+---
+title: 将个人博客收录进 Bing
+date: 2023-05-4
+categories: Records
+tags: Bing
+cover:
+---
+
+
 这是一个在线 Markdown 编辑器，可以将内容保存到 GitHub 仓库。
 
 ## 功能特点
@@ -166,12 +175,29 @@ function displayFiles(files) {
         <div class="file-item">
             <h4>${file.name}</h4>
             <p>路径: ${file.path}</p>
+            <p>大小: ${formatFileSize(file.size)}</p>
             <div class="file-actions">
-                <button onclick="window.open('${file.url}', '_blank')">查看</button>
-                <button onclick="window.open('${file.download_url}', '_blank')">下载</button>
+                <button onclick="window.open('${file.url}', '_blank')" class="btn-view">
+                    <i class="fas fa-eye"></i> 查看
+                </button>
+                <button onclick="window.open('${file.download_url}', '_blank')" class="btn-download">
+                    <i class="fas fa-download"></i> 下载
+                </button>
+                <button onclick="deleteFile('${file.name}')" class="btn-delete">
+                    <i class="fas fa-trash"></i> 删除
+                </button>
             </div>
         </div>
     `).join('');
+}
+
+// 格式化文件大小
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
 // 页面加载时获取文件列表
@@ -180,3 +206,78 @@ document.addEventListener('DOMContentLoaded', function() {
     // 设置定时刷新文件列表
     setInterval(loadFileList, 30000); // 每30秒刷新一次
 });
+
+
+// 删除文件函数
+async function deleteFile(filename) {
+    if (!confirm(`确定要删除文件 "${filename}" 吗？此操作不可撤销。`)) {
+        return;
+    }
+
+    const folder = document.getElementById('folder').value;
+
+    try {
+        showStatus('正在删除文件...', true);
+
+        const response = await fetch('/api/delete-file', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filename,
+                folder
+                // 不再需要传递 message 参数
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showStatus('✅ 文件删除成功！');
+            loadFileList(); // 刷新文件列表
+        } else {
+            showStatus('❌ 删除失败: ' + result.error, false);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showStatus('❌ 删除过程中出现错误', false);
+    }
+}
+
+// 批量删除文件
+async function deleteFiles(filenames) {
+    if (!confirm(`确定要删除选中的 ${filenames.length} 个文件吗？此操作不可撤销。`)) {
+        return;
+    }
+
+    const folder = document.getElementById('folder').value;
+
+    try {
+        showStatus(`正在删除 ${filenames.length} 个文件...`, true);
+
+        const response = await fetch('/api/delete-files', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filenames,
+                folder
+                // 不再需要传递 message 参数
+            }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showStatus(`✅ 成功删除 ${result.deleted_count} 个文件！`);
+            loadFileList(); // 刷新文件列表
+        } else {
+            showStatus(`❌ 删除完成，成功 ${result.deleted_count} 个，失败 ${result.failed_count} 个`, false);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showStatus('❌ 删除过程中出现错误', false);
+    }
+}
