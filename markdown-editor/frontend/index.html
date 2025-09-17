@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 编辑器</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1><i class="fas fa-markdown"></i> Markdown 编辑器</h1>
+        <p>在线编辑并保存到 GitHub 仓库</p>
+    </header>
+
+    <div class="editor-container">
+        <div class="editor-section">
+            <div class="section-header">
+                <h3><i class="fas fa-edit"></i> 编辑区</h3>
+                <div class="toolbar">
+                    <button onclick="insertText('**粗体**')"><strong>B</strong></button>
+                    <button onclick="insertText('*斜体*')"><em>I</em></button>
+                    <button onclick="insertText('# 标题')">H1</button>
+                    <button onclick="insertText('```\n代码块\n```')">代码</button>
+                </div>
+            </div>
+            <textarea id="markdown-input" placeholder="开始编写你的 Markdown 内容..."></textarea>
+        </div>
+
+        <div class="preview-section">
+            <div class="section-header">
+                <h3><i class="fas fa-eye"></i> 预览区</h3>
+            </div>
+            <div id="markdown-preview"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="filename"><i class="fas fa-file"></i> 文件名：</label>
+            <input type="text" id="filename" placeholder="example.md" value="document.md">
+
+            <label for="folder"><i class="fas fa-folder"></i> 文件夹：</label>
+            <input type="text" id="folder" placeholder="docs" value="markdown-docs">
+
+            <label for="message"><i class="fas fa-comment"></i> 提交信息：</label>
+            <input type="text" id="message" placeholder="添加新文档">
+        </div>
+
+        <div class="button-group">
+            <button onclick="saveToGitHub()" class="btn-primary">
+                <i class="fas fa-cloud-upload-alt"></i> 保存到 GitHub
+            </button>
+            <button onclick="loadFileList()" class="btn-secondary">
+                <i class="fas fa-sync"></i> 刷新文件列表
+            </button>
+        </div>
+    </div>
+
+    <div class="file-list">
+        <h3><i class="fas fa-files"></i> 仓库中的 Markdown 文件</h3>
+        <div id="file-list-container"></div>
+    </div>
+
+    <div id="status-message" class="status-hidden"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
