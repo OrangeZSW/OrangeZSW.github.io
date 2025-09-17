@@ -23,10 +23,10 @@ const statusMessage = document.getElementById('status-message');
 const defaultContent = `# 欢迎使用 Markdown 编辑器
 
 ---
-title: 将个人博客收录进 Bing
-date: 2023-05-4
-categories: Records
-tags: Bing
+title: 
+date: 
+categories: 
+tags: 
 cover:
 ---
 
