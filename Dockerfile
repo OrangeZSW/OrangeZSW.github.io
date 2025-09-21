@@ -12,6 +12,7 @@ RUN npm ci --only=production  # 使用 ci 命令而不是 install
 
 # 然后复制源代码
 COPY ./markdown-editor/backend/ ./
+COPY ./markdown-editor/frontend ../frontend/
 
 EXPOSE 3000
 CMD ["npm", "start"]
