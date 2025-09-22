@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@octokit/graphql": "^9.0.1",
     "@octokit/rest": "^22.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
