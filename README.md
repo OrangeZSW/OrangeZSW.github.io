@@ -1,1 +1,1 @@
-# HEXO 文章源文件
+# 存放markdown源文件
