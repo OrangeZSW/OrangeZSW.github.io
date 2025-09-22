@@ -187,7 +187,8 @@ function newFile() {
         return;
     }
 
-    markdownInput.value = '# 新文档\n\n开始编写你的内容...';
+    markdownInput.value = "---\ntitle: \ndate: \ncategories: \ntags: \ncover:\n---\n" +
+        "# 新文档\n\n开始编写你的内容...";
     filenameInput.value = `document-${Date.now()}.md`;
     document.getElementById('message').value = '';
 
@@ -529,7 +530,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 设置默认内容
     if (markdownInput) {
-        markdownInput.value = '# 欢迎使用 Markdown 编辑器\n\n开始编写你的内容...';
+        markdownInput.value = '---\ntitle: \ndate: \ncategories: \ntags: \ncover:\n---\n' +
+            '# 欢迎使用 Markdown 编辑器\n\n开始编写你的内容...';
         updatePreview();
     }
 
