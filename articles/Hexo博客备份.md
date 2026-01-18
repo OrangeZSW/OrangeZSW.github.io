@@ -3,7 +3,7 @@ title: Hexo博客备份
 date: 2023-10-13 09:26:16
 categories: Records
 tags: Hexo
-cover: http://oss.zorange.online/blog/hexo备份.png
+cover: 
 ---
 
 ## 准备
