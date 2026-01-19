@@ -9,7 +9,7 @@ cover:
 
 # JVM
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/93e6ed456e2dd92477e61ce35e6cefa7.png)
+![](http://120.26.79.238:9000/blog/img/93e6ed456e2dd92477e61ce35e6cefa7.png)
 
 
 ## 面试
@@ -38,7 +38,7 @@ JVM：**J**ava **V**irtual **M**achine，Java虚拟机
 
 **位置：**JVM是运行在操作 系统之上的，它与硬件没有直接的交互。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/97126ec49a5f09c3cb50853909c5877d.png)
+![](http://120.26.79.238:9000/blog/img/97126ec49a5f09c3cb50853909c5877d.png)
 
 
 ## 主流虚拟机
@@ -55,7 +55,7 @@ JVM：**J**ava **V**irtual **M**achine，Java虚拟机
 
 **JVM的特点：**一次编译到处运行、自动内存管理、自动垃圾回收
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/33b3904478561b47dee88f082a7df66d.png)
+![](http://120.26.79.238:9000/blog/img/33b3904478561b47dee88f082a7df66d.png)
 
 
 - 类加载器子系统：将字节码文件（.class）加载到内存中的方法区
@@ -78,9 +78,9 @@ JVM：**J**ava **V**irtual **M**achine，Java虚拟机
   2. 线程共享区：堆、方法区、直接内存、运行时常量池
   3. 线程私有区：栈、本地方法栈、程序计数器
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/0f9c6206734143c8458c4b9a898d7fcb.png)
+![](http://120.26.79.238:9000/blog/img/0f9c6206734143c8458c4b9a898d7fcb.png)
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/28aef0cd227d38dc63c33e178e36ac82.png)
+![](http://120.26.79.238:9000/blog/img/28aef0cd227d38dc63c33e178e36ac82.png)
 
 **注意：**
 
@@ -120,7 +120,7 @@ JVM执行引擎还包括其他一些重要的组件，如即时编译器后端�
 
 **类加载过程**主要分为三个步骤：**加载**、**链接**、**初始化**，而其中链接过程又分为三个步骤：**验证**、**准备**、**解析**，加上**卸载**、**使用**两个步骤统称为为**类的生命周期**。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/9dcf02e8fa38ba6c1c0a3ddd56d9c820.png)
+![](http://120.26.79.238:9000/blog/img/9dcf02e8fa38ba6c1c0a3ddd56d9c820.png)
 
 
 **阶段一：加载**
@@ -187,7 +187,7 @@ JVM执行引擎还包括其他一些重要的组件，如即时编译器后端�
 
 ## 双亲委派模型
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/6366cd80ac2f7c90e911466098ca63d9.png)
+![](http://120.26.79.238:9000/blog/img/6366cd80ac2f7c90e911466098ca63d9.png)
 
 
 如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，**而是把请求委托给父加载器去完成，依次向上**：
@@ -216,7 +216,7 @@ JVM执行引擎还包括其他一些重要的组件，如即时编译器后端�
 
 ### 方法区演进
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/1c8f67cb1d67aa523b2495f39dd51610.png)
+![](http://120.26.79.238:9000/blog/img/1c8f67cb1d67aa523b2495f39dd51610.png)
 
 **方法区(永久代（JDK7及以前）、元空间（JDK8以后）)**
 
@@ -293,7 +293,7 @@ java -Xss1m YourClassName
 
 ### 堆、栈、方法区的关系
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/310a562ff5e34e99c47ae040b14251ef.png)
+![](http://120.26.79.238:9000/blog/img/310a562ff5e34e99c47ae040b14251ef.png)
 
 
 HotSpot是使用指针的方式来访问对象：
@@ -320,12 +320,12 @@ HotSpot是使用指针的方式来访问对象：
 
 #### JDK1.7及之前的堆空间
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/1ebb50a0bfd024d4827bb42a30e22927.png)
+![](http://120.26.79.238:9000/blog/img/1ebb50a0bfd024d4827bb42a30e22927.png)
 
 
 #### JDK1.8及之后的堆空间
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/03952a19733057b71b7658e069bb9721.png)
+![](http://120.26.79.238:9000/blog/img/03952a19733057b71b7658e069bb9721.png)
 
 
 **注意：**方法区（具体的实现是永久代和元空间）逻辑上是堆空间的一部分，但是虚拟机的实现中将方法区和堆分开了，如下图：
@@ -396,7 +396,7 @@ HotSpot是使用指针的方式来访问对象：
 
 #### GC总结
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/67bb48625de01bacfc27ce2cd653c3fd.png)
+![](http://120.26.79.238:9000/blog/img/67bb48625de01bacfc27ce2cd653c3fd.png)
 
 
 - 频繁回收新生代
@@ -553,7 +553,7 @@ classLoader = null;
 
 4.清理From空间，并把名称互换
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/80daaf1111bfcc8b31d379da468ca76b.png)
+![](http://120.26.79.238:9000/blog/img/80daaf1111bfcc8b31d379da468ca76b.png)
 
 
 #### 标记清除（老年代）
@@ -562,7 +562,7 @@ classLoader = null;
 
 （2）**清除：**对堆内存从头到尾进行线性便遍历，如果发现某个对象没有被标记为可达对象，则将其回收。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/75e283a4b3bff55ac33e642cdc882381.png)
+![](http://120.26.79.238:9000/blog/img/75e283a4b3bff55ac33e642cdc882381.png)
 
 
 **缺点：**
@@ -573,7 +573,7 @@ classLoader = null;
 
 #### 标记压缩（标记整理清除）（老年代）
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/63759c05f37131eabf3e753f326894dd.png)
+![](http://120.26.79.238:9000/blog/img/63759c05f37131eabf3e753f326894dd.png)
 
 
 **优点：**
@@ -612,7 +612,7 @@ classLoader = null;
 
 #### G1垃圾回收器
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/a2d4857660d8fd2461f2ca654592431d.png)
+![](http://120.26.79.238:9000/blog/img/a2d4857660d8fd2461f2ca654592431d.png)
 
 
 G1之前分为年轻代和老年代，且是连续的空间。G1之后也存在年轻代、老年代，多了一个HUmongous：用来存储内存超过region一半的大对象，如果不够则两个H合并，但是他们被分为2048个空间（region）。
@@ -629,5 +629,5 @@ G1之前分为年轻代和老年代，且是连续的空间。G1之后也存在�
 | 最终标记 | 修正并发标记期间,因程序运行导致发生变化的那一部分对象 |
 | 筛选回收 | 根据时间来进行价值最大化收集                          |
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/ef0185439913fbc13b35c7393b3965e0.png)
+![](http://120.26.79.238:9000/blog/img/ef0185439913fbc13b35c7393b3965e0.png)
 

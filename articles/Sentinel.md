@@ -15,7 +15,7 @@ cover:
 
 如下图所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/47ec9b7d45b743de84822380f7348e7d.png)
+![image.png](http://120.26.79.238:9000/blog/img/47ec9b7d45b743de84822380f7348e7d.png)
 
 ### 解决方案
 
@@ -142,7 +142,7 @@ warm up也叫**预热模式**，是应对服务冷启动的一种方案。**阈�
 
 **工作特点**：请求阈值初始值是 maxThreshold / coldFactor, 持续指定时长(预热时间)后，逐渐提高到maxThreshold值，而coldFactor的默认值是3。
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/78d8e6e08ce44c6bbb4195be6a188b3e.png)
+![image.png](http://120.26.79.238:9000/blog/img/78d8e6e08ce44c6bbb4195be6a188b3e.png)
 
 #### 排队等待
 
@@ -298,7 +298,7 @@ feign:
 
 断路器（熔断器）控制熔断和放行是通过状态机来完成的：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/c98cf25d1dee4f6c911c21597d9d38e2.png)
+![image.png](http://120.26.79.238:9000/blog/img/c98cf25d1dee4f6c911c21597d9d38e2.png)
 
 状态机包括三个状态：
 
@@ -339,7 +339,7 @@ public interface BlockExceptionHandler {
 
 而 BlockException 包含很多个子类，分别对应不同的场景：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/9964b748a4e644f5880e4afbf11d5ba2.png)
+![image.png](http://120.26.79.238:9000/blog/img/9964b748a4e644f5880e4afbf11d5ba2.png)
 
 我们在 **用户微服务** 中定义类，实现 BlockExceptionHandler 接口：
 
@@ -430,7 +430,7 @@ public class MyBlockExceptionHandler implements BlockExceptionHandler {
 
 规则说明：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/94c3ccf37e2441b5b46504f038a31923.png)
+![image.png](http://120.26.79.238:9000/blog/img/94c3ccf37e2441b5b46504f038a31923.png)
 
 ### 读取nacos规则配置
 

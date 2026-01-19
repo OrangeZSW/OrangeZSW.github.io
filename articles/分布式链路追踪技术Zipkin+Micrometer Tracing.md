@@ -26,7 +26,7 @@ cover:
 - **ZipKin Server** ：用来作为数据的采集存储、数据分析与展示；
 - **ZipKin Client** ：基于不同的语言及框架封装的一些列客户端工具，这些工具完成了追踪数据的生成与上报功能。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/5c1546e81af2c067128d5091dc127743.png)
+![](http://120.26.79.238:9000/blog/img/5c1546e81af2c067128d5091dc127743.png)
 
 
 Instrumented client和server是分别使用了ZipKin Client的服务，Zipkin Client会根据配置将追踪数据发送到Zipkin  Server中进行数据存储、分析和展示。
@@ -45,7 +45,7 @@ Zipkin (服务端)包含四个组件，分别是 collector、storage、search、
 
 ### zipkin客户端
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/9782c69779f42011b169990f01b2c809.png)
+![](http://120.26.79.238:9000/blog/img/9782c69779f42011b169990f01b2c809.png)
 
 
 ZipKin几个概念:

@@ -53,7 +53,7 @@ cover:
 针对并发事务所带来的问题，要想解决就需要使用到事务的隔离级别。
 
 常见的事务隔离级别和解决的问题的对应关系表如下所示：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/70e8222c4c5185cf2cae6a9436219e32.png)
+![](http://120.26.79.238:9000/blog/img/70e8222c4c5185cf2cae6a9436219e32.png)
 
 
 ## 事务传播行为
@@ -61,7 +61,7 @@ cover:
 - **概述**：指的就是当一个方法被另一个方法调用时，这个方法对事务的态度。
 
 Spring定义了七种传播行为：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/b8355de5ce618d4071211f66780424ab.png)
+![](http://120.26.79.238:9000/blog/img/b8355de5ce618d4071211f66780424ab.png)
 
 
 
@@ -105,14 +105,14 @@ Availability （可用性）：用户访问集群中的任意健康节点，必�
 
 因为网络故障或其它原因导致分布式系统中的部分节点与其它节点失去连接，形成独立分区。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/6eee135715558706fc80fe9a8f2765db.png)
+![](http://120.26.79.238:9000/blog/img/6eee135715558706fc80fe9a8f2765db.png)
 
 
 - Tolerance（容错）：在集群出现分区时，整个系统也要持续对外提供服务
 
 在分布式系统中，系统间的网络不能100%保证健康，一定会有故障的时候，而服务有必须对外保证服务。因此Partition Tolerance不可避免。当节点接收到新的数据变更时，就会出现问题了：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/b3fef90f191b4db5800b1c0b026de78d.png)
+![](http://120.26.79.238:9000/blog/img/b3fef90f191b4db5800b1c0b026de78d.png)
 
 
 - 如果此时要保证一致性，就必须等待网络恢复，完成数据同步后，整个集群才对外提供服务，服务处于阻塞状态，不可用。
@@ -164,7 +164,7 @@ Seata是 2019 年 1 月份蚂蚁金服和阿里巴巴共同开源的分布式事
 
 工作流程如下图所示：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/68e4364165e0e1e70eb84c2cc5b2dac2.png)
+![](http://120.26.79.238:9000/blog/img/68e4364165e0e1e70eb84c2cc5b2dac2.png)
 
 
 基本流程介绍：
@@ -179,7 +179,7 @@ Seata是 2019 年 1 月份蚂蚁金服和阿里巴巴共同开源的分布式事
 
 5、当全局事务结束以后，TC会进行分支事务状态的统计，然后在通过RM服务器进行分支事务的回滚或者提交
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/d8cb491b07849f9c074b9297a20d511e.png)
+![](http://120.26.79.238:9000/blog/img/d8cb491b07849f9c074b9297a20d511e.png)
 
 
 ### 四种不同的分布式事务解决方案：
@@ -501,7 +501,7 @@ XA规范在上世纪 90 年代初就被提出。目前，几乎所有主流的�
 ## 工作原理
 
 在 Seata 定义的分布式事务框架内，利用事务资源（数据库、消息服务等）对XA协议的支持，以XA协议的机制来管理分支事务的一种事务模式。
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/098e4a093965a9b27dbf05d93e38201e.png)
+![](http://120.26.79.238:9000/blog/img/098e4a093965a9b27dbf05d93e38201e.png)
 
 
 
@@ -525,12 +525,12 @@ b.如果有失败，通知所有RM回滚事务
 
 
 - 正常情况：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/4bd77fdbe3836562005674bbb6f94427.png)
+![](http://120.26.79.238:9000/blog/img/4bd77fdbe3836562005674bbb6f94427.png)
 
 
 
 - 异常情况：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/9e20a6800eaf8f7b03337a042e66a3cc.png)
+![](http://120.26.79.238:9000/blog/img/9e20a6800eaf8f7b03337a042e66a3cc.png)
 
 
 
@@ -566,7 +566,7 @@ XA prepare后，分支事务进入阻塞阶段，收到XA commit 或 XA rollback
 
 ## 原理介绍
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/883e33edda608618b89a9a8614d808fd.png)
+![](http://120.26.79.238:9000/blog/img/883e33edda608618b89a9a8614d808fd.png)
 
 
 - 工作流程如下所示：
@@ -619,10 +619,10 @@ AT模式下，当前分支事务执行流程如下：
 
 2.2 如果有分支事务失败，需要回滚。读取快照数据（{"id": 1, "money": 100}），将快照恢复到数据库。此时数据库再次恢复为100
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/a434854772308504fab555287337eb29.png)
+![](http://120.26.79.238:9000/blog/img/a434854772308504fab555287337eb29.png)
 
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/d5ee70dc3dec24d1a2ffdaaa63ecb242.png)
+![](http://120.26.79.238:9000/blog/img/d5ee70dc3dec24d1a2ffdaaa63ecb242.png)
 
 
 
@@ -644,7 +644,7 @@ AT模式下，当前分支事务执行流程如下：
 
 在多线程并发访问AT模式的分布式事务时，有可能出现丢失更新问题，如图：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/1f43a45b40f83b2146fae8e97e9b4bc7.png)
+![](http://120.26.79.238:9000/blog/img/1f43a45b40f83b2146fae8e97e9b4bc7.png)
 
 
 ### 全局锁
@@ -684,10 +684,10 @@ TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC
 **阶段一（ Try ）**：检查余额是否充足，如果充足则冻结金额增加30元，可用余额扣除30
 
 初识余额：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/bfcf35531d2f9f6ccb02e133b7d776c1.png)
+![](http://120.26.79.238:9000/blog/img/bfcf35531d2f9f6ccb02e133b7d776c1.png)
 
 余额充足，可以冻结：
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/6431cfac8b9f19d26b8230bd0fe0a9b8.png)
+![](http://120.26.79.238:9000/blog/img/6431cfac8b9f19d26b8230bd0fe0a9b8.png)
 
 
 
@@ -699,7 +699,7 @@ TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC
 
 确认可以提交，不过之前可用金额已经扣减过了，这里只要清除冻结金额就好了：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/751ecd147e82aef38e0a52ff7914a1a8.png)
+![](http://120.26.79.238:9000/blog/img/751ecd147e82aef38e0a52ff7914a1a8.png)
 
 此时，总金额 = 冻结金额 + 可用金额 = 0 + 70  = 70元
 
@@ -707,14 +707,14 @@ TCC模式与AT模式非常相似，每阶段都是独立事务，不同的是TCC
 
 需要回滚，那么就要释放冻结金额，恢复可用金额：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/301479a856a77e47521610c8dc8038d7.png)
+![](http://120.26.79.238:9000/blog/img/301479a856a77e47521610c8dc8038d7.png)
 
 
 ## 7.3 原理介绍
 
 工作模式如下图所示：
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/bfa02782458a9a4ba2d677002031a441.png)
+![](http://120.26.79.238:9000/blog/img/bfa02782458a9a4ba2d677002031a441.png)
 
 
 ## 7.4 优缺点

@@ -78,7 +78,7 @@ cover:
 
 String的数据结构为简单动态字符串(Simple Dynamic String,缩写SDS)。是可以修改的字符串，内部结构实现上类似于Java的ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配.
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/58b2bd2f781e5df2d1a4ebcd523c07c0.png)
+![](http://120.26.79.238:9000/blog/img/58b2bd2f781e5df2d1a4ebcd523c07c0.png)
 
 
 如图中所示，内部为当前字符串实际分配的空间capacity一般要高于实际字符串长度len。当字符串长度小于1M时，扩容都是加倍现有的空间，如果超过1M，扩容时一次只会多扩1M的空间。需要注意的是字符串最大长度为512M。
@@ -91,7 +91,7 @@ String的数据结构为简单动态字符串(Simple Dynamic String,缩写SDS)�
 
 单键多值, 一个键下的value是一个List.Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。它的底层实际是个双向链表，对两端的操作性能很高，通过索引下标的操作中间的节点性能会较差。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/012ad0bda3eaf308eb159c0558155651.png)
+![](http://120.26.79.238:9000/blog/img/012ad0bda3eaf308eb159c0558155651.png)
 
 
 ### 3.2 常用命令
@@ -114,7 +114,7 @@ String的数据结构为简单动态字符串(Simple Dynamic String,缩写SDS)�
 
 List的数据结构为快速链表quickList。首先在列表元素较少的情况下会使用一块连续的内存存储，这个结构是ziplist，也即是压缩列表。它将所有的元素紧挨着一起存储，分配的是一块连续的内存。当数据量比较多的时候才会改成quicklist。因为普通的链表需要的附加指针空间太大，会比较浪费空间。比如这个列表里存的只是int类型的数据，结构上还需要两个额外的指针prev和next。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/ecae126ab4f2ea87b36f29d897d3eafe.png)
+![](http://120.26.79.238:9000/blog/img/ecae126ab4f2ea87b36f29d897d3eafe.png)
 
 
 Redis将链表和ziplist结合起来组成了quicklist。也就是将多个ziplist使用双向指针串起来使用。这样既满足了快速的插入删除性能，又不会出现太大的空间冗余。
@@ -160,17 +160,17 @@ Redis hash 是一个键值对集合。Redis hash是一个string类型的field和
 
 - 方式1  单key+序列化 .问题:每次修改用户的某个属性需要，先反序列化改好后再序列化回去。开销较大。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/05649361cc760c58cd08be72043e2edf.png)
+![](http://120.26.79.238:9000/blog/img/05649361cc760c58cd08be72043e2edf.png)
 
 
 - 方式2 多key-value .问题:用户ID数据冗余 &#x20;
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/b98a8372e6efaa97a316b2b6bd8c3533.png)
+![](http://120.26.79.238:9000/blog/img/b98a8372e6efaa97a316b2b6bd8c3533.png)
 
 
 - 方式3 单key + 多(field+value)
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/82564120c9e0fbd3d0f82d24b55477d7.png)
+![](http://120.26.79.238:9000/blog/img/82564120c9e0fbd3d0f82d24b55477d7.png)
 
 
 * **通过 key(用户ID) + field(属性标签) 就可以操作对应属性数据了，既不需要重复存储数据，也不会带来序列化和并发修改控制的问题**&#x20;
@@ -216,7 +216,7 @@ Redis有序集合zset与普通集合set非常相似，是一个没有重复元�
 
 案例：如何利用zset实现一个文章访问量的排行榜？
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/20b976b3b5e3a46b83aa5e498f25a15a.png)
+![](http://120.26.79.238:9000/blog/img/20b976b3b5e3a46b83aa5e498f25a15a.png)
 
 
 ### 6.3 数据结构
@@ -529,7 +529,7 @@ Append Only File 以日志的形式来记录每个写操作（增量保存），
 
 - 解决2 ：使用布隆过滤器来解决随机穿透问题。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/f832ce6671b14aa9a1ba6df3b7e9a403.png)
+![](http://120.26.79.238:9000/blog/img/f832ce6671b14aa9a1ba6df3b7e9a403.png)
 
 
  
@@ -550,7 +550,7 @@ Append Only File 以日志的形式来记录每个写操作（增量保存），
 
 - 解决：锁
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/6b3f9ab61263a1d00ce92554ae76955e.png)
+![](http://120.26.79.238:9000/blog/img/6b3f9ab61263a1d00ce92554ae76955e.png)
 
  缓存穿透：查询根本不存在的数据
 

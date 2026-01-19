@@ -94,7 +94,7 @@ SpringFramework类似于腾讯的发家产品QQ
 
 > SPI机制
 
-![Clip_2024-10-08_08-29-27.png](http://120.26.79.238:9000/orange-blog/articleImages/1/cf640b6856eb43bd89a48d28de7b64b0.png)
+![Clip_2024-10-08_08-29-27.png](http://120.26.79.238:9000/blog/img/cf640b6856eb43bd89a48d28de7b64b0.png)
 
 ``
 

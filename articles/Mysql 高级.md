@@ -113,7 +113,7 @@ mysql:8.0.29 --lower-case-table-names=1
 
 ## 逻辑架构[面试]
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/06e13c61c21738a780a701689e2c142b.png)
+![](http://120.26.79.238:9000/blog/img/06e13c61c21738a780a701689e2c142b.png)
 
 
 - **mysql客户端**
@@ -164,7 +164,7 @@ mysql:8.0.29 --lower-case-table-names=1
 
 ### 查询的执行流程
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/fcd2df398cac24c7f59718c618d10129.png)
+![](http://120.26.79.238:9000/blog/img/fcd2df398cac24c7f59718c618d10129.png)
 
 ### 查看sql执行流程 profiling
 
@@ -391,7 +391,7 @@ mysql:8.0.29 --lower-case-table-names=1
 - `B-Tree即B树，Balance Tree，平衡树,B树就是典型的多叉树，它的高度远小于平衡二叉树的高度（多路平衡二叉树）`。
 - `B树的阶：`节点的最多子节点个数。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/b8e1bc0d38bda6a1ed246ef1734ac733.png)
+![](http://120.26.79.238:9000/blog/img/b8e1bc0d38bda6a1ed246ef1734ac733.png)
 
 
 ### MySQL索引结构 B+树
@@ -402,7 +402,7 @@ mysql:8.0.29 --lower-case-table-names=1
   - 同一层之间存在互相 指向的指针
 - InooDB一页:16kb
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/f86eb072b9b517624f45300da10e4a8b.png)
+![](http://120.26.79.238:9000/blog/img/f86eb072b9b517624f45300da10e4a8b.png)
 
 
 ### B树和B+树区别
@@ -515,7 +515,7 @@ mysql:8.0.29 --lower-case-table-names=1
 
 - 下图是MyISAM索引的原理图`（索引和数据分开存储，是非聚簇索引）`： 
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/fa7f538a4e9af7de236026f810baa4b2.png)
+![](http://120.26.79.238:9000/blog/img/fa7f538a4e9af7de236026f810baa4b2.png)
 
 ### MyISAM与InnoDB对比
 
@@ -1196,7 +1196,7 @@ UPDATE xx_table ...							# 排它锁
 
 #### MVCC读取分析[读已提交、可重复读]
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/d424fd65c0ac5134a531e1262e41084e.png)
+![](http://120.26.79.238:9000/blog/img/d424fd65c0ac5134a531e1262e41084e.png)
 
 1. 在**读已提交**的隔离级别下: select 名称 查找的都是最新的数据,此时如果有新事务更新数据且提交,  在此期间的 select 读取到的同一条数据可能不同
 2. 在**可重复读**隔离级别下: 当第一次提交select 之后, MVCC会生成一个当前查找的快照, 当再次select 时,会返回这个快照, 无论是否有其他事务提交, 此时在同一个事务下的两次select的数据一定一样,但不一定是最新数据.
@@ -1205,14 +1205,14 @@ UPDATE xx_table ...							# 排它锁
 
 1.在读已提交（Read Committed:简称RC）隔离级别下,一个事务中的每一次 SELECT 查询都会重新获取一次 Read View【读视图】。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/c8a74c4f4bfc4df90c8824e53ed81947.png)
+![](http://120.26.79.238:9000/blog/img/c8a74c4f4bfc4df90c8824e53ed81947.png)
 
 
 2.在可重复读（Repeatable Read:简称RR）隔离级别下,一个事务中只在第一次 SELECT 的时候会 获取一次 Read View，而后面所有的 SELECT 
 
 都会复用这个 Read View。
 
-![](http://120.26.79.238:9000/orange-blog/articleImages/1/a46d3d6e688932d2ed0608386e4b54b4.png)
+![](http://120.26.79.238:9000/blog/img/a46d3d6e688932d2ed0608386e4b54b4.png)
 
 
 #### 无索引索引失效情况

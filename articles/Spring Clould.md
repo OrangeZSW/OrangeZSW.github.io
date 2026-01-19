@@ -33,7 +33,7 @@ cover:
 
 **微服务系统架构**：本质上也属于分布式系统架构，在微服务系统架构中，更加重视的是服务拆分粒度。
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/534159a0f89449029e583af24ccbe402.png)
+![image.png](http://120.26.79.238:9000/blog/img/534159a0f89449029e583af24ccbe402.png)
 
 ### 微服务架构的特点：
 
@@ -85,7 +85,7 @@ cover:
 
 分布式环境中每一台服务器都可以做集群，如下图所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/f6fb573ca2a8430e938436ff026345c7.png)
+![image.png](http://120.26.79.238:9000/blog/img/f6fb573ca2a8430e938436ff026345c7.png)
 
 实际开发中：分布式+集群
 
@@ -139,13 +139,13 @@ Spring Cloud Alibaba是阿里针对微服务系统架构所存在的问题给出
 
 在创建微服务工程的时候都需要先提供一个父工程，使用父工程来管理多个微服务所需要的依赖。我们的微服务系统结构如下所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/f6641d07bcd14683b3aeaefc40422279.png)
+![image.png](http://120.26.79.238:9000/blog/img/f6641d07bcd14683b3aeaefc40422279.png)
 
 ## 服务的远程调用
 
 需求：在查询订单时候需要将订单所属用户的信息也一并查询出来。
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/6ef20cee90334495941ae5931f3b2c76.png)
+![image.png](http://120.26.79.238:9000/blog/img/6ef20cee90334495941ae5931f3b2c76.png)
 
 ### 传统调用
 
@@ -212,7 +212,7 @@ public class OrderServiceImpl implements OrderService {
 
 通过注册中心可以对服务提供方和服务消费方进行解耦。具体的工作模式如下图所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/27ff36fe1ab94d5c800c7ecc0ebabe13.png)
+![image.png](http://120.26.79.238:9000/blog/img/27ff36fe1ab94d5c800c7ecc0ebabe13.png)
 
 工作流程说明：
 
@@ -224,7 +224,7 @@ public class OrderServiceImpl implements OrderService {
 
 Nacos架构图如下所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/6c0a39c5bc464d3bbf8744e8e0e70035.png)
+![image.png](http://120.26.79.238:9000/blog/img/6c0a39c5bc464d3bbf8744e8e0e70035.png)
 
 1. Nacos Server：服务注册中心，它是服务，其实例及元数据的数据库。服务实例在启动时注册到服务注册表，并在关闭时注销。服务注册中心可能会调用服务实例的健康检查 API 来验证它是否能够处理请求。Nacos Server需要独立的部署。
 
@@ -232,7 +232,7 @@ Nacos架构图如下所示：
 
 3. Nacos Console：是Nacos的控制模块，Nacos提供了可视化的后台管理系统，可以很容易的实现服务管理操作。
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/8c0d2c0ab6884cd3a4ced31c0151ae46.png)
+![image.png](http://120.26.79.238:9000/blog/img/8c0d2c0ab6884cd3a4ced31c0151ae46.png)
 
 Nacos的优点包括：
 
@@ -277,7 +277,7 @@ spring:
 
 3、启动两个微服务：就可以在nacos的后台管理系统中，看到如下的注册信息：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/0fb1ecafc81c4aa7b912a71cc33c0a55.png)
+![image.png](http://120.26.79.238:9000/blog/img/0fb1ecafc81c4aa7b912a71cc33c0a55.png)
 
 ## 更改远程调用
 
@@ -383,7 +383,7 @@ nacos也是支持多环境隔离配置的，在nacos是通过**namespace**来实
 
 完整的服务注册数据存储结构如下所示：
 
-![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/8ede372313bc42b6b5851905ad770ec9.png)
+![image.png](http://120.26.79.238:9000/blog/img/8ede372313bc42b6b5851905ad770ec9.png)
 
 > Group：组，通常来表示不同的项目，不同组之间也存在隔离性的
 

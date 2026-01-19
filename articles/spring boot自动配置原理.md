@@ -25,7 +25,7 @@ cover:
 
    1. spring.boot.autoconfiguration 在spting-boot-start包中，它包含各种技术的配置类，来生产对应技术bean对象。
 
-      ![image-20240816150132987](http://120.26.79.238:9000/orange-blog/articleImages/1/image-20240816150132987.png)
+      ![image-20240816150132987](http://120.26.79.238:9000/blog/img/image-20240816150132987.png)
 
    2. 导入哪个场景就开启哪个自动配置,如果没有引入对应技术的场景启动器，则不会引入。
 
