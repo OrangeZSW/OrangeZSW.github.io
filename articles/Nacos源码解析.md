@@ -203,7 +203,7 @@ Nacos在进行服务注册时, 主要的工作就是将实例添加到注册表�
 
 
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/792414e7235dd9299f62725cfd8febe5.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/792414e7235dd9299f62725cfd8febe5.png)
 
 
 

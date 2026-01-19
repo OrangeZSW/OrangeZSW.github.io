@@ -37,7 +37,7 @@ Elasticsearch底层构建基于Lucene，具备强大的搜索能力，即便是P
 
 ## 倒排索引
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/a827adfd570edf4a44881068818238c4.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/a827adfd570edf4a44881068818238c4.png)
 
 
 **倒排索引步骤**:
@@ -59,7 +59,7 @@ Elasticsearch底层构建基于Lucene，具备强大的搜索能力，即便是P
 # elasticsearch核心概念
 
 ## es对照数据库
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/0a25b0b01fa60636252e231e7b9e3e81.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/0a25b0b01fa60636252e231e7b9e3e81.png)
 
 
 ## 索引
@@ -538,7 +538,7 @@ PUT /my_index
 
 - Query DSL概述: Domain Specific Language(领域专用语言)，Elasticsearch提供了基于JSON的DSL来定义查询。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/81a1628e0ca2b2f79598e7d1146c1e44.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/81a1628e0ca2b2f79598e7d1146c1e44.png)
 
 
 ## DSL查询

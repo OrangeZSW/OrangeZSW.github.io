@@ -25,13 +25,13 @@ cover:
 
 ​	数据传输方式为同步传输【作为调用方必须等待被调用方执行完毕以后，才可以继续传递消息】，同步传输存在的弊端：**传输效率较低**。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/fe5597106ce041f456bdc068384ce642.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/fe5597106ce041f456bdc068384ce642.png)
 
 
 - 基于MQ实现消息的传输，如下图所示：
 
   数据的传输方式属于异步传输【作为调用方法不用等待被调用方执行完毕就可以接续传递消息】，数据传输的消息较高。
-  ![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/48ba16c53c56d8c7a4e007eeb808bc88.png)
+  ![](http://120.26.79.238:9000/orange-blog/articleImages/1/48ba16c53c56d8c7a4e007eeb808bc88.png)
 
 ### 消息队列应用场景
 
@@ -49,12 +49,12 @@ cover:
 
 如下下图所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/7868449995fae7881f2672c63876d93c.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/7868449995fae7881f2672c63876d93c.png)
 
 
 使用消息队列以后，整个下单操作的架构如下图所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/165b6acc3cda5a1005a436e0048e44f4.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/165b6acc3cda5a1005a436e0048e44f4.png)
 
 
 使用消息队列解耦合，系统的耦合性就会降低了，容错性就提高了。比如物流系统发生故障，需要几分钟才能来修复，在这段时间内，物流系统要处理的数据被缓存
@@ -77,7 +77,7 @@ cover:
 
 假设A系统进行了某一个业务操作以后，需要将这个业务操作结果通知给其他的系统，原始的架构如下所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/5fb3b19ac11b587efc2412658c74e6df.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/5fb3b19ac11b587efc2412658c74e6df.png)
 
 
 此时B系统、C系统、D系统就需要提供对应的接口，然后让A系统进行调用。如果此时不需要通知D系统了，那么就需要更改A系统的代码，将调用D系统的代码删除
@@ -86,7 +86,7 @@ cover:
 
 使用MQ改进以后的架构如下所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/8845dbb5a4f0228e9ee80f311d97b587.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/8845dbb5a4f0228e9ee80f311d97b587.png)
 
 
 A系统需要将业务操作结果通知给其他的系统时，A系统只需要将结构发送到MQ中。其他的系统只需要从MQ中获取结果即可，如果不需要结果了，此时只需要取消
@@ -125,7 +125,7 @@ RabbitMQ官方地址：http://www.rabbitmq.com/
 
 RabbitMQ常见的消息模型：https://www.rabbitmq.com/getstarted.html
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/14f8cabcbf5d82a15aa6f8afdf96ec6d.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/14f8cabcbf5d82a15aa6f8afdf96ec6d.png)
 
 
 RabbitMQ提供了**7种模式**：简单模式，work模式 ，Publish/Subscribe发布与订阅模式，Routing路由模式，Topics主题模式，RPC远程调用模式(远程调用)，生产者
@@ -144,7 +144,7 @@ RabbitMQ提供了**7种模式**：简单模式，work模式 ，Publish/Subscribe
 
 常见特性比对：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/eb529511edab3809605f48c830d56c28.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/eb529511edab3809605f48c830d56c28.png)
 
 
 ## Rabbitmq环境搭建
@@ -175,7 +175,7 @@ RabbitMQ提供了**7种模式**：简单模式，work模式 ，Publish/Subscribe
 
 Rabbitmq的架构图如下所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/d0597cfc562e019bc52b57d2fc200423.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/d0597cfc562e019bc52b57d2fc200423.png)
 
 
 **Broker**：接收和分发消息的应用，RabbitMQ Server就是 Message Broker
@@ -401,7 +401,7 @@ public class Consumer01Listener {
 
 一个生产者直接将消息发送到队列，一个消费者消费
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/1ab5749dc0621c719f1347eadf30e4ff.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/1ab5749dc0621c719f1347eadf30e4ff.png)
 
 
 ### 工作队列
@@ -410,7 +410,7 @@ public class Consumer01Listener {
 
 **应用场景：**对于任务过重或任务较多情况使用
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/01acea803a2212c25ea2af973e6dbf20.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/01acea803a2212c25ea2af973e6dbf20.png)
 
 ## 发布订阅模型
 
@@ -431,7 +431,7 @@ public class Consumer01Listener {
 
 简介：fanout类型的交换机会将将消息交给所有与之绑定队列
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/e364b37ba6a70a58c8cb7bd3c14b9c79.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/e364b37ba6a70a58c8cb7bd3c14b9c79.png)
 
 
 #### 通过java api创建exchange、queue和绑定信息
@@ -488,7 +488,7 @@ public class RabbitmqFanoutExchangeConfiguration {
 
 3、交换机获取到消息以后需要使用消息的routingKey和bindingKey比对，如果相等就会把消息转发给对应的队列
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/86281c4c3b0304636bacd01c978f2173.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/86281c4c3b0304636bacd01c978f2173.png)
 
 
 ### Topic
@@ -501,7 +501,7 @@ public class RabbitmqFanoutExchangeConfiguration {
 
 3、交换机获取到消息以后需要使用消息的routingKey和bindingKey规则进行比对，如果routingKey满足bindingKey的规则就会把消息转发给对应的队列
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/5ac74b2b60cf06b7d4b2a671af6b384e.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/5ac74b2b60cf06b7d4b2a671af6b384e.png)
 
 
 通配符介绍：
@@ -541,7 +541,7 @@ public class Consumer02Listener {
 
 **概述**：指的就是在整个消息的传输过程中如何保证消息不丢失！
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/67b4c75c443fda45deff151218017432.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/67b4c75c443fda45deff151218017432.png)
 
 
 - 消息传输三个阶段
@@ -572,12 +572,12 @@ public class Consumer02Listener {
 
 **confirm** **确认模式：可以通过该机制确认消息是否可以正常发送到exchange**：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/430a8675ec6578e5f5789ef7dca5148e.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/430a8675ec6578e5f5789ef7dca5148e.png)
 
 
 **return** **退回模式：可以通过该机制确认消息是否可以正常发送到队列中**
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/d2e066c7675f7e7433af1c9516ead9a0.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/d2e066c7675f7e7433af1c9516ead9a0.png)
 
 
 #### confirm
@@ -955,7 +955,7 @@ DeadLetter Exchange（死信交换机），英文缩写：DLX 。当消息成为
 
 如下图所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/ddfba4c665c00c85222e698362591dc0.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/ddfba4c665c00c85222e698362591dc0.png)
 
 
 代码如下所示：
@@ -1004,12 +1004,12 @@ public Queue directQueue01() {
 
 订单信息发送到延时队列。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/0351ea53595b135a2a797be3678b9a59.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/0351ea53595b135a2a797be3678b9a59.png)
 
 
 **在RabbitMQ中并未提供延迟队列功能**。但是可以使用：**ttl +死信队列** 组合实现延迟队列的效果。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/21234614547b24848bfabec61b87c25d.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/21234614547b24848bfabec61b87c25d.png)
 
 当然延迟队列还有其他应用场景：
 
@@ -1025,7 +1025,7 @@ public Queue directQueue01() {
 
 针对一些特殊的业务，要严格保证消息能够进行正常传输。那么此时在进行消息投递的时候，就可以使用如下的架构保证消息百分百成功投递：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/8f8898b0d20d0463641888af97add27d.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/8f8898b0d20d0463641888af97add27d.png)
 
 
 Step 1： 首先把消息信息(业务数据）存储到数据库中，紧接着，我们再把这个消息记录也存储到一张消息记录表里（或者另外一个同源数据库的消息记录表），并且
@@ -1092,7 +1092,7 @@ CREATE TABLE `t_order` (
 
 采用上述架构实现消息的投递，那么此时就会出现消息的重复消费问题。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/3ae48ef943494a8aa938995e3b2d8ccd.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/3ae48ef943494a8aa938995e3b2d8ccd.png)
 
 
 MQ中出现了重复消息，那么此时就会导致重复消费问题。在有一些特殊的业务场景下，是不允许出现重复消息的，比如扣减库存。
@@ -1105,7 +1105,7 @@ MQ中出现了重复消息，那么此时就会导致重复消费问题。在有
 
 消息幂等性保障 ：**数据库唯一字段**
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/57d9c0ecf7179c42dc8c44d5710756e4.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/57d9c0ecf7179c42dc8c44d5710756e4.png)
 
 
 

@@ -19,7 +19,7 @@ cover:
 ## 读写分离架构
 
 -  **读写分离原理**: 读写分离的基本原理是将数据库读写操作分散到不同的节点上，下面是其基本架构图：
-   ![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/5c55180dd754470ba283c0df1470d846.png)
+   ![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/5c55180dd754470ba283c0df1470d846.png)
 -  读写分离的基本实现：
    - 主库负责处理事务性的增删改操作，从库负责处理查询操作，能够有效的避免由数据更新导致的行锁，使得整个系统的查询性能得到极大的改善。
    - 读写分离是根据 SQL 语义的分析，将读操作和写操作分别路由至主库与从库。
@@ -92,7 +92,7 @@ cover:
 程序代码封装指在代码中抽象一个数据访问层（或中间层封装），实现读写操作分离和数据库服务器连接的管理。
 
 其基本架构是：以读写分离为例
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/d628ef662dd54e1f80385800f594f9ba.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/d628ef662dd54e1f80385800f594f9ba.png)
 
 ## 中间件封装
 
@@ -100,7 +100,7 @@ cover:
 
 基本架构是：以读写分离为例
 
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/9183594276f6454fa4f70387b7d06341.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/9183594276f6454fa4f70387b7d06341.png)
 
 ## 常用解决方案
 
@@ -119,7 +119,7 @@ cover:
 
 ## MySQL主从同步原理
 
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/d6fda58abba1499db3feb43c9717be84.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/d6fda58abba1499db3feb43c9717be84.png)
 
  **基本原理**：
 
@@ -169,7 +169,7 @@ binlog_format=STATEMENT
 
 ##### binlog-ignore-db和binlog-do-db的优先级问题：
 
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/ceccb614a5ec432d87d8924110cef2b2.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/ceccb614a5ec432d87d8924110cef2b2.png)
 
 #### 2. 在主机中创建salve用户
 
@@ -194,7 +194,7 @@ FLUSH PRIVILEGES;
 `  SHOW MASTER STATUS;`
 
 记下File和Position的值。执行完此步骤后不要再操作主服务器MYSQL，防止主服务器状态值变化。
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/11992bd177f44247bb8eeff392e05efa.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/11992bd177f44247bb8eeff392e05efa.png)
 
 ### 准备从服务器
 
@@ -227,7 +227,7 @@ MASTER_LOG_FILE='binlog.000003',MASTER_LOG_POS=1357;        # log_file 的文件
 ```
 
 两个关键进程：下面两个参数都是Yes，则说明主从配置成功！
-![image.png](http://120.26.79.238/minioapi/orange-blog/articleImages/1/a9ab421ee8b74fe6b92e6ed87fdba0da.png)
+![image.png](http://120.26.79.238:9000/orange-blog/articleImages/1/a9ab421ee8b74fe6b92e6ed87fdba0da.png)
 
 
 # ShardingSphere-JDBC读写分离

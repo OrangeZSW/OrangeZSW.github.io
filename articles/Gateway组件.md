@@ -18,7 +18,7 @@ cover:
 
 ## 架构图
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/500aeff97ef93d3543ef8c059bf4e0f8.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/500aeff97ef93d3543ef8c059bf4e0f8.png)
 
 
 ## 三大核心概念
@@ -37,7 +37,7 @@ cover:
 
 ## 工作流程
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/b6febb88e53ca66217d7b95833168f37.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/b6febb88e53ca66217d7b95833168f37.png)
 
 
 * 客户端向Spring Cloud Gateway发出请求。然后在Gateway Handler Mapping中找到与请求匹配的路由，将其发送到Gateway Web Handler.
@@ -116,7 +116,7 @@ spring:
 - 框架底层提供了很多规则
 - 官网：https://docs.spring.io/spring-cloud-gateway/docs/4.0.6/reference/html/#gateway-request-predicates-factories
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/214a26d647add7520610640d7f93baba.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/214a26d647add7520610640d7f93baba.png)
 
 
 ### predicate

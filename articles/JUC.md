@@ -683,12 +683,12 @@ add正常执行返回true，element（不删除）和remove返回阻塞队列中
 ```
 
 ​    2.用户自定义线程池
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/4c1f58c69a3d2d9e55d09a18ce7a16a1.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/4c1f58c69a3d2d9e55d09a18ce7a16a1.png)
 
 线程池工具类的三个方法的本质都是ThreadPoolExecutor的实例化对象
 
 ### 线程池的7个参数
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/03ee9499fb5f1b533fe6d193c1b406d6.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/03ee9499fb5f1b533fe6d193c1b406d6.png)
 
 
 1. corePoolSize：线程池中的常驻核心线程数
@@ -701,7 +701,7 @@ add正常执行返回true，element（不删除）和remove返回阻塞队列中
 
 ### 线程池的工作原理
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/03614a601789d1577e3515876f24e080.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/03614a601789d1577e3515876f24e080.png)
 
 1. 在创建了线程池后，线程池中的线程数为零。
 2. 当调用execute()方法添加一个请求任务时，线程池会做出如下判断：
@@ -716,7 +716,7 @@ add正常执行返回true，element（不删除）和remove返回阻塞队列中
 
 >线程池的最大负载：maximumpoolsize+blockingqueuesize
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/0661de0e6e05f34962ba290b0253d90f.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/0661de0e6e05f34962ba290b0253d90f.png)
 
 
 ### 拒绝策略
@@ -801,12 +801,12 @@ executorService.prestartAllCoreThreads();//开启所有的核心线程
 ## 多线程高并发底层原理
 
 计算机运行架构图
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/185269c1ad455db1f0a69020f7244535.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/185269c1ad455db1f0a69020f7244535.png)
 
 
 ### java内存模型
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/a2efb89bb1ed915e25cbdc9b6926eaf6.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/a2efb89bb1ed915e25cbdc9b6926eaf6.png)
 
 JMM规定了内存主要划分为**主内存**和**工作内存**两种。
 
@@ -879,7 +879,7 @@ AbstractQueuedSynchronizer抽象队列同步器简称AQS，它是实现同步器
 AQS框架结构如下：
 
 AQS内部维护着一个FIFO双向队列，该队列就是`CLH同步队列`。
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/6e0cb17740d4ca629866070f18b00666.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/6e0cb17740d4ca629866070f18b00666.png)
 
 AQS维护了一个volatile语义(支持多线程下的可见性)的共享资源变量**state**和一个FIFO（first-in-first-out）**线程等待队列**(多线程竞争state资源被阻塞时，会进入此队列)。
 
@@ -908,7 +908,7 @@ AQS将大部分的同步逻辑均已经实现好，继承的自定义同步器�
 
 ### ReentrantLock底层原理
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/290dd92ba7e3e91ef40851699b9ffc6a.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/290dd92ba7e3e91ef40851699b9ffc6a.png)
 
 在ReentrantLock类中包含了3个AQS的实现类：
 
@@ -967,7 +967,7 @@ Happen-Before的规则有以下几条：
 
 工作流程：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/33b3dcce4ac90eae34c8d5796a76f443.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/33b3dcce4ac90eae34c8d5796a76f443.png)
 
 
 线程获取锁的流程：
@@ -985,7 +985,7 @@ Happen-Before的规则有以下几条：
 2、唤醒下一个Node B节点，然后删除线程A节点
 
 ### 共享模式
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/b196073b1a21955e132515acf42db2ae.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/b196073b1a21955e132515acf42db2ae.png)
 
 
 获取锁的流程：
@@ -1014,7 +1014,7 @@ Java中的对象是由三部分组成，分别是**对象头、对象体和对�
 * 对象头中的Klass Word存储的是Class对象的地址，表明该对象是属于那个类
 * 标记字段Mark Word则存储了该对象运行时数据，如哈希码（hashcode)、GC分代年龄、**锁状态标志和锁类型等信息**。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/e2e65a6045c9369633166c2cb8dd1573.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/e2e65a6045c9369633166c2cb8dd1573.png)
 
 
 > synchronized上锁原理
@@ -1034,7 +1034,7 @@ public class SynchronizedDemo {
 ```
 
 通过javap查看字节码文件信息，如下所示：
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/4d5d7deb04055f4416ab1d852eeee939.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/4d5d7deb04055f4416ab1d852eeee939.png)
 
 从上面我们可以看出：synchronized 同步语句块的实现使用的是 monitorenter 和 monitorexit 指令，其中monitorenter 指令指向同步代码块的开始位置，
 
@@ -1044,7 +1044,7 @@ monitorexit 指令则指明同步代码块的结束位置。当执行 monitorent
 
 Mark Word结构如下所示：
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/6cf47960cc5c58c51f5ddd4b97f386de.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/6cf47960cc5c58c51f5ddd4b97f386de.png)
 
 并发锁总共有4种状态：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，每种状态在并发竞争情况下需要消耗的资源由低到高，性能由高到低。（锁信息占3位）在jdk1.6之前只有重量级锁，而JDK1.6之后对synchronized进行了优化，引入了偏向锁与轻量级锁，提高了性能降低了资源消耗。
 
@@ -1075,4 +1075,4 @@ Mark Word结构如下所示：
 
 4、重量级锁：但是当自旋超过了一定次数，或者一个线程持有锁，一个线程在自旋，又来了第三个线程访问时（反正就是竞争继续加大了），轻量级锁就会膨胀为重量级锁，重量级锁就是Synchronized,重量级锁会使除了此时拥有锁的线程以外的线程都阻塞。
 
-![](http://120.26.79.238/minioapi/orange-blog/articleImages/1/634979a855ebe5dabf3c714f4da9e31d.png)
+![](http://120.26.79.238:9000/orange-blog/articleImages/1/634979a855ebe5dabf3c714f4da9e31d.png)
