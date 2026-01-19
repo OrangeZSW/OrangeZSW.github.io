@@ -3,7 +3,7 @@ title: SpringBoot+vue学习
 date: 2023-09-08 00:16:34
 categories: 学习
 tags: SpringBoot
-cover: http://oss.zorange.online/blog/wallhaven-jxyj3p_1920x1080.png
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/wallhaven-jxyj3p_1920x1080.png
 ---
 
 ## Application.yml 配置
@@ -32,7 +32,7 @@ mybatis-plus:
 
 1. #### 注解
 
-![](http://oss.zorange.online/blog/image-20231001103758694.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231001103758694.png)
 
 2. mybatis 的 xml 文件里面
 
@@ -90,7 +90,7 @@ private String password;
 
 ## Mybatis plus 实体类的注解
 
-![](http://oss.zorange.online/blog/image-20231004103440387.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004103440387.png)
 
 ## 后端分页（UserController.java）
 
@@ -252,11 +252,11 @@ export default request;
 
 #### main.js
 
-![](http://oss.zorange.online/blog/image-20231004154555901.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004154555901.png)
 
 使用：
 
-![](http://oss.zorange.online/blog/image-20231005153840604.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231005153840604.png)
 
 ### 2. vue add axios
 
@@ -266,11 +266,11 @@ vue add axios
 
 使用：
 
-![](http://oss.zorange.online/blog/image-20231004160946025.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004160946025.png)
 
 返回的数据：
 
-![](http://oss.zorange.online/blog/image-20231004161101596.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004161101596.png)
 
 
 
@@ -282,7 +282,7 @@ vue add axios
 children: [ { 子路由一 }, { 子路由二 } ]
 ```
 
-![](http://oss.zorange.online/blog/image-20231009185211177.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231009185211177.png)
 
 1. 创建一个 components.vue
 2. 将需要的组件复制过来

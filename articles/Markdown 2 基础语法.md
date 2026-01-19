@@ -3,7 +3,7 @@ title: Markdown 2 基础语法
 date: 2022-9-28 00:16:34
 categories: 学习
 tags: Markdown
-cover: http://oss.zorange.online/blog/Markdown.jpg
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/Markdown.jpg
 ---
 
 # Markdown 2 基础语法

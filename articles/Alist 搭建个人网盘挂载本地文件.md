@@ -3,7 +3,7 @@ title: Alist 搭建个人网盘挂载本地文件
 date: 2023-05-25
 categories: Records
 tags: Alist
-cover: http://oss.zorange.online/blog/alist.jpg
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/alist.jpg
 ---
 
 # windows 版本部署 ALis
@@ -12,11 +12,11 @@ cover: http://oss.zorange.online/blog/alist.jpg
 
 {%note info no-icon%}下载地址：https://github.com/alist-org/alist/releases{%endnote%}
 
-![](http://oss.zorange.online/blog/20230525212652.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525212652.png)
 
 下载之后解压打开
 
-![](http://oss.zorange.online/blog/20230525212801.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525212801.png)
 
 ## :running:运行
 
@@ -32,7 +32,7 @@ cover: http://oss.zorange.online/blog/alist.jpg
 .\alist.exe admin
 ```
 
-![](http://oss.zorange.online/blog/20230525213431.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525213431.png)
 
 3. 再次运行 alist：在 alist 目录下打开 cmd 运行
 
@@ -41,7 +41,7 @@ cover: http://oss.zorange.online/blog/alist.jpg
 alist start
 ```
 
-![](http://oss.zorange.online/blog/20230525213842.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525213842.png)
 
 4. 打开浏览器输入：127.0.0.1:5244
 
@@ -49,29 +49,29 @@ alist start
 127.0.0.1:5244
 ```
 
-![](http://oss.zorange.online/blog/20230525214336.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525214336.png)
 
 5. 修改密码：点击页面下面的管理
 
-![](http://oss.zorange.online/blog/20230525214426.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525214426.png)
 
 ## 挂载本地文件
 
 1. 添加存储
 
-![](http://oss.zorange.online/blog/20230525215146.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215146.png)
 
 2. 设置你要挂载本地文件的路径：比如我要挂载 D:\IDM\ 下载
 
-![](http://oss.zorange.online/blog/20230525215434.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215434.png)
 
 3. 提交即可，如图即挂载成功
 
-![](http://oss.zorange.online/blog/20230525215727.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215727.png)
 
 4. 挂载成功
 
-![](http://oss.zorange.online/blog/20230525215813.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215813.png)
 
 ## 为 AList 添加快捷启动和暂停
 

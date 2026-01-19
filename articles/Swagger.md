@@ -3,7 +3,7 @@ title: Swagger
 date: 2023-11-01 16:55:45
 categories: 学习
 tags: Swagger
-cover: http://oss.zorange.online/blog/swagger.png
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/swagger.png
 ---
 
 ## :gear:swagger3 配置

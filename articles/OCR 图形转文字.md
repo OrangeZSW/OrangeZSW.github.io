@@ -3,7 +3,7 @@ title: OCR 图形转文字
 date: 2022-12-20 00:16:34
 categories: Code
 tags: OCR
-cover: http://oss.zorange.online/blog/ORC.png
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/ORC.png
 ---
 
 # OCR 图像转文字

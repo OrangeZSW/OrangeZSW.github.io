@@ -3,7 +3,7 @@ title: java-mysql JDBC 连接数据库
 date: 2022-9-30 00:16:34
 categories: 学习
 tags: JDBC
-cover: http://oss.zorange.online/blog/java-mysql%2520JDBC%2520.jpg
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/java-mysql%2520JDBC%2520.jpg
 ---
 
 # java-mysql JDBC 连接数据库
@@ -18,7 +18,7 @@ cover: http://oss.zorange.online/blog/java-mysql%2520JDBC%2520.jpg
 
 2. 下载 java 连接 mysql 的数据包 [jar](https://dev.mysql.com/downloads/connector/j/)
 
-![](http://oss.zorange.online/blog/1664538641591.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664538641591.png)
 
 ## 导入 jar 数据包
 
@@ -26,19 +26,19 @@ cover: http://oss.zorange.online/blog/java-mysql%2520JDBC%2520.jpg
 
 1. 这里以 IDEA 为例，打开 IDEA. 打开项目结构 (theProjectStructure 使用的插件翻译，不知道准不准，下面一样)
 
-![](http://oss.zorange.online/blog/1664539063792.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664539063792.png)
 
 2. 找到模块 (theModule), 选择想要连接数据库的项目，然后点击依赖 (relyOn), 最后点击加号.
 
-![](http://oss.zorange.online/blog/1664539710423.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664539710423.png)
 
 3. 选择第一个 JAR 或目录
 
-![](http://oss.zorange.online/blog/1664539813085.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664539813085.png)
 
 4. 最后找到你放 jar 的位置，导入就行了。到此为止 jar 包就导入成功了.
 
-![](http://oss.zorange.online/blog/1664539925809-17210486389646.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664539925809-17210486389646.png)
 
 ## 连接数据库
 
@@ -46,7 +46,7 @@ cover: http://oss.zorange.online/blog/java-mysql%2520JDBC%2520.jpg
 
 1. 首先，实例化这三个对象。根据我的理解，第一个 (Connection) 就是用来连接数据库的，第二个 (Statement) 是连接数据库之后，想要运行 mysql 语句用的，最后一个 (Resultset) 就是用来得到或更新你的 mysql 语句的结果.(可以先不用写这一步，你用到再写应该也行)
 
-![](http://oss.zorange.online/blog/1664540196391.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664540196391.png)
 
 user 就是你数据库的用户名，默认的就是 root.
 
@@ -62,7 +62,7 @@ Calss.forNmae 是注册驱动，就是上面的 driver.
 
 很好，这样就成功连接了数据库.
 
-![](http://oss.zorange.online/blog/1664540663146.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664540663146.png)
 
 注意：数据库的语句操作都必须放在 try {catch (){}} 中，如下
 
@@ -96,7 +96,7 @@ while(rs.next()){
 
 具体实现:
 
-![](http://oss.zorange.online/blog/1664541517504.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/1664541517504.png)
 
 2. insert:
 

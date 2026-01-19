@@ -3,7 +3,7 @@ title: vscode setting
 date: 2022-9-29 00:16:34
 categories: Records
 tags: setting
-cover: http://oss.zorange.online/blog/Vscode%20Setting-172104960759736.jpg
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/Vscode%20Setting-172104960759736.jpg
 ---
 
 # vscode setting

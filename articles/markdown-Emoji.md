@@ -2,7 +2,7 @@
 title: Markdown-Emoji
 date: 2022-11-01 18:31:10
 tags: Markdown
-cover: http://oss.zorange.online/blog/markdown-Emoji.jpg
+cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/markdown-Emoji.jpg
 ---
 
 ## People

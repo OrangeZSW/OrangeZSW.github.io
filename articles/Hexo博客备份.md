@@ -15,7 +15,7 @@ cover:
 
 然后在将 Hexo 博客发布在 main 分支下，改\_config.yml 下的配置，然后将发布 pages 的分支改为 main。
 
-![](http://oss.zorange.online/blog/image-20231013093125128.png)
+![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231013093125128.png)
 
 ## 开始
 
