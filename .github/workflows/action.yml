@@ -42,7 +42,7 @@ jobs:
       - name: Install Hexo dependencies
         run: |
           cd hexo-blog
-          npm ci --legacy-peer-deps
+          npm install
 
       - name: Copy articles to Hexo posts
         run: |
