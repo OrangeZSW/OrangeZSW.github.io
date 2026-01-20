@@ -42,7 +42,10 @@ jobs:
       - name: Install Hexo dependencies
         run: |
           cd hexo-blog
-          npm install
+          # 全局安装 hexo-cli
+          npm install -g hexo-cli
+          # 安装项目依赖
+          npm install --legacy-peer-deps
 
       - name: Copy articles to Hexo posts
         run: |
