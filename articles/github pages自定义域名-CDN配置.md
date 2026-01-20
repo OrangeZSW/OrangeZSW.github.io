@@ -31,13 +31,13 @@ A 记录的 IP 地址可以通过 Ping YOUNAME.github.io 得到
 
 在 github 项目的根目录下新建文件 CNAME，里面填写自己的域名就行了
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231011111121147.png)
+![image-20260121012428120](http://120.26.79.238:9000/blog/img/image-20260121012428120.png)
 
 在 github 的项目 setting->Pages 下面，在里面填入自己的域名，然后 Save 就行了。
 
 下面有个 Enforce HTTPS，自动申请，可以打开也可以不打开（如果要配置 CDN 好像不能打开，但是我打开了也配置了 CDN 没出现问题）
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231011111313458.png)
+![image-20260121012438052](http://120.26.79.238:9000/blog/img/image-20260121012438052.png)
 
 ## CDN 配置
 
@@ -51,11 +51,11 @@ A 记录的 IP 地址可以通过 Ping YOUNAME.github.io 得到
 
 [官方文档](https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages)
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231012194245918.png)
+![image-20260121012450411](http://120.26.79.238:9000/blog/img/image-20260121012450411.png)
 
 ### dns 解析
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231013105843644.png)
+![image-20260121012459646](http://120.26.79.238:9000/blog/img/image-20260121012459646.png)
 
 ### cdn 的配置
 
@@ -72,10 +72,10 @@ A 记录的 IP 地址可以通过 Ping YOUNAME.github.io 得到
 
 自定义域名时勾选了 HTTPS 就选 443，没有勾就填 80
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231012195018683.png)
+![image-20260121012526508](http://120.26.79.238:9000/blog/img/image-20260121012526508.png)
 
 回源 HOST：
 
 填自己的加速域名就行了
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231012195228129.png)
+![image-20260121012539614](http://120.26.79.238:9000/blog/img/image-20260121012539614.png)

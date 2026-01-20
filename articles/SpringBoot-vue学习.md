@@ -32,7 +32,7 @@ mybatis-plus:
 
 1. #### 注解
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231001103758694.png)
+![image-20260121012100115](http://120.26.79.238:9000/blog/img/image-20260121012100115.png)
 
 2. mybatis 的 xml 文件里面
 
@@ -86,11 +86,9 @@ public class CorsConfig {
 private String password;
 ```
 
-![](D:/OrangeZSW.github.io/source/_posts/Img_Typora/SpringBoot-vue%E5%AD%A6%E4%B9%A0/image-20231004145243587.png)
-
 ## Mybatis plus 实体类的注解
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004103440387.png)
+![image-20260121012151145](http://120.26.79.238:9000/blog/img/image-20260121012151145.png)
 
 ## 后端分页（UserController.java）
 
@@ -252,11 +250,11 @@ export default request;
 
 #### main.js
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004154555901.png)
+![image-20260121012245012](http://120.26.79.238:9000/blog/img/image-20260121012245012.png)
 
 使用：
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231005153840604.png)
+![image-20260121012256527](http://120.26.79.238:9000/blog/img/image-20260121012256527.png)
 
 ### 2. vue add axios
 
@@ -266,11 +264,11 @@ vue add axios
 
 使用：
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004160946025.png)
+![image-20260121012315388](http://120.26.79.238:9000/blog/img/image-20260121012315388.png)
 
 返回的数据：
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231004161101596.png)
+![image-20260121012323039](http://120.26.79.238:9000/blog/img/image-20260121012323039.png)
 
 
 
@@ -282,7 +280,7 @@ vue add axios
 children: [ { 子路由一 }, { 子路由二 } ]
 ```
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/image-20231009185211177.png)
+![image-20260121012340651](http://120.26.79.238:9000/blog/img/image-20260121012340651.png)
 
 1. 创建一个 components.vue
 2. 将需要的组件复制过来

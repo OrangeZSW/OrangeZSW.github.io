@@ -12,11 +12,11 @@ cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/alist.jpg
 
 {%note info no-icon%}下载地址：https://github.com/alist-org/alist/releases{%endnote%}
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525212652.png)
+![image-20260121011229023](http://120.26.79.238:9000/blog/img/image-20260121011229023.png)
 
 下载之后解压打开
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525212801.png)
+![image-20260121011311789](http://120.26.79.238:9000/blog/img/image-20260121011311789.png)
 
 ## :running:运行
 
@@ -32,7 +32,7 @@ cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/alist.jpg
 .\alist.exe admin
 ```
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525213431.png)
+![image-20260121011350310](http://120.26.79.238:9000/blog/img/image-20260121011350310.png)
 
 3. 再次运行 alist：在 alist 目录下打开 cmd 运行
 
@@ -41,7 +41,7 @@ cover: http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/alist.jpg
 alist start
 ```
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525213842.png)
+![image-20260121011409219](http://120.26.79.238:9000/blog/img/image-20260121011409219.png)
 
 4. 打开浏览器输入：127.0.0.1:5244
 
@@ -49,29 +49,29 @@ alist start
 127.0.0.1:5244
 ```
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525214336.png)
+![image-20260121011550827](http://120.26.79.238:9000/blog/img/image-20260121011550827.png)
 
 5. 修改密码：点击页面下面的管理
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525214426.png)
+![image-20260121011613960](http://120.26.79.238:9000/blog/img/image-20260121011613960.png)
 
 ## 挂载本地文件
 
 1. 添加存储
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215146.png)
+![image-20260121011638646](http://120.26.79.238:9000/blog/img/image-20260121011638646.png)
 
 2. 设置你要挂载本地文件的路径：比如我要挂载 D:\IDM\ 下载
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215434.png)
+![image-20260121011658440](http://120.26.79.238:9000/blog/img/image-20260121011658440.png)
 
 3. 提交即可，如图即挂载成功
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215727.png)
+![image-20260121011711749](http://120.26.79.238:9000/blog/img/image-20260121011711749.png)
 
 4. 挂载成功
 
-![](http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/20230525215813.png)
+![image-20260121011725399](http://120.26.79.238:9000/blog/img/image-20260121011725399.png)
 
 ## 为 AList 添加快捷启动和暂停
 
