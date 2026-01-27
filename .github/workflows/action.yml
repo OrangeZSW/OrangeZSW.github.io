@@ -1,4 +1,4 @@
-name: Deploy He,o Blog
+name: Deploy Hexo Blog
 
 on:
   push:
