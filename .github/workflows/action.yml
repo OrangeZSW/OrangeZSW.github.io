@@ -1,0 +1,116 @@
+name: Deploy He,o Blog
+
+on:
+  push:
+    branches:
+      - article
+  workflow_dispatch:
+
+env:
+  HEXO_BRANCH: Hexo  # 修改为您的Hexo分支名
+  ARTICLE_BRANCH: article
+  BLOG_REPO: OrangeZSW/OrangeZSW.github.io.git  # 修改为您的Hexo博客仓库
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout article branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ARTICLE_BRANCH }}
+          path: article-repo
+
+      - name: Checkout Hexo blog
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.BLOG_REPO }}
+          ref: ${{ env.HEXO_BRANCH }}
+          path: hexo-blog
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: hexo-blog/package-lock.json
+
+      - name: Install Hexo dependencies
+        run: |
+          cd hexo-blog
+          # 全局安装 hexo-cli
+          npm install -g hexo-cli
+          # 安装项目依赖
+          npm install --legacy-peer-deps
+
+      - name: Copy articles to Hexo posts
+        run: |
+          # 创建_posts目录（如果不存在）
+          mkdir -p hexo-blog/source/_posts
+          
+          # 复制article分支中的文章到_posts目录
+          # 假设文章在article-repo/articles/目录下
+          if [ -d "article-repo/articles" ]; then
+            cp -r article-repo/articles/* hexo-blog/source/_posts/
+          else
+            # 如果文章直接在article-repo根目录下
+            cp -r article-repo/*.md hexo-blog/source/_posts/ 2>/dev/null || true
+          fi
+          
+          # 显示复制结果
+          echo "Copied articles:"
+          ls -la hexo-blog/source/_posts/
+
+      - name: Generate static files
+        run: |
+          cd hexo-blog
+          hexo clean
+          hexo generate --debug
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd hexo-blog
+
+          # 设置git配置
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # 修改Hexo配置中的repo地址
+          REPO_WITH_TOKEN="https://x-access-token:$GITHUB_TOKEN@github.com/OrangeZSW/OrangeZSW.github.io.git"
+
+          # 使用yq工具修改YAML文件（如果已安装）
+          # 或者使用sed简单替换
+          if grep -q "repo:" _config.yml; then
+            sed -i "s|repo:.*|repo: $REPO_WITH_TOKEN|" _config.yml
+          else
+            # 如果deploy配置不存在，创建它
+            echo "deploy:" >> _config.yml
+            echo "  type: git" >> _config.yml
+            echo "  repo: $REPO_WITH_TOKEN" >> _config.yml
+            echo "  branch: main" >> _config.yml
+          fi
+
+          echo "Updated config:"
+          grep -A 3 "deploy:" _config.yml
+
+          # 部署
+          hexo deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed! Check your GitHub Pages site."
+
+  # 可选：添加测试步骤
+  test:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    steps:
+      - name: Test deployment
+        run: |
+          echo "Deployment test completed successfully"
