@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ShardingSphere | Orange's_Blog</title><meta name="author" content="Orange"><meta name="copyright" content="Orange"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="高性能架构模式   性能数据库集群的方式是:  读写分离 数据库分片    读写分离架构  读写分离原理: 读写分离的基本原理是将数据库读写操作分散到不同的节点上，下面是其基本架构图：  读写分离的基本实现：  主库负责处理事务性的增删改操作，从库负责处理查询操作，能够有效的避免由数据更新导致的行锁，使得整个系统的查询性能得到极大的改善。 读写分离是根据 SQL 语义的分析，将读操作和写操作分别路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ShardingSphere">
+<meta property="og:url" content="http://www.zorange.online/2025/09/15/ShardingSphere/index.html">
+<meta property="og:site_name" content="Orange&#39;s_Blog">
+<meta property="og:description" content="高性能架构模式   性能数据库集群的方式是:  读写分离 数据库分片    读写分离架构  读写分离原理: 读写分离的基本原理是将数据库读写操作分散到不同的节点上，下面是其基本架构图：  读写分离的基本实现：  主库负责处理事务性的增删改操作，从库负责处理查询操作，能够有效的避免由数据更新导致的行锁，使得整个系统的查询性能得到极大的改善。 读写分离是根据 SQL 语义的分析，将读操作和写操作分别路">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg">
+<meta property="article:published_time" content="2025-09-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-27T01:09:52.666Z">
+<meta property="article:author" content="Orange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/OrangeZSW/blog_img/preview.jpg"><link rel="canonical" href="http://www.zorange.online/2025/09/15/ShardingSphere/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ShardingSphere',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-27 09:09:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/message.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Orange's_Blog"><img class="site-icon" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/logo.png"/><span class="site-name">Orange's_Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ShardingSphere</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-27T01:09:52.666Z" title="更新于 2026-01-27 09:09:52">2026-01-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2025/09/15/ShardingSphere/" data-flag-title="ShardingSphere"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>高性能架构模式</h1>
+<ul>
+<li>
+<p>性能数据库集群的方式是:</p>
+<ul>
+<li>读写分离</li>
+<li>数据库分片</li>
+</ul>
+</li>
+</ul>
+<h2 id="读写分离架构">读写分离架构</h2>
+<ul>
+<li><strong>读写分离原理</strong>: 读写分离的基本原理是将数据库读写操作分散到不同的节点上，下面是其基本架构图：<br>
+<img src="http://120.26.79.238:9000/blog/img/5c55180dd754470ba283c0df1470d846.png" alt="image.png"></li>
+<li>读写分离的基本实现：
+<ul>
+<li>主库负责处理事务性的增删改操作，从库负责处理查询操作，能够有效的避免由数据更新导致的行锁，使得整个系统的查询性能得到极大的改善。</li>
+<li>读写分离是根据 SQL 语义的分析，将读操作和写操作分别路由至主库与从库。</li>
+<li>通过一主多从的配置方式，可以将查询请求均匀的分散到多个数据副本，能够进一步的提升系统的处理能力。</li>
+<li>使用多主多从的方式，不但能够提升系统的吞吐量，还能够提升系统的可用性，可以达到在任何一个数据库宕机，甚至磁盘物理损坏的情况下仍然不影响系统的正常运行。</li>
+</ul>
+</li>
+</ul>
+<h3 id="CAP-理论">CAP 理论</h3>
+<ul>
+<li>CAP 定理（CAP theorem）又被称作布鲁尔定理（Brewer’s theorem），是加州大学伯克利分校的计算机科学家埃里克·布鲁尔（Eric Brewer）在 2000 年的 ACM PODC 上提出的一个猜想。对于设计分布式系统的架构师来说，CAP 是必须掌握的理论。</li>
+<li>在一个分布式系统中，当涉及读写操作时，只能保证一致性（Consistence）、可用性（Availability）、分区容错性（Partition Tolerance）三者中的两个，另外一个必须被牺牲。
+<ul>
+<li>C 一致性（Consistency）：对某个指定的客户端来说，读操作保证能够返回最新的写操作结果</li>
+<li>A 可用性（Availability）：非故障的节点在合理的时间内返回合理的响应（不是错误和超时的响应）</li>
+<li>P 分区容忍性（Partition Tolerance）：当出现网络分区后（可能是丢包，也可能是连接中断，还可能是拥塞），系统能够继续“履行职责”</li>
+</ul>
+</li>
+</ul>
+<h3 id="CAP特点">CAP特点</h3>
+<ul>
+<li>在实际设计过程中，每个系统不可能只处理一种数据，而是包含多种类型的数据，有的数据必须选择 CP，有的数据必须选择 AP，分布式系统理论上不可能选择 CA 架构。</li>
+<li>CP: 在分布式数据库中 , 为了保持<code>一致性</code>,  当一个节点更新了数据之后, 另外一个节点还没来得及更新,但是此时有服务访问, 该服务必须返回错误相关信息, 但是却违背了 可用性. 因此,只能满足 CP</li>
+<li>AP: 为了保持<code>可用性</code>, 即使节点还没更新, 当有服务访问时, 服务会返回一个 <code>合理</code>的结果, 但是这个结果可能不是 <code>正确</code>,这就不满足<code>一致性</code>.</li>
+</ul>
+<p><strong>一致性</strong>:  CAP 理论中的 C 在实践中是不可能完美实现的，在数据复制的过程中，节点N1 和节点 N2 的数据并不一致（强一致性）。即使无法做到强一致性，但应用可以采用适合的方式达到最终一致性。具有如下特点：</p>
+<ul>
+<li>基本可用（Basically Available）：分布式系统在出现故障时，允许损失部分可用性，即保证核心可用。</li>
+<li>软状态（Soft State）：允许系统存在中间状态，而该中间状态不会影响系统整体可用性。这里的中间状态就是 CAP 理论中的数据不一致。</li>
+<li>最终一致性（Eventual Consistency）：系统中的所有数据副本经过一定时间后，最终能够达到一致的状态。</li>
+</ul>
+<h2 id="数据库分片架构">数据库分片架构</h2>
+<p><strong>读写分离的问题</strong>：</p>
+<p>读写分离分散了数据库读写操作的压力，但没有分散存储压力，为了满足业务数据存储的需求，就需要将存储分散到多台数据库服务器上。</p>
+<p><strong>数据分片</strong>：</p>
+<p>将存放在单一数据库中的数据分散地存放至多个数据库或表中，以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。数据分片的拆分方式又分为<strong>垂直分片</strong>和<strong>水平分片</strong>。</p>
+<h3 id="垂直分片">垂直分片</h3>
+<h4 id="垂直分库">垂直分库</h4>
+<ul>
+<li>将不同的表存储在不同的数据库中</li>
+<li>按照业务拆分的方式称为垂直分片，又称为纵向拆分，它的核心理念是专库专用。 在拆分之前，一个数据库由多个数据表构成，每个表对应着不同的业务。而拆分之后，则是按照业务将表进行归类，分布到不同的数据库中，从而将压力分散至不同的数据库。</li>
+<li>垂直拆分可以缓解数据量和访问量带来的问题，但无法根治。如果垂直拆分之后，表中的数据量依然超过单节点所能承载的阈值，则需要水平分片来进一步处理。</li>
+</ul>
+<h4 id="垂直分表：">垂直分表：</h4>
+<p><code>垂直分表适合将表中某些不常用的列，或者是占了大量空间的列拆分出去。</code></p>
+<ul>
+<li>拆分一个表中的常用字段和 不常用字段, 这样在查找时, 就只用查找常用的字段,如果需要其他不常用的, 则可以在另外一张表中查找.</li>
+</ul>
+<h3 id="水平分片">水平分片</h3>
+<p>水平分片又称为横向拆分。 相对于垂直分片，它不再将数据根据业务逻辑分类，而是通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。 例如：根据主键分片，偶数主键的记录放入 0 库（或表），奇数主键的记录放入 1 库（或表），</p>
+<ul>
+<li>
+<p>单表进行切分后，是否将多个表分散在不同的数据库服务器中，可以根据实际的切分效果来确定。</p>
+</li>
+<li>
+<p>水平分表：单表切分为多表后，新的表即使在同一个数据库服务器中，也可能带来可观的性能提升，如果性能能够满足业务要求，可以不拆分到多台数据库服务器，毕竟业务分库也会引入很多复杂性；</p>
+</li>
+<li>
+<p>水平分库：如果单表拆分为多表后，单台服务器依然无法满足性能要求，那就需要将多个表分散在不同的数据库服务器中。</p>
+</li>
+</ul>
+<blockquote>
+<p>阿里巴巴Java开发手册：<br>
+【推荐】单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。<br>
+说明：如果预计三年后的数据量根本达不到这个级别，请不要在创建表时就分库分表。</p>
+</blockquote>
+<h1>解决方案</h1>
+<h2 id="程序代码封装">程序代码封装</h2>
+<p>程序代码封装指在代码中抽象一个数据访问层（或中间层封装），实现读写操作分离和数据库服务器连接的管理。</p>
+<p>其基本架构是：以读写分离为例<br>
+<img src="http://120.26.79.238:9000/blog/img/d628ef662dd54e1f80385800f594f9ba.png" alt="image.png"></p>
+<h2 id="中间件封装">中间件封装</h2>
+<p>中间件封装指的是独立一套系统出来，实现读写操作分离和数据库服务器连接的管理。对于业务服务器来说，访问中间件和访问数据库没有区别，在业务服务器看来，中间件就是一个数据库服务器。</p>
+<p>基本架构是：以读写分离为例</p>
+<p><img src="http://120.26.79.238:9000/blog/img/9183594276f6454fa4f70387b7d06341.png" alt="image.png"></p>
+<h2 id="常用解决方案">常用解决方案</h2>
+<ul>
+<li>
+<p>Apache ShardingSphere</p>
+<ul>
+<li>程序代码封装：ShardingSphere-JDBC</li>
+<li>中间件封装：ShardingSphere-Proxy</li>
+</ul>
+<p>官网：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://shardingsphere.apache.org/index_zh.html">https://shardingsphere.apache.org/index_zh.html</a><br>
+文档：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://shardingsphere.apache.org/document/5.4.0/cn/overview/">https://shardingsphere.apache.org/document/5.4.0/cn/overview/</a></p>
+</li>
+<li>
+<p>MyCat：数据库中间件</p>
+</li>
+</ul>
+<h1>MySQL主从同步</h1>
+<h2 id="MySQL主从同步原理">MySQL主从同步原理</h2>
+<p><img src="http://120.26.79.238:9000/blog/img/d6fda58abba1499db3feb43c9717be84.png" alt="image.png"></p>
+<p><strong>基本原理</strong>：</p>
+<p>slave会从master读取binlog来进行数据同步</p>
+<p><strong>具体步骤：</strong></p>
+<ul>
+<li>step1：master将数据改变记录到二进制日志（binary log）中。</li>
+<li>step2： 当slave上执行 start slave 命令之后，slave会创建一个 IO 线程用来连接master，请求master中的binlog。</li>
+<li>step3：当slave连接master时，master会创建一个 log dump 线程，用于发送 binlog 的内容。在读取 binlog 的内容的操作中，会对主节点上的 binlog 加锁，当读取完成并发送给从服务器后解锁。</li>
+<li>step4：IO 线程接收主节点 binlog dump 进程发来的更新之后，保存到 中继日志（relay log） 中。</li>
+<li>step5：slave的SQL线程，读取relay log日志，并解析成具体操作，从而实现主从操作一致，最终数据一致。</li>
+</ul>
+<h2 id="一主多从配置">一主多从配置</h2>
+<ul>
+<li><strong>mysql 实现主从复制</strong></li>
+</ul>
+<h3 id="准备主服务器">准备主服务器</h3>
+<h4 id="1-开启binlog日志">1. 开启binlog日志</h4>
+<ul>
+<li>binlog: 在主节点中,必须开启,  默认情况下是开启的</li>
+<li>用于发送增删改的sql记录给从节点进行<strong>增量复制</strong>.</li>
+<li>配置文件设置</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[mysqld]</span></span><br><span class="line"><span class="comment"># 服务器唯一id，默认值1</span></span><br><span class="line"><span class="attr">server-id</span>=<span class="string">1</span></span><br><span class="line"><span class="comment"># 设置日志格式，默认值ROW</span></span><br><span class="line"><span class="attr">binlog_format</span>=<span class="string">STATEMENT</span></span><br><span class="line"><span class="comment"># 二进制日志名，默认binlog</span></span><br><span class="line"><span class="comment"># log-bin=binlog</span></span><br><span class="line"><span class="comment"># 设置需要复制的数据库，默认复制全部数据库</span></span><br><span class="line"><span class="comment">#binlog-do-db=mytestdb1</span></span><br><span class="line"><span class="comment">#binlog-do-db=mytestdb2</span></span><br><span class="line"><span class="comment"># 设置不需要复制的数据库</span></span><br><span class="line"><span class="comment">#binlog-ignore-db=mytestdb3</span></span><br><span class="line"><span class="comment">#binlog-ignore-db=mytestdb4</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>binlog格式说明：</p>
+</li>
+<li>
+<p>binlog_format=STATEMENT：日志记录的是主机数据库的写指令，性能高，但是now()之类的函数以及获取系统参数的操作会出现主从数据不同步的问题。</p>
+</li>
+<li>
+<p>binlog_format=ROW（默认）：日志记录的是主机数据库的写后的数据，批量操作时性能较差，解决now()或者  user()或者  @@hostname 等操作在主从机器上不一致的问题。</p>
+</li>
+<li>
+<p>binlog_format=MIXED：是以上两种level的混合使用，有函数用ROW，没函数用STATEMENT</p>
+</li>
+</ul>
+<h5 id="binlog-ignore-db和binlog-do-db的优先级问题：">binlog-ignore-db和binlog-do-db的优先级问题：</h5>
+<p><img src="http://120.26.79.238:9000/blog/img/ceccb614a5ec432d87d8924110cef2b2.png" alt="image.png"></p>
+<h4 id="2-在主机中创建salve用户">2. 在主机中创建salve用户</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建slave用户</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;atguigu_slave&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line"><span class="comment">-- 设置密码</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;atguigu_slave&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line"><span class="comment">-- 授予复制权限</span></span><br><span class="line"><span class="keyword">GRANT</span> REPLICATION SLAVE <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;atguigu_slave&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用户从机进行增量复制的用户</li>
+</ul>
+<h4 id="3-主机中查询master状态">3. 主机中查询master状态</h4>
+<p>执行完此步骤后不要再操作主服务器MYSQL，防止主服务器状态值变化</p>
+<p><code>  SHOW MASTER STATUS;</code></p>
+<p>记下File和Position的值。执行完此步骤后不要再操作主服务器MYSQL，防止主服务器状态值变化。<br>
+<img src="http://120.26.79.238:9000/blog/img/11992bd177f44247bb8eeff392e05efa.png" alt="image.png"></p>
+<h3 id="准备从服务器">准备从服务器</h3>
+<h4 id="1-编写配置文件">1. 编写配置文件</h4>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[mysqld]</span></span><br><span class="line"><span class="comment"># 服务器唯一id，每台服务器的id必须不同，如果配置其他从机，注意修改id</span></span><br><span class="line"><span class="attr">server-id</span>=<span class="string">2</span></span><br><span class="line"><span class="comment"># 中继日志名，默认xxxxxxxxxxxx-relay-bin</span></span><br><span class="line"><span class="comment">#relay-log=relay-bin</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置主从关系">配置主从关系</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CHANGE MASTER <span class="keyword">TO</span> MASTER_HOST<span class="operator">=</span><span class="string">&#x27;192.168.100.101&#x27;</span>,     # 主机的ip</span><br><span class="line">MASTER_USER<span class="operator">=</span><span class="string">&#x27;atguigu_slave&#x27;</span>,MASTER_PASSWORD<span class="operator">=</span><span class="string">&#x27;123456&#x27;</span>, MASTER_PORT<span class="operator">=</span><span class="number">3306</span>,   # 主机的账号和端口号</span><br><span class="line">MASTER_LOG_FILE<span class="operator">=</span><span class="string">&#x27;binlog.000003&#x27;</span>,MASTER_LOG_POS<span class="operator">=</span><span class="number">1357</span>;        # log_file 的文件名        log的起始位置</span><br></pre></td></tr></table></figure>
+<h3 id="启动主从同步">启动主从同步</h3>
+<p>分别在两台从机上启动从机的复制功能，执行SQL：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">START SLAVE;</span><br><span class="line">-- 查看状态（不需要分号）</span><br><span class="line">SHOW SLAVE STATUS\G</span><br></pre></td></tr></table></figure>
+<p>两个关键进程：下面两个参数都是Yes，则说明主从配置成功！<br>
+<img src="http://120.26.79.238:9000/blog/img/a9ab421ee8b74fe6b92e6ed87fdba0da.png" alt="image.png"></p>
+<h1>ShardingSphere-JDBC读写分离</h1>
+<h2 id="添加依赖">添加依赖</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shardingsphere-jdbc-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--兼容jdk17和spring boot3--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.yaml<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>snakeyaml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.33<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.30<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="配置shardingsphere">配置shardingsphere</h2>
+<h3 id="application-yml">application.yml</h3>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 DataSource Driver</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">org.apache.shardingsphere.driver.ShardingSphereDriver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:shardingsphere:classpath:shardingsphere.yaml</span></span><br></pre></td></tr></table></figure>
+<h3 id="shardingsphere-yaml">shardingsphere.yaml</h3>
+<p>模式配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mode:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Standalone</span></span><br><span class="line"><span class="attr">repository:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">JDBC</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>数据源配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dataSources:</span></span><br><span class="line"><span class="attr">write_ds:</span></span><br><span class="line">  <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3306/db_user</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"><span class="attr">read_ds_0:</span></span><br><span class="line">  <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3307/db_user</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"><span class="attr">read_ds_1:</span></span><br><span class="line">  <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3308/db_user</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>读写分离配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="type">!READWRITE_SPLITTING</span></span><br><span class="line">  <span class="attr">dataSources:</span></span><br><span class="line">    <span class="attr">readwrite_ds:</span></span><br><span class="line">      <span class="attr">writeDataSourceName:</span> <span class="string">write_ds</span></span><br><span class="line">      <span class="attr">readDataSourceNames:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">read_ds_0</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">read_ds_1</span></span><br><span class="line">      <span class="attr">transactionalReadQueryStrategy:</span> <span class="string">PRIMARY</span> <span class="comment"># 事务内读请求的路由策略，可选值：PRIMARY（路由至主库）、FIXED（同一事务内路由至固定数据源）、DYNAMIC（同一事务内路由至非固定数据源）。默认值：DYNAMIC</span></span><br><span class="line">      <span class="attr">loadBalancerName:</span> <span class="string">random</span></span><br><span class="line">  <span class="attr">loadBalancers:</span></span><br><span class="line">    <span class="attr">random:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">RANDOM</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>读写分离配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="type">!READWRITE_SPLITTING</span></span><br><span class="line">  <span class="attr">dataSources:</span></span><br><span class="line">    <span class="attr">readwrite_ds:</span></span><br><span class="line">      <span class="attr">writeDataSourceName:</span> <span class="string">write_ds</span></span><br><span class="line">      <span class="attr">readDataSourceNames:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">read_ds_0</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">read_ds_1</span></span><br><span class="line">      <span class="attr">transactionalReadQueryStrategy:</span> <span class="string">PRIMARY</span> <span class="comment"># 事务内读请求的路由策略，可选值：PRIMARY（路由至主库）、FIXED（同一事务内路由至固定数据源）、DYNAMIC（同一事务内路由至非固定数据源）。默认值：DYNAMIC</span></span><br><span class="line">      <span class="attr">loadBalancerName:</span> <span class="string">random</span></span><br><span class="line">  <span class="attr">loadBalancers:</span></span><br><span class="line">    <span class="attr">random:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">RANDOM</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>输出sql：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">props:</span></span><br><span class="line"><span class="attr">sql-show:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>负载均衡算法配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="type">!READWRITE_SPLITTING</span></span><br><span class="line">  <span class="attr">loadBalancers:</span></span><br><span class="line">    <span class="attr">random:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">RANDOM</span></span><br><span class="line">    <span class="attr">round_robin:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">ROUND_ROBIN</span></span><br><span class="line">    <span class="attr">weight:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">WEIGHT</span></span><br><span class="line">      <span class="attr">props:</span></span><br><span class="line">        <span class="attr">read_ds_0:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">read_ds_1:</span> <span class="number">2</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="事务测试">事务测试</h3>
+<p>transactionalReadQueryStrategy: PRIMARY</p>
+<p>事务内读请求的路由策略，可选值：</p>
+<p>PRIMARY（路由至主库）</p>
+<p>FIXED（同一事务内路由至固定数据源）</p>
+<p>DYNAMIC（同一事务内路由至非固定数据源）。默认值：DYNAMIC</p>
+<h1>ShardingSphere-JDBC垂直分片</h1>
+<ul>
+<li>垂直分库   :  将不同的表存储在不同的数据库中</li>
+<li>垂直分表   : 一张表分为多张表,结构不同.</li>
+</ul>
+<h2 id="垂直分片的配置">垂直分片的配置</h2>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模式配置</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">mode:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Standalone</span></span><br><span class="line">      <span class="attr">repository:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">JDBC</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据源配置：</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">dataSources:</span></span><br><span class="line">      <span class="attr">user_ds:</span></span><br><span class="line">        <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">        <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3301/db_user</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">      <span class="attr">order_ds_0:</span></span><br><span class="line">        <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">        <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3310/db_order</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">      <span class="attr">order_ds_1:</span></span><br><span class="line">        <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">        <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.100.101:3311/db_order</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置一个order分片节点：</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="type">!SHARDING</span></span><br><span class="line">        <span class="attr">tables:</span></span><br><span class="line">          <span class="attr">t_user:</span></span><br><span class="line">            <span class="attr">actualDataNodes:</span> <span class="string">user_ds.t_user</span></span><br><span class="line">          <span class="attr">t_order:</span></span><br><span class="line">            <span class="attr">actualDataNodes:</span> <span class="string">order_ds_0.t_order0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出sql：</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">props:</span></span><br><span class="line">      <span class="attr">sql-show:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改Order实体类的主键策略：</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//@TableId(type</span> <span class="string">=</span> <span class="string">IdType.AUTO)//依赖数据库的主键自增策略</span></span><br><span class="line">    <span class="string">@TableId(type</span> <span class="string">=</span> <span class="string">IdType.ASSIGN_ID)//分布式id</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1>ShardingSphere-JDBC水平分片</h1>
+<ul>
+<li>
+<p>水平分库:</p>
+<ul>
+<li>多个数据库实例中:<br>
+水平分库是指将同一个数据库的表，按照某种规则（比如根据用户ID或地理区域）分散到不同的数据库实例上。每个数据库实例存储相同的表结构，但表中的数据不同。这样可以减少单个数据库实例的压力，增加系统的吞吐量。</li>
+</ul>
+</li>
+<li>
+<p>水平分表:</p>
+<ul>
+<li>一个数据库实例中:<br>
+水平分表是指将同一个表中的数据，按照某种规则划分成多个物理表，但这些表分布在同一个数据库中，逻辑上依然是一个表。水平分表的目的是减少单表的数据量，降低数据库操作的负担。</li>
+</ul>
+<h3 id="水平分库配置文件">水平分库配置文件</h3>
+</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模式</span></span><br><span class="line"><span class="attr">mode:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">Standalone</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">JDBC</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据源</span></span><br><span class="line"><span class="attr">dataSources:</span></span><br><span class="line">  <span class="attr">ds_order_01:</span></span><br><span class="line">    <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">    <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.1.129:3340/db_order_01</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">  <span class="attr">ds_order_02:</span></span><br><span class="line">    <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">    <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.1.129:3341/db_order_01</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="type">!SHARDING</span></span><br><span class="line">    <span class="attr">tables:</span></span><br><span class="line">      <span class="attr">t_order:</span></span><br><span class="line">        <span class="attr">actualDataNodes:</span> <span class="string">ds_order_0$&#123;1..2&#125;.t_order_01</span></span><br><span class="line">        <span class="attr">databaseStrategy:</span></span><br><span class="line">          <span class="attr">standard:</span></span><br><span class="line">            <span class="attr">shardingColumn:</span> <span class="string">user_id</span></span><br><span class="line">            <span class="attr">shardingAlgorithmName:</span> <span class="string">userid_inline</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">shardingAlgorithms:</span></span><br><span class="line">      <span class="attr">userid_inline:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">INLINE</span></span><br><span class="line">        <span class="attr">props:</span></span><br><span class="line">          <span class="attr">algorithm-expression:</span> <span class="string">ds_order_0$&#123;user_id</span> <span class="string">%</span> <span class="number">2</span><span class="string">+1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sql 语句输出</span></span><br><span class="line"><span class="attr">props:</span></span><br><span class="line">  <span class="attr">sql-show:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="水平分表配置文件">水平分表配置文件</h3>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">#模式</span></span><br><span class="line"><span class="attr">mode:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">Standalone</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">JDBC</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据源</span></span><br><span class="line"><span class="attr">dataSources:</span></span><br><span class="line">  <span class="attr">ds_order_01:</span></span><br><span class="line">    <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">    <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.1.129:3340/db_order_01</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">  <span class="attr">ds_order_02:</span></span><br><span class="line">    <span class="attr">dataSourceClassName:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">    <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">jdbcUrl:</span> <span class="string">jdbc:mysql://192.168.1.129:3341/db_order_01</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="type">!SHARDING</span></span><br><span class="line">    <span class="attr">tables:</span></span><br><span class="line">      <span class="attr">t_order:</span></span><br><span class="line">        <span class="attr">actualDataNodes:</span> <span class="string">ds_order_0$&#123;1..2&#125;.t_order_0$&#123;1..2&#125;</span></span><br><span class="line">        <span class="attr">databaseStrategy:</span>    <span class="comment"># 分库策略</span></span><br><span class="line">          <span class="attr">standard:</span></span><br><span class="line">            <span class="attr">shardingColumn:</span> <span class="string">user_id</span></span><br><span class="line">            <span class="attr">shardingAlgorithmName:</span> <span class="string">userid_inline</span></span><br><span class="line">        <span class="attr">tableStrategy:</span>       <span class="comment"># 分表策略</span></span><br><span class="line">          <span class="attr">standard:</span></span><br><span class="line">            <span class="attr">shardingColumn:</span> <span class="string">id</span></span><br><span class="line">            <span class="attr">shardingAlgorithmName:</span> <span class="string">orderid_inline</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">shardingAlgorithms:</span></span><br><span class="line">      <span class="attr">orderid_inline:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">INLINE</span></span><br><span class="line">        <span class="attr">props:</span></span><br><span class="line">          <span class="attr">algorithm-expression:</span> <span class="string">t_order_0$&#123;id</span> <span class="string">%</span> <span class="number">2</span> <span class="string">+</span> <span class="number">1</span><span class="string">&#125;</span></span><br><span class="line">      <span class="attr">userid_inline:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">INLINE</span></span><br><span class="line">        <span class="attr">props:</span></span><br><span class="line">          <span class="attr">algorithm-expression:</span> <span class="string">ds_order_0$&#123;user_id</span> <span class="string">%</span> <span class="number">2</span><span class="string">+1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sql 语句输出</span></span><br><span class="line"><span class="attr">props:</span></span><br><span class="line">  <span class="attr">sql-show:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1>多表关联</h1>
+<p>在server-order0、server-order1服务器中分别创建两张订单详情表t_order_item0、t_order_item1</p>
+<p>我们希望同一个用户的订单表和订单详情表中的数据都在同一个数据源中，避免跨库关联，因此这两张表我们使用相同的分片策略。</p>
+<p>那么在t_order_item中我们也需要创建order_id和user_id这两个分片键</p>
+<ul>
+<li>当两个表存在关联,进行分库分表时,有关联的数据需要在同一个数据库的表中,</li>
+<li>因此,当对其中一个表进行分库分表时, 另外一个表也需要有相同的分库分表列,且有相同的分库分表策略</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.zorange.online">Orange</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.zorange.online/2025/09/15/ShardingSphere/">http://www.zorange.online/2025/09/15/ShardingSphere/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.zorange.online" target="_blank">Orange's_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/09/15/Sentinel/" title="Sentinel"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Sentinel</div></div></a></div><div class="next-post pull-right"><a href="/2025/09/15/Spring%20Boot%20%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%96%B9%E6%B3%95/" title="Spring Boot 项目启动时自动执行的方法"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring Boot 项目启动时自动执行的方法</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Orange</div><div class="author-info__description">welcome to my blog!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/OrangeZSW"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OrangeZSW" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">高性能架构模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">读写分离架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CAP-%E7%90%86%E8%AE%BA"><span class="toc-number">1.1.1.</span> <span class="toc-text">CAP 理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAP%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">CAP特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%89%87%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">数据库分片架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E7%89%87"><span class="toc-number">1.2.1.</span> <span class="toc-text">垂直分片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E5%BA%93"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">垂直分库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E8%A1%A8%EF%BC%9A"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">垂直分表：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E7%89%87"><span class="toc-number">1.2.2.</span> <span class="toc-text">水平分片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81%E5%B0%81%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">程序代码封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%B0%81%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">中间件封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.</span> <span class="toc-text">常用解决方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">MySQL主从同步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">MySQL主从同步原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%BB%E5%A4%9A%E4%BB%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">一主多从配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E4%B8%BB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.2.1.</span> <span class="toc-text">准备主服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%80%E5%90%AFbinlog%E6%97%A5%E5%BF%97"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">1. 开启binlog日志</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#binlog-ignore-db%E5%92%8Cbinlog-do-db%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">3.2.1.1.1.</span> <span class="toc-text">binlog-ignore-db和binlog-do-db的优先级问题：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9C%A8%E4%B8%BB%E6%9C%BA%E4%B8%AD%E5%88%9B%E5%BB%BAsalve%E7%94%A8%E6%88%B7"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">2. 在主机中创建salve用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%BB%E6%9C%BA%E4%B8%AD%E6%9F%A5%E8%AF%A2master%E7%8A%B6%E6%80%81"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">3. 主机中查询master状态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text">准备从服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">1. 编写配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%85%B3%E7%B3%BB"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">配置主从关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5"><span class="toc-number">3.2.3.</span> <span class="toc-text">启动主从同步</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">ShardingSphere-JDBC读写分离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-number">4.1.</span> <span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEshardingsphere"><span class="toc-number">4.2.</span> <span class="toc-text">配置shardingsphere</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#application-yml"><span class="toc-number">4.2.1.</span> <span class="toc-text">application.yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shardingsphere-yaml"><span class="toc-number">4.2.2.</span> <span class="toc-text">shardingsphere.yaml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E6%B5%8B%E8%AF%95"><span class="toc-number">4.2.3.</span> <span class="toc-text">事务测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">ShardingSphere-JDBC垂直分片</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E5%88%86%E7%89%87%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">垂直分片的配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">ShardingSphere-JDBC水平分片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E5%BA%93%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.0.1.</span> <span class="toc-text">水平分库配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E8%A1%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.0.2.</span> <span class="toc-text">水平分表配置文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">多表关联</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="GitHub Pages + 后端 API 的完整实现指南"/></a><div class="content"><a class="title" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南">GitHub Pages + 后端 API 的完整实现指南</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Python3初始化工作空间"/></a><div class="content"><a class="title" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间">Python3初始化工作空间</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Aop/" title="Aop"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Aop"/></a><div class="content"><a class="title" href="/2025/09/15/Aop/" title="Aop">Aop</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Docker安装"/></a><div class="content"><a class="title" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装">Docker安装</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Elasticsearch/" title="Elasticsearch"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Elasticsearch"/></a><div class="content"><a class="title" href="/2025/09/15/Elasticsearch/" title="Elasticsearch">Elasticsearch</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Orange</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div>welcome to my <img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/爱心.png">blog</img></div><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/">鄂ICP备2022016190号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'CxT2FIJk3B7lLM8Pf1uPXYuQ-gzGzoHsz',
+      appKey: 'L6p0Q1gQvYEOeDpZr5tpGabx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

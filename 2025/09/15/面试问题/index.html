@@ -1,0 +1,889 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面试问题 | Orange's_Blog</title><meta name="author" content="Orange"><meta name="copyright" content="Orange"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="1、项目中有没有使用过MySQL优化 使用过: 缓存层面:   使用缓存 \  提高缓存的命中率   在查找专辑详情页时, 因为专辑详情页信息非常多, 是用户经常访问的请求, 所以我在处理这种请求时 ,使用了 redis作为缓存来降低对mysql 的访问. 并且为了处理数据库和缓存不一致的问题, 我采用了延迟双删的方式来,确保了数据库和缓存的最终一致性   业务维度层面: 减少不必要的sql \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试问题">
+<meta property="og:url" content="http://www.zorange.online/2025/09/15/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Orange&#39;s_Blog">
+<meta property="og:description" content="1、项目中有没有使用过MySQL优化 使用过: 缓存层面:   使用缓存 \  提高缓存的命中率   在查找专辑详情页时, 因为专辑详情页信息非常多, 是用户经常访问的请求, 所以我在处理这种请求时 ,使用了 redis作为缓存来降低对mysql 的访问. 并且为了处理数据库和缓存不一致的问题, 我采用了延迟双删的方式来,确保了数据库和缓存的最终一致性   业务维度层面: 减少不必要的sql \">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg">
+<meta property="article:published_time" content="2025-09-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-27T01:09:52.667Z">
+<meta property="article:author" content="Orange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/OrangeZSW/blog_img/preview.jpg"><link rel="canonical" href="http://www.zorange.online/2025/09/15/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试问题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-27 09:09:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/message.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Orange's_Blog"><img class="site-icon" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/logo.png"/><span class="site-name">Orange's_Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面试问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-27T01:09:52.667Z" title="更新于 2026-01-27 09:09:52">2026-01-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>28分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2025/09/15/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" data-flag-title="面试问题"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1、项目中有没有使用过MySQL优化">1、项目中有没有使用过MySQL优化</h2>
+<p>使用过:</p>
+<p><strong>缓存层面</strong>:   <code>使用缓存</code> \  <code>提高缓存的命中率</code></p>
+<ol>
+<li>
+<p>在查找专辑详情页时, 因为专辑详情页信息非常多, 是用户经常访问的请求, 所以我在处理这种请求时 ,使用了 redis作为缓存来降低对mysql 的访问.</p>
+<p>并且为了处理数据库和缓存不一致的问题, 我采用了延迟双删的方式来,确保了数据库和缓存的最终一致性</p>
+</li>
+</ol>
+<p><strong>业务维度层面</strong>: <code>减少不必要的sql</code> \  <code>批量处理</code></p>
+<ol>
+<li>在进行多个声音的查找时, 为了避免多次查找数据库, 我将在查找声音的详细信息时, 一次性将所有的全部id进行远程调用, 一次性查找全部的声音信息,避免了一些不必要的查找</li>
+</ol>
+<p><strong>索引优化:</strong></p>
+<ul>
+<li>
+<p><strong>建立索引</strong> : <code>条件 \ order \ group 使用索引</code>  \ <code>区分度高的使用使用</code> \ <code>经常查询的字段</code> \ <code>使用连表查询,避免子查询</code></p>
+<ol>
+<li>因为在项目中,在对专辑详细进行查找时 ,进行使用 专辑的付费类型来查找专辑信息, 我对price_type这个字段设置了索引</li>
+<li>在查看专辑的全部声音的接口中, 需要对声音信息进行排序, 而声音表中有个字段就是用来排序的, order这个字段,  我对这个字段也设置了索引</li>
+</ol>
+</li>
+<li>
+<p><strong>避免索引失效</strong>:<code>  计算 + 函数</code> \ <code> like以%开头</code> \ <code>is null \ is not null</code>  \ <code>避免索引类型转换</code> \ <code>!= \ &lt;&gt;</code> \  <code>排序: 无过滤</code> \  <code>建立和使用的顺序不一致</code> \ <code>方法反 ASC \ DESC</code></p>
+</li>
+<li>
+<p><strong>查询优化器</strong>: <code>手动指定驱动表</code> \ <code>避免死锁和解决死锁</code></p>
+<ol>
+<li>在专辑和声音表进行联查时, 由于声音的信息比专辑表的行数据多, 所以, 我在进行连表查询时, 使用了STRAIGHT_JOIN关键字, 将这两个表的连表查询的驱动表设置为专辑表</li>
+</ol>
+</li>
+<li>
+<p>**数据层面: ** <code>分库分表</code> \ <code>冷热数据分离</code> \ <code>历史数据归档</code></p>
+</li>
+<li>
+<p><strong>数据库配置层面</strong>:</p>
+<ul>
+<li>
+<p>客户端配置: <code>最大连接池</code> \  <code>最小空闲连接数</code> \ <code>空闲连接超时时间</code> \  <code>连接的最大生命周期</code> \ <code>获取连接的超时时间</code></p>
+</li>
+<li>
+<p>服务端层面: <code>max_connections服务端的最大连接数151</code> \ <code>wait_timeout客户端连接超时时间</code> \ <code>查询连接数 show processlist</code> \ <code>终止连接kill connection </code></p>
+<ol start="5">
+<li>
+<p>优化I/O, 调整<code>innodb_buffer_pool_size</code>的大小 , 是用于缓存数据和索引的区域</p>
+</li>
+<li>
+<p>优化JOIN, 调整<code>join_buffer_size</code>的大小 , 执行join时的数据缓冲区</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>因为后续项目可能会对声音和专辑这两个表进行分库分表, 所以, 我在对这两个表进行增删改查找时, 没有使用数据库的自增, 而是使用了mybatis-plus的雪花算法</li>
+<li>在进行一些sql语句与条件查找时 , 我一般对不确定为字符串还是int类型的字段, 使用字符串来查找, 因为, 如果在数据库中这个字段为字符串 , 那它作为索引时, 不会失效, 即使它在数据库中为int类型, 发生了类型转换,   也是转换sql语句中的字符串转化为int类型, 并不影响索引的使用</li>
+<li>尽量使连表查询, 少使用子查询(特列: 深分页)</li>
+</ol>
+<h2 id="2、项目中的日志如何处理">==2、项目中的日志如何处理==</h2>
+<h2 id="3、如何和前端进行数据交互">==3、如何和前端进行数据交互==</h2>
+<h2 id="4、项目中遇到过哪些问题">4、项目中遇到过哪些问题</h2>
+<ol>
+<li>
+<p>使用<code>redis</code>做缓存和分布式锁时</p>
+<ul>
+<li>死锁</li>
+<li>误删</li>
+<li>锁过期</li>
+<li>数据库 和 缓存数据不一致</li>
+</ul>
+</li>
+<li>
+<p><code>ThreadLoca</code>l导致内存泄漏</p>
+</li>
+<li>
+<p><code>分布式事务</code>问题: RabbitMq的</p>
+</li>
+<li>
+<p><code>RabbitMq</code>的三个问题</p>
+<ul>
+<li>消息的可靠性投递</li>
+<li>消息的可靠性消费</li>
+<li>消息的幂等性处理</li>
+</ul>
+</li>
+<li>
+<p>@Tranctional 本地<code>事务失效</code></p>
+<ul>
+<li>
+<p>异常被捕获</p>
+</li>
+<li>
+<p>方法中调用</p>
+<p>解决办法:</p>
+<ol>
+<li>
+<p>在类中循环依赖自己, 然后使用依赖对象调用, 在SpringBoot这样做,就会有循环依赖的问题, 解决办法: <code>allow-circular-references: true</code></p>
+</li>
+<li>
+<p>使用AopContext对象获取当前类的代理对象, 使用代理对象调用该方法</p>
+<p>开启<code>@EnableAspectJAutoProxy(exposeProxy = true)</code> 暴露代理对象</p>
+<p>使用<code>AopContext.currentProxy()</code>获取当前类的代理对象</p>
+</li>
+<li>
+<p>使用Applicationcontext对象获取代理对象</p>
+<p>ApplicationContext.getBean(MyClass.class)</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>多端<code>重复消费</code>问题</p>
+<p>解决: 在做幂等性时, 不再使用随机字符串, 而是根据用户和商品的id生产token</p>
+<p>原因: 在多端下, 由于是随机生成的幂等性的token, 不具有代表性, 当多端同一个用户购买同一件商品时, 并不能区分出来, 所以就导致了重复消费的问题,</p>
+</li>
+<li>
+<p>相同文件不同名字文件的<code>重复上传</code>问题</p>
+<p>解决: 在上传前通过MD5加密. 然后上传时, 使用MD作为minio对象的Object值, 每次上传之前,只有minio的<code>statObject</code>  API判断桶中是否存在相同的对象.</p>
+<p>如果存在, 获取该对象返回, 如果不存在,直接上传</p>
+</li>
+<li>
+<p><code>异步</code>时,数据不完整</p>
+<p>解决: 使用join  , Futruetask的get(); \ countdownLatch</p>
+</li>
+<li>
+<p><code>异步</code>时, 使用自定义线程池时, 使用了LinkedBlocingQueue,未设置大小,导致OOM异常</p>
+</li>
+<li>
+<p><code>异步</code>时,ThreadLocal中的数据获取不到</p>
+</li>
+<li>
+<p><code>监听器</code>SpringApplicationRunListener 时, 第一次获取不到Bean对象</p>
+<p>原因: 在第一次调用时, 是springcloud的nacos组件调用得到, 需要先判断是否存在</p>
+</li>
+<li>
+<p>监听器SpringApplicationRunListenre未生效,</p>
+<p>使用SPI机制注入</p>
+</li>
+<li>
+<p>OpenFeign的请求头中数据丢失</p>
+<p>原因: Openfeig 在生成新请求模板时, 没有负责原请求的请求头中的数据, 只对@RequestParam 和@RequestHeader 做了处理 ,</p>
+<p>解决办法:</p>
+<ol>
+<li>作为参数传递</li>
+<li>使用@RequestHeader</li>
+<li>使用RequestInterceptor: 在Open生成请求对象之前, 会调用RequestInterceptor的apply方法并传入新的请求模板, 我们可以通过实现该接口, 在重写的方法中,统一对远程调用的请求模板做处理, 此时, 就可以根据SpringMVC的RequestContextHolder对象获取到前端请求的请求头信息, 然后再将请求头设置进Openfein的请求模板中, 这样, OpenFeign在创建请求对象时, 请求头中就会有我们设置进去的数据了</li>
+</ol>
+</li>
+<li>
+<p>Redisson导致大量线程被阻塞  \  大量线程被死锁</p>
+<ol>
+<li>在上锁时,不使用lock, 使用tryLock,</li>
+<li>未正确使用Readisson造成 , 使用try-finally, 在finally块中释放锁, 确保锁能被正常是否和停止锁续期</li>
+</ol>
+</li>
+<li>
+<p>Long, BigDecimal返回给前端时,精度丢失问题</p>
+<p>解决流程: 在SpingMVC的配置文件中, 将他们的序列化器换为自定义的</p>
+</li>
+</ol>
+<h2 id="5、项目中有没有遇到过内存泄漏和cpu被打满。">5、项目中有没有遇到过内存泄漏和cpu被打满。</h2>
+<p>有:</p>
+<ol>
+<li>内存泄漏: 使用ThreadLocal传递参数未移除</li>
+<li>CPU大满: 使用redis做缓存和分布式锁时, 在高并发下自旋造成的  \  高并发下 大量消息多次重试 \</li>
+</ol>
+<h2 id="6、项目中有没有用到异步多线程以及遇到了什么问题。">6、项目中有没有用到异步多线程以及遇到了什么问题。</h2>
+<ol>
+<li>
+<p><code>异步</code>时,数据不完整</p>
+<p>解决: 使用join  , Futruetask的get(); \ countdownLatch</p>
+</li>
+<li>
+<p><code>异步</code>时, 使用自定义线程池时, 使用了LinkedBlocingQueue,未设置大小,导致OOM异常</p>
+</li>
+<li>
+<p><code>异步</code>时,ThreadLocal中的数据获取不到</p>
+</li>
+</ol>
+<h2 id="7、项目中设计过哪些表，对表的设计如何考虑">7、项目中设计过哪些表，对表的设计如何考虑</h2>
+<p>在专辑详情模块中, 我主要设计了 album_info  \  track_info  \ 它们各自的统计表</p>
+<ol>
+<li>对于album_info 和 track_info表设计的考虑,</li>
+<li>名字, 采用小写 + 下划线</li>
+<li>不使用外键, 保证表的独立性</li>
+<li>考虑到未来可能会对这两个表进行分表操作,所以在对这两个表设计id时,并没有采用数据的自增, 而是使用了Mybatis的雪花算法.</li>
+<li>对于这两个表的操作会经常进行连表查询,根据专辑的付费类型 进行查询, 对album_info的price_type建立索引</li>
+<li>在专辑详情中, 展示声音列表时, 需要排序, 我单独设计了一个order字段, 并对这个字段建立了索引</li>
+<li>对于既可以使用int型和string型的字段, 我一般设置为int型, 避免因为类型转换导致的索引失效问题</li>
+</ol>
+<h2 id="8、项目中用到过SpringCloud的哪些组件">8、项目中用到过SpringCloud的哪些组件</h2>
+<p>nacos \ openfeign \ gateway \ Sentinel</p>
+<h2 id="9、谈谈你对SpringBoot的自动配置原理">9、谈谈你对SpringBoot的自动配置原理</h2>
+<ol>
+<li>
+<p>核心注解SpringBootApplication</p>
+<p>在这个核心注解下有三个注解</p>
+<ul>
+<li>SpringBootConfiguaration  : 表明这是一个SpringBoot的配置类</li>
+<li>EnableAutoConfiguaration : 这是SpringBoot的自动配置的核心注解</li>
+<li>ComponentScan注解: 用于排除一些不需要的组件</li>
+</ul>
+</li>
+<li>
+<p>SpringBootConfiguaration注解的原理</p>
+<p>在SpringBoot项目中, 每个项目都会有直接或间接依赖于spring -boot-starter 包 ,在这个包中又依赖了spring -boot- autoconfiguaration这个包, 在这个包下</p>
+<p>springboot已经编写好了142配置类, 它们全类名都存储在resources/META-INF/spring/org.springframeword.boot.autoconfig.AutoConfiguration.imports文件中,</p>
+<p>但是这不代表这142个配置类都会被加载.</p>
+</li>
+<li>
+<p>ConditionXXX,SpringBoot会根据配置类上的Condition注解,选择性的加载配置类, 例如ConditionOnClass, 只有在引入对应配置类所依赖的包时, 才会加载该配置类</p>
+<p>ConditionOnProperties, 会根据配置文件中是否有对应的配置信息,来选择性的加载配置类</p>
+</li>
+<li>
+<p>SpringBoot还会根据AutoConfigurationImportSelector来顺序性的加载配置文件</p>
+</li>
+</ol>
+<h2 id="10、SpringBoot和SpringCloud的配置文件加载顺序以及优先级">==10、SpringBoot和SpringCloud的配置文件加载顺序以及优先级==</h2>
+<p><strong>优先级:</strong></p>
+<p>配置中心 &gt;  环境变量&gt; JVM系统属性 &gt; 命令行 &gt; bootstrap.properties &gt; bootstrap.yml &gt; applicatio.properties &gt; application.yml &gt; application-{profile}.properties &gt;</p>
+<p>applicatoin-{profile}.yml</p>
+<p><strong>加载顺序</strong></p>
+<p>bootstrap.properties &gt; bootstarp.yml &gt; 配置中心 &gt; application.properties &gt; application.yml &gt; application-{profile}.properties &gt; application-{profiles}.yml &gt;</p>
+<p>命令行&gt; JVM配置 &gt; 环境变量</p>
+<p>简化:</p>
+<p>加载顺序: bootstrap.properties &gt; bootstrap.yml &gt; 配置中心 &gt; application.peoperties&gt; application.yml &gt; application-{profile}.bootstrap/yml</p>
+<p>优先级: 配置中心 &gt; bootstrap.properties &gt; bootstrap.yml &gt; application.properties &gt; application.yml  &gt; application-{profiles}.bootstrap/yml</p>
+<h2 id="11、jvm调优了解过哪些">==11、jvm调优了解过哪些==</h2>
+<ol>
+<li>自定义堆大小
+<ul>
+<li>-Xmx100m : 设置最大堆大小</li>
+<li>-Xms100m :设置初始堆大小</li>
+<li>调整年轻代和老年代的大小<code>-XX:NewSize=1m</code>和<code> -XX:MaxNewSize=2m</code></li>
+</ul>
+</li>
+<li>设置虚拟机栈的大小
+<ul>
+<li>-Xss256k</li>
+</ul>
+</li>
+<li>指定G1垃圾回收器
+<ul>
+<li>-XX:+UseG1GC</li>
+</ul>
+</li>
+</ol>
+<h2 id="12、运行时数据区的组成以及各自空间作用">12、运行时数据区的组成以及各自空间作用</h2>
+<ul>
+<li>
+<ol>
+<li>非共享区域</li>
+</ol>
+<p>这些区域是线程私有的，每个线程都有自己的独立副本。</p>
+<p>1.1 <strong>虚拟机栈（JVM Stack）</strong></p>
+<p>每个线程在执行时都会创建一个虚拟机栈，栈中包含了每个方法调用的状态信息。每当一个方法被调用时，JVM 会为该方法分配一个栈帧（stack frame）。栈帧用于存储以下内容：</p>
+<ul>
+<li><strong>局部变量表</strong>：方法中的局部变量，包括基本数据类型（如 <code>int</code>、<code>float</code> 等）和对象引用（例如对象的内存地址）。局部变量表的大小在编译时确定，因此非常高效。</li>
+<li><strong>动态链接</strong>：与方法相关的类的符号引用，允许在运行时进行方法调用的解析。</li>
+<li><strong>方法出口</strong>：记录方法执行完毕后返回的地址，用于方法执行完毕后跳转到正确的位置继续执行。</li>
+<li><strong>操作数栈</strong>：存储方法调用过程中的临时数据，比如计算结果，或者存储操作数。操作数栈的大小在编译时设定，在执行时动态变化。</li>
+</ul>
+<p>每个线程拥有独立的虚拟机栈，且栈的深度由方法的调用深度决定。如果栈深度超过了 JVM 的栈大小限制，就会抛出 <code>StackOverflowError</code>。</p>
+<p>1.2 <strong>本地方法栈（Native Method Stack）</strong></p>
+<p>本地方法栈是专门为本地方法（Native Method）服务的区域。它与虚拟机栈类似，不同的是，本地方法栈是用来处理 Java 代码之外（通常是使用 C、C++ 等语言编写）的本地方法调用的。</p>
+<p>本地方法栈和虚拟机栈一样，每个线程有一个独立的栈。它保存了 JNI（Java Native Interface）调用所需的本地方法信息。</p>
+<p>1.3 <strong>PC 程序计数器（Program Counter Register）</strong></p>
+<p>每个线程都拥有一个独立的 PC 寄存器。程序计数器是一个指针，指向当前线程所执行的字节码指令的地址。因为 JVM 是基于栈的执行模型，程序计数器用于指示当前线程执行到哪条指令。</p>
+<ul>
+<li><strong>字节码指令</strong>：当线程执行的是 Java 方法时，PC 会指向当前方法的字节码地址。</li>
+<li><strong>本地方法</strong>：如果当前执行的是本地方法，PC 程序计数器值则为 <code>0</code>，表示本地方法的执行与 Java 代码无关。</li>
+</ul>
+<p>PC 寄存器并不会影响方法栈的内容，但它帮助 JVM 定位当前线程正在执行的指令。</p>
+<ol start="2">
+<li>共享区域</li>
+</ol>
+<p>这些区域是所有线程共享的，即所有线程访问相同的内存区域。</p>
+<p>2.1 <strong>堆（Heap）</strong></p>
+<p>堆是 JVM 中最大的一块内存区域，几乎所有的对象实例都在堆中分配内存。堆的作用是存储对象的实例数据，并且也是垃圾回收器（GC）关注的重点区域。</p>
+<ul>
+<li><strong>对象分配</strong>：当我们通过 <code>new</code> 关键字创建对象时，JVM 会在堆中为对象分配内存。堆中的内存是共享的，所有线程都可以访问。</li>
+<li><strong>垃圾回收</strong>：垃圾回收主要发生在堆中，通过标记清除、复制回收或 G1 GC 等方式回收不再使用的对象内存。</li>
+</ul>
+<p>堆空间的大小可以通过 JVM 参数来控制，例如 <code>-Xms</code> 设置初始堆大小，<code>-Xmx</code> 设置最大堆大小。堆的大小影响垃圾回收的频率和性能。</p>
+<p>2.2 <strong>方法区（Method Area）</strong>(JDK8以前叫永久代) 都是元空间实现的一张方式</p>
+<p>方法区存储的是类的相关信息、常量池、静态变量、即时编译（JIT）编译器的代码等。方法区是共享的，所有线程都可以访问。方法区是 JVM 内存的一个非常重要的区域，它包含以下内容：</p>
+<ul>
+<li><strong>类的字节码</strong>：方法区存储每个类的结构信息（如类的元数据），包括类的字段、方法、父类等。</li>
+<li><strong>运行时常量池</strong>：运行时常量池存储类加载过程中使用的常量，比如字符串字面量、数字常量等。常量池存储的是从类字节码文件中提取出来的常量信息。</li>
+<li><strong>静态变量和方法</strong>：静态变量属于类而不属于实例，保存在方法区中。</li>
+<li><strong>JIT 编译后的代码</strong>：当 JVM 执行 <code>java</code> 程序时，一些热点代码会被即时编译为机器码，这些编译后的机器码也存储在方法区中。</li>
+</ul>
+</li>
+</ul>
+<h2 id="13、垃圾回收算法有哪些以及谈谈CMS垃圾回收器的了解">13、垃圾回收算法有哪些以及谈谈CMS垃圾回收器的了解</h2>
+<ul>
+<li>
+<p>垃圾的标记算法:</p>
+<p>引用计数法  \ 根可达性算法</p>
+</li>
+<li>
+<p>垃圾回收算法:</p>
+<ol>
+<li>标记清除法</li>
+<li>复制算法</li>
+<li>标记整理清除</li>
+<li>分代整理: 就是前面两种算法的混合使用, 年轻代使用:复制算法 . 老年代使用标识整理清除算法</li>
+</ol>
+</li>
+<li>
+<p>==CMS垃圾回收器 (并行)==</p>
+<p>CMS 垃圾回收器主要由两个阶段组成：标记（Mark）阶段和清理（Sweep）阶段。与传统的串行垃圾回收器不同，CMS 旨在通过并发工作来缩短停顿时间，具体过程如下：</p>
+<ol>
+<li>
+<p><strong>初始标记（Initial Mark）</strong>：</p>
+<ul>
+<li>这个阶段会标记所有的 “GC Root”（即活动对象）。它需要停止所有应用线程，因此会有较短的停顿。</li>
+</ul>
+</li>
+<li>
+<p><strong>并发标记（Concurrent Mark）</strong>：</p>
+<ul>
+<li>在此阶段，CMS 垃圾回收器会并发地扫描整个堆中的对象，标记出哪些对象是可达的。这个过程是并行的，不需要暂停应用线程。</li>
+</ul>
+</li>
+<li>
+<p><strong>并发预清理（Concurrent Preclean）</strong>：</p>
+<ul>
+<li>在并发标记阶段后，CMS 会进行一个预清理过程，清理一些由于并发标记产生的垃圾对象。</li>
+</ul>
+</li>
+<li>
+<p><strong>重新标记（Remark）</strong>：</p>
+<ul>
+<li>这个阶段需要暂停应用线程，标记在并发标记期间发生了变化的对象。由于这是短暂的，停顿时间会较短。</li>
+</ul>
+</li>
+<li>
+<p><strong>并发清理（Concurrent Sweep）</strong>：</p>
+<ul>
+<li>这是并发清理阶段，会清除那些未被标记的对象。与传统的垃圾回收器不同，CMS 在这个阶段仍然不需要暂停应用线程。</li>
+</ul>
+</li>
+<li>
+<p><strong>并发整理（Concurrent Compact）</strong>（可选）：</p>
+<ul>
+<li>对于一些较大的对象和碎片，CMS 还会进行整理阶段，避免内存碎片化。这个阶段有时会被禁用，以减少停顿时间。</li>
+</ul>
+</li>
+</ol>
+<p>优点</p>
+<ul>
+<li><strong>减少停顿时间</strong>：与其他垃圾回收器相比，CMS 的最大优势是可以减少停顿时间，尤其在应用需要高响应时。</li>
+<li><strong>并发标记和清理</strong>：通过并发的标记和清理工作，CMS 可以在大部分时间里继续应用线程的执行，避免长时间的停顿。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>内存碎片</strong>：由于 CMS 不会进行压缩，可能导致堆内存中的碎片化问题。尤其在长时间运行后，这可能导致 Full GC 被触发。</li>
+<li><strong>较高的 CPU 占用</strong>：CMS 在执行并发标记时会消耗较多的 CPU 资源。</li>
+<li><strong>停顿时间不可预测</strong>：虽然 CMS 可以减少停顿时间，但某些情况下仍然会出现较长的停顿，尤其是在 Full GC 时。</li>
+</ul>
+<p><strong>配置</strong></p>
+<p>在启动 Java 程序时，可以通过以下参数来启用 CMS 垃圾回收器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
+<p>另外，可以通过一些选项来调整垃圾回收行为，如：</p>
+<ul>
+<li><code>-XX:CMSInitiatingOccupancyFraction=&lt;percentage&gt;</code>：设置触发 CMS 垃圾回收的堆内存占用阈值，默认值为 68%。</li>
+<li><code>-XX:+UseCMSInitiatingOccupancyOnly</code>：只使用上述阈值触发垃圾回收。</li>
+<li><code>-XX:+DisableExplicitGC</code>：禁用显式的垃圾回收调用，以避免对 CMS 垃圾回收产生干扰。</li>
+</ul>
+<p><strong>总结</strong></p>
+<p>CMS 垃圾回收器是专为降低垃圾回收停顿时间设计的。它通过并发标记和清理来减少停顿，适用于对延迟敏感的应用程序。然而，CMS 在内存碎片方面的缺点和高 CPU 占用使得它并不适用于所有场景，特别是在长期运行的系统中。在 Java 9 之后，JVM 推出了 G1 垃圾回收器，它被认为是对 CMS 的替代，提供了更好的性能和更稳定的响应时间。</p>
+</li>
+</ul>
+<h2 id="14、创建线程池的方式有哪些execute和submit的区别">14、创建线程池的方式有哪些execute和submit的区别</h2>
+<ul>
+<li>
+<p>创建线程池的方法:</p>
+<ol>
+<li>
+<p>使用工具类Excutros.Executors.newCachedThreadPool();   默认最大线程池的数量为Intege的最大值</p>
+</li>
+<li>
+<p>使用工具类的Executors.newFixedThreadPool(100);  可以手动指定最大线程池</p>
+</li>
+<li>
+<p>newSingleThreadExecutor(), 创建只有一个线程的线程池, 提交的任务会顺序的执行</p>
+</li>
+<li>
+<p>自定义线程池,new ThreadPoolExecutor();</p>
+</li>
+</ol>
+</li>
+<li>
+<p>execute和submit的区别:</p>
+<p><code>Executor</code> 接口提供了两种提交任务的方式：<code>execute()</code> 和 <code>submit()</code>。它们的区别主要体现在任务的类型、返回值和异常处理上。</p>
+<ol>
+<li>
+<p>execute():</p>
+<p><strong>参数</strong>： <code>execute()</code> 方法接收一个实现了 <code>Runnable</code> 接口的任务。<code>Runnable</code> 任务是没有返回值的任务，它的 <code>run()</code> 方法没有返回结果。</p>
+<p><strong>返回值</strong>： <code>execute()</code> 方法没有返回值，它只能提交任务并执行，不关心任务执行的结果。</p>
+</li>
+<li>
+<p>submit()</p>
+<p><strong>参数</strong>： <code>submit()</code> 方法既可以接收实现了 <code>Runnable</code> 接口的任务，也可以接收实现了 <code>Callable</code> 接口的任务。</p>
+<ul>
+<li><code>Runnable</code> 是不返回结果的任务。</li>
+<li><code>Callable</code> 是有返回值的任务，<code>Callable.call()</code> 方法可以返回一个结果。</li>
+</ul>
+<p><strong>返回值</strong>：</p>
+<ul>
+<li>如果传递的是 <code>Callable</code> 类型任务，<code>submit()</code> 方法返回的 <code>Future</code> 对象的 <code>get()</code> 方法会返回任务的结果。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="15、如何实现两个线程通信，编写一段代码">15、如何实现两个线程通信，编写一段代码</h2>
+<ul>
+<li>
+<p>模板:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 定义资源类、方法</span><br><span class="line">2. 资源类方法：</span><br><span class="line">	判断（符合条件就运行，不符合就等待）</span><br><span class="line">	执行</span><br><span class="line">	唤醒</span><br><span class="line">3. 通过多线程操作共享资源</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>实现代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> online.zorange.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadCommunicationTemplate</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">SharedResource</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SharedResource</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动多个消费者线程</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Consumer</span>(resource), <span class="string">&quot;消费者-&quot;</span> + i).start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动一个生产者线程</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Producer</span>(resource), <span class="string">&quot;生产者&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SharedResource</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 共享资源</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_RESOURCE</span> <span class="operator">=</span> <span class="number">5</span>; <span class="comment">// 最大资源容量</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取资源（消费者）</span></span><br><span class="line">    <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="keyword">while</span> (resource &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 等待资源...&quot;</span>);</span><br><span class="line">            wait(); <span class="comment">// 等待资源</span></span><br><span class="line">        &#125;</span><br><span class="line">        resource--;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 消费资源，当前资源: &quot;</span> + resource);</span><br><span class="line">        notifyAll(); <span class="comment">// 通知其他线程</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生产资源（生产者）</span></span><br><span class="line">    <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="keyword">while</span> (resource &gt;= MAX_RESOURCE) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 资源已满，等待消费...&quot;</span>);</span><br><span class="line">            wait(); <span class="comment">// 等待消费</span></span><br><span class="line">        &#125;</span><br><span class="line">        resource++;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 生产资源，当前资源: &quot;</span> + resource);</span><br><span class="line">        notifyAll(); <span class="comment">// 通知其他线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产者</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SharedResource resource;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Producer</span><span class="params">(SharedResource resource)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.resource = resource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                resource.produce(); <span class="comment">// 生产资源</span></span><br><span class="line">                Thread.sleep(<span class="number">500</span>);  <span class="comment">// 模拟生产过程的延迟</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SharedResource resource;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Consumer</span><span class="params">(SharedResource resource)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.resource = resource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                resource.consume(); <span class="comment">// 消费资源</span></span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);  <span class="comment">// 模拟消费过程的延迟</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="16、volatile的作用是什么，如何理解JMM内存模型">16、volatile的作用是什么，如何理解JMM内存模型</h2>
+<ul>
+<li>
+<p>valatile的作用 :</p>
+<ol>
+<li>
+<p>保证可见性</p>
+<p>保证在多线程下, 变量的改变能被及时监听到</p>
+</li>
+<li>
+<p>不能保证原子性</p>
+</li>
+<li>
+<p>保证顺序性 : JVM在运行方法时, 会在不允许运行结果的前提下, 改变代码执行的顺序 ,但是在多线程下, 如果改变代码执行顺序,可能会影响其他线程的结果</p>
+</li>
+</ol>
+</li>
+<li>
+<p>==JVM内存模型==</p>
+<p>VM 内存模型</p>
+<p>JVM 内存模型主要由 <strong>主内存</strong> 和 <strong>工作内存</strong> 两部分组成。每个线程都有自己独立的工作内存，而共享的主内存则由所有线程共享。</p>
+<ol>
+<li><strong>主内存（Main Memory）</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：主内存是所有线程共享的内存区域。所有线程都通过主内存来交换数据。</li>
+<li><strong>内容</strong>：主内存中存储了所有实例变量、静态变量、以及常量。</li>
+<li><strong>作用</strong>：主内存确保所有线程对共享变量的修改能够被其他线程看到，是线程间通信的基础。</li>
+</ul>
+<ol start="2">
+<li><strong>工作内存（Working Memory）</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：每个线程都有自己的工作内存。工作内存保存着线程正在执行的变量的副本，也就是线程私有的内存。</li>
+<li><strong>内容</strong>：线程在工作内存中存储了从主内存中读取的数据副本（通常是栈帧）。</li>
+<li><strong>作用</strong>：工作内存不直接操作主内存中的数据，而是从主内存复制数据到工作内存中，线程对数据的操作都是在自己的工作内存中进行的，修改数据后会同步到主内存。</li>
+</ul>
+<ol start="3">
+<li><strong>内存交互与共享机制</strong></li>
+</ol>
+<ul>
+<li><strong>原子性</strong>：JVM 内存模型中有一套原子性操作机制，确保基本数据类型操作（如加、减）能够在多个线程间正确同步。</li>
+<li><strong>可见性</strong>：为了保证线程之间的可见性，JVM 提供了各种同步机制（如 <code>volatile</code> 关键字），保证线程对共享变量的更新能够立即被其他线程看到。</li>
+<li><strong>有序性</strong>：工作内存中的指令执行顺序和内存访问顺序在多线程环境下可能并不相同，JVM 提供了有序性保证，通过 <code>synchronized</code> 等关键字来控制。</li>
+</ul>
+<ol start="4">
+<li><strong>内存屏障与锁机制</strong></li>
+</ol>
+<ul>
+<li><strong>内存屏障（Memory Barrier）</strong>：它是保证线程对共享变量访问顺序的机制。通过在关键位置插入内存屏障，JVM 可以确保线程在执行某些操作时，不会将操作乱序执行。</li>
+<li><strong>锁机制</strong>：<code>synchronized</code>、<code>ReentrantLock</code> 等锁机制用于确保线程对共享数据的互斥访问。</li>
+</ul>
+</li>
+</ul>
+<h2 id="17、MySQL事务的隔离级别以及不同隔离级别的问题">17、MySQL事务的隔离级别以及不同隔离级别的问题</h2>
+<ul>
+<li>
+<p>隔离级别</p>
+<ol>
+<li>
+<p>读未提交</p>
+<p>问题: 脏读</p>
+</li>
+<li>
+<p>读已提交</p>
+<p>问题: 不可重复读</p>
+</li>
+<li>
+<p>可重复读</p>
+<p>问题: 幻读</p>
+</li>
+<li>
+<p>串行化</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="18、MySQL索引失效的场景有哪些">18、MySQL索引失效的场景有哪些</h2>
+<ul>
+<li>
+<p>索引失效的场景。（结论）</p>
+<ol>
+<li>函数 和 计算</li>
+<li>is null \ is not null</li>
+<li>!= &lt;&gt;</li>
+<li>类型转换(可能)</li>
+<li>Like以%开头</li>
+<li>定义索引和使用索引的顺序不同</li>
+<li>排序中无过滤</li>
+<li>范围查询右边的索引失效</li>
+<li>排序时一个升序(ASE) 一个降序(DESC)</li>
+</ol>
+</li>
+<li>
+<p>失效的原因（原理）</p>
+</li>
+<li>
+<p>如何理解索引。（理解）</p>
+<ul>
+<li>
+<p>根据物理结构来区分:聚簇索引 \ 非聚簇索引 (叶子节点是否存储完整数据区分)</p>
+<p>索引是一种数据结构, 在mysql中,索引的数据结构为B+数, B+数的底层,</p>
+</li>
+<li>
+<p>四种类型的数据:</p>
+<p>0 代表: 存储的是索引值和完整数据</p>
+<p>1代表: 目录项</p>
+<p>2 代表: 当前页中的最小值</p>
+<p>3 代表: 当前页中的最大值</p>
+</li>
+<li>
+<p>以页为单位, 每页大小为16kb</p>
+</li>
+<li>
+<p>分为叶子节点和非叶子节点,</p>
+</li>
+<li>
+<p>在非叶子节点中:</p>
+<ul>
+<li>存储的是目录项 和 当前目录下的最大值和最小值</li>
+<li>每个目录项中又存储着索引值和当前目录项下的最小值</li>
+</ul>
+</li>
+<li>
+<p>在叶子节点中</p>
+<ul>
+<li>当前页中的最大索引值和最小索引值</li>
+<li>数据项: 存储着索引值和完整的数据</li>
+</ul>
+</li>
+<li>
+<p>页中每个数据以单链表存储</p>
+</li>
+<li>
+<p>在页于页之间则是通过双链表形式存储.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="19、-MySQL事务的四大特性如何实现">19、==MySQL事务的四大特性如何实现==</h2>
+<p>​	MySQL 事务的四大特性通常被称为 <strong>ACID</strong> 特性，它们包括 <strong>原子性 (Atomicity)</strong>、<strong>一致性 (Consistency)</strong>、<strong>隔离性 (Isolation)</strong> 和 <strong>持久性 (Durability)</strong>。每个特性都通过不同的机制和设计来保证事务在数据库操作中的正确性与可靠性。</p>
+<p><strong>原子性</strong>：通过<code>日志</code>和<code>回滚机制</code>确保事务的全部操作要么都成功，要么都失败。( <strong>redo log</strong>)</p>
+<p><strong>一致性</strong>：通过数据的<code>完整性约束</code>、<code>验证</code>以及<code>事务隔离级别</code>来确保数据库保持一致的状态。</p>
+<p><strong>隔离性</strong>：通过<code>锁机制</code>和<code>事务隔离级别</code>确保事务并发时互不干扰，避免数据的不一致。</p>
+<p><strong>持久性</strong>：通过<code>事务日志</code>和<code>刷新机制</code>确保已提交的事务数据不会丢失，即使系统崩溃也能恢复。</p>
+<ol>
+<li><strong>原子性 (Atomicity)</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：原子性保证事务内的所有操作要么全部成功，要么全部失败。如果事务中的某个操作失败，整个事务会回滚，恢复到事务开始前的状态。事务被视为一个不可分割的单元。</li>
+<li>实现方式
+<ul>
+<li><strong>日志机制</strong>：MySQL 使用 <strong>事务日志</strong>（如 InnoDB 的 <strong>redo log</strong>）来保证原子性。事务操作的每一步都会被记录到日志中。如果事务失败或需要回滚，MySQL 会根据日志恢复到事务开始之前的状态。</li>
+<li><strong>回滚机制</strong>：通过回滚（rollback）命令或自动回滚来撤销未提交的事务操作，确保数据库的原子性。</li>
+<li><strong>写前日志（Write-Ahead Logging, WAL）</strong>：MySQL 中的 InnoDB 存储引擎采用 WAL 协议，确保所有修改数据的操作在被提交之前会先写入日志，从而保证事务的原子性。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>一致性 (Consistency)</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：一致性保证事务的执行会使数据库从一个一致的状态转换到另一个一致的状态。在事务开始前和结束后，数据库中的数据必须满足所有的约束、触发器等。</li>
+<li>实现方式
+<ul>
+<li><strong>外键约束</strong>、<strong>CHECK 约束</strong>、<strong>唯一性约束</strong>等可以保证数据的一致性。事务的执行不会违反这些约束，即使在事务的处理中，所有的数据变化也必须保证这些约束不被破坏。</li>
+<li><strong>数据验证</strong>：MySQL 会在事务的开始和提交前验证数据的完整性。例如，事务中的 INSERT、UPDATE 和 DELETE 操作会确保数据不会违反数据库的完整性约束。</li>
+<li><strong>事务隔离级别</strong>：通过设置事务的隔离级别（如 <strong>READ COMMITTED</strong>、<strong>REPEATABLE READ</strong> 等）来避免脏读、不可重复读等问题，从而保证事务的一致性。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>隔离性 (Isolation)</strong></li>
+</ol>
+<ul>
+<li>
+<p><strong>定义</strong>：隔离性保证多个事务并发执行时，每个事务的执行不会受到其他事务的干扰。每个事务看起来都是在独立执行的，其他事务无法看到当前事务的中间结果。</p>
+</li>
+<li>
+<p>实现方式</p>
+<ul>
+<li>
+<p>事务隔离级别</p>
+<p>：MySQL 提供了多种隔离级别来控制事务之间的可见性，主要包括：</p>
+<ul>
+<li><strong>READ UNCOMMITTED</strong>：允许一个事务读取另一个事务未提交的数据（脏读）。</li>
+<li><strong>READ COMMITTED</strong>：事务只能读取已提交事务的数据（避免脏读，但仍可能存在不可重复读）。</li>
+<li><strong>REPEATABLE READ</strong>：保证事务中多次读取同一数据的结果是一样的（避免脏读和不可重复读），InnoDB 使用该隔离级别。</li>
+<li><strong>SERIALIZABLE</strong>：最严格的隔离级别，强制事务串行执行，避免脏读、不可重复读和幻读。</li>
+</ul>
+</li>
+<li>
+<p>锁机制</p>
+<p>：MySQL 使用行锁和表锁来控制事务的隔离性。行锁可以防止其他事务对正在操作的记录进行修改，从而保证事务隔离性。</p>
+<ul>
+<li><strong>行级锁（InnoDB的行锁）</strong>：可以对数据行加锁，允许并发操作不同数据行。</li>
+<li><strong>表级锁（MyISAM的表锁）</strong>：对整个表加锁，适用于对表操作的事务。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>持久性 (Durability)</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：持久性保证一旦事务提交，其对数据库的修改是永久性的，即使系统崩溃也不会丢失数据。</li>
+<li>实现方式
+<ul>
+<li><strong>提交日志</strong>：MySQL 使用事务日志（如 <strong>redo log</strong>）来保证事务的持久性。即使数据库发生崩溃，已提交的事务也能通过日志恢复。</li>
+<li><strong>刷新日志</strong>：MySQL 会确保在事务提交时，所有操作记录都会被刷新到磁盘中的日志文件，确保数据持久化。</li>
+<li><strong>双写缓冲（Doublewrite Buffer）</strong>：InnoDB 使用双写缓冲技术，在写入数据页时，先写入缓冲区，再写入磁盘，确保即使在崩溃的情况下也不会丢失数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="20、谈谈你对MvCC的理解">==20、谈谈你对MvCC的理解==</h2>
+<p><strong>MVCC</strong>（Multi-Version Concurrency Control，<code>多版本并发控制</code>）是一种数据库并发控制机制，用于提高数据库在<code>多用户</code>环境中的性能，避免事务间的冲突，并确保数据库的<code>一致性</code>和<code>隔离性</code>。MVCC 通过为每个事务提供数据的<code>不同版本</code>来<code>避免加锁</code>，从而实现更高效的<code>并发访问</code>。</p>
+<p><strong>MVCC 的基本原理：</strong></p>
+<ol>
+<li><strong>版本控制</strong><br>
+每条数据在数据库中都有多个版本，每个版本包含数据的一个状态。每当数据发生更新时，数据库不会直接修改现有数据，而是创建一个新的数据版本，并给该版本分配一个唯一的时间戳或版本号。</li>
+<li><strong>事务视图</strong><br>
+每个事务在开始时，都会看到数据库的一个一致的快照视图，而这个视图是由所有已提交的事务的数据版本构成的。不同事务可以看到不同的数据版本，避免了因锁竞争而导致的性能瓶颈。</li>
+<li><strong>事务隔离</strong><br>
+MVCC 的实现使得数据库在不同事务之间能够独立读取数据，并且每个事务只能看到它开始时的快照数据，不会被其他事务的修改影响。因此，MVCC 能够实现类似于 <strong>可重复读</strong>（Repeatable Read）和 <strong>读已提交</strong>（Read Committed）的事务隔离级别。</li>
+<li><strong>删除和回收</strong><br>
+数据的旧版本不会立即删除，而是标记为已过时。当一个事务提交时，它会把对数据的修改写入一个新的版本，旧版本将被标记为无效。数据库会定期回收这些无效的数据版本，以释放存储空间。</li>
+</ol>
+<p><strong>MVCC 的工作机制：</strong></p>
+<ul>
+<li><strong>读取数据：</strong> 当事务读取数据时，它会看到在该事务开始之前已经提交的所有数据版本，确保读取到的是一个一致的状态（快照）。</li>
+<li><strong>更新数据：</strong> 当事务修改数据时，数据库会为该数据创建一个新的版本，新的版本只对当前事务可见。其他事务不会看到该修改，直到该事务提交。</li>
+<li><strong>删除数据：</strong> 当事务删除数据时，数据库会将数据标记为删除，但实际的物理删除操作会延迟到数据不再被任何事务访问时才进行。</li>
+<li><strong>提交和回滚：</strong> 当事务提交时，它所修改的数据版本变成可见；当事务回滚时，所有它创建的版本都会被丢弃。</li>
+</ul>
+<p><strong>MVCC 的优势：</strong></p>
+<ol>
+<li><strong>提高并发性</strong>：因为读操作不需要加锁，多个事务可以并发读取数据，提高系统的吞吐量。</li>
+<li><strong>减少死锁</strong>：由于读操作不涉及锁，事务间的冲突较少，从而减少了死锁的发生。</li>
+<li><strong>提高性能</strong>：事务对数据的修改不会立即影响到其他事务，因此避免了读写锁的争用，减少了性能瓶颈。</li>
+<li><strong>事务隔离性</strong>：MVCC 能保证事务的一致性和隔离性，多个事务之间互不干扰，能够保证“可重复读”或更高的隔离级别。</li>
+</ol>
+<p><strong>MVCC 的缺点：</strong></p>
+<ol>
+<li><strong>空间消耗</strong>：每次更新数据都会产生新的数据版本，因此需要额外的存储空间来维护数据的多个版本。</li>
+<li><strong>版本回收复杂性</strong>：由于旧版本的数据不能立即删除，数据库需要额外的机制来定期清理这些过期版本。</li>
+<li><strong>复杂的并发控制</strong>：尽管 MVCC 允许多个事务并发执行，但在某些情况下（比如事务之间的写冲突）需要更复杂的冲突检测和解决机制。</li>
+</ol>
+<h2 id="补充：编写一个生成者消息者模型。【两个线程-一个阻塞队列】">补充：编写一个生成者消息者模型。【两个线程+一个阻塞队列】</h2>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> online.zorange.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.SynchronousQueue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> orange</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2024/11/15</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PSBTemplate</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> SynchronousQueue&lt;Integer&gt; shareBlockQueue=<span class="keyword">new</span> <span class="title class_">SynchronousQueue</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">CConsumer</span> <span class="variable">cConsumer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CConsumer</span>(shareBlockQueue);</span><br><span class="line">        <span class="type">PProducer</span> <span class="variable">pProducer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PProducer</span>(shareBlockQueue);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(cConsumer,<span class="string">&quot;消费者&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(pProducer,<span class="string">&quot;生产者&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PProducer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;Integer&gt; blockingQueue;</span><br><span class="line">    <span class="keyword">public</span>  <span class="title function_">PProducer</span><span class="params">(BlockingQueue arrayBlockingQueue)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.blockingQueue=arrayBlockingQueue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               blockingQueue.put(<span class="number">1</span>);</span><br><span class="line">           &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">               System.out.println(<span class="string">&quot;队列满了&quot;</span>);</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">           &#125;</span><br><span class="line">           System.out.println(Thread.currentThread().getName()+<span class="string">&quot;生产1个, 还剩&quot;</span>+blockingQueue.size());</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               Thread.sleep(<span class="number">500</span>);</span><br><span class="line">           &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者</span></span><br><span class="line"> <span class="keyword">class</span> <span class="title class_">CConsumer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;Integer&gt; blockingQueue;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CConsumer</span><span class="params">(BlockingQueue arrayBlockingQueue)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.blockingQueue=arrayBlockingQueue;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">         <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">             <span class="type">Integer</span> <span class="variable">poll</span> <span class="operator">=</span> blockingQueue.poll();</span><br><span class="line">             System.out.println(Thread.currentThread().getName()+<span class="string">&quot;消费1个, 还剩&quot;</span>+blockingQueue.size());</span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">             &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                 <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>复习：先原理在推结论</p>
+<p>面试：先说结论在解释原理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.zorange.online">Orange</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.zorange.online/2025/09/15/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">http://www.zorange.online/2025/09/15/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.zorange.online" target="_blank">Orange's_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/09/15/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8%EF%BC%88Converter%EF%BC%89/" title="类型转换器（Converter）"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">类型转换器（Converter）</div></div></a></div><div class="next-post pull-right"><a href="/2025/09/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="自定义线程池"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">自定义线程池</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Orange</div><div class="author-info__description">welcome to my blog!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/OrangeZSW"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OrangeZSW" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%9C%89%E6%B2%A1%E6%9C%89%E4%BD%BF%E7%94%A8%E8%BF%87MySQL%E4%BC%98%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">1、项目中有没有使用过MySQL优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">&#x3D;&#x3D;2、项目中的日志如何处理&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%A6%82%E4%BD%95%E5%92%8C%E5%89%8D%E7%AB%AF%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92"><span class="toc-number">3.</span> <span class="toc-text">&#x3D;&#x3D;3、如何和前端进行数据交互&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%81%87%E5%88%B0%E8%BF%87%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">4、项目中遇到过哪些问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8Ccpu%E8%A2%AB%E6%89%93%E6%BB%A1%E3%80%82"><span class="toc-number">5.</span> <span class="toc-text">5、项目中有没有遇到过内存泄漏和cpu被打满。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%9C%89%E6%B2%A1%E6%9C%89%E7%94%A8%E5%88%B0%E5%BC%82%E6%AD%A5%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BB%A5%E5%8F%8A%E9%81%87%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E3%80%82"><span class="toc-number">6.</span> <span class="toc-text">6、项目中有没有用到异步多线程以及遇到了什么问题。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%AE%BE%E8%AE%A1%E8%BF%87%E5%93%AA%E4%BA%9B%E8%A1%A8%EF%BC%8C%E5%AF%B9%E8%A1%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E8%80%83%E8%99%91"><span class="toc-number">7.</span> <span class="toc-text">7、项目中设计过哪些表，对表的设计如何考虑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%94%A8%E5%88%B0%E8%BF%87SpringCloud%E7%9A%84%E5%93%AA%E4%BA%9B%E7%BB%84%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">8、项目中用到过SpringCloud的哪些组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9SpringBoot%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86"><span class="toc-number">9.</span> <span class="toc-text">9、谈谈你对SpringBoot的自动配置原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81SpringBoot%E5%92%8CSpringCloud%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">10.</span> <span class="toc-text">&#x3D;&#x3D;10、SpringBoot和SpringCloud的配置文件加载顺序以及优先级&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81jvm%E8%B0%83%E4%BC%98%E4%BA%86%E8%A7%A3%E8%BF%87%E5%93%AA%E4%BA%9B"><span class="toc-number">11.</span> <span class="toc-text">&#x3D;&#x3D;11、jvm调优了解过哪些&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E3%80%81%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E7%9A%84%E7%BB%84%E6%88%90%E4%BB%A5%E5%8F%8A%E5%90%84%E8%87%AA%E7%A9%BA%E9%97%B4%E4%BD%9C%E7%94%A8"><span class="toc-number">12.</span> <span class="toc-text">12、运行时数据区的组成以及各自空间作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13%E3%80%81%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BB%A5%E5%8F%8A%E8%B0%88%E8%B0%88CMS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-number">13.</span> <span class="toc-text">13、垃圾回收算法有哪些以及谈谈CMS垃圾回收器的了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14%E3%80%81%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9Bexecute%E5%92%8Csubmit%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">14.</span> <span class="toc-text">14、创建线程池的方式有哪些execute和submit的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%8C%E7%BC%96%E5%86%99%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81"><span class="toc-number">15.</span> <span class="toc-text">15、如何实现两个线程通信，编写一段代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16%E3%80%81volatile%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3JMM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">16.</span> <span class="toc-text">16、volatile的作用是什么，如何理解JMM内存模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17%E3%80%81MySQL%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%BB%A5%E5%8F%8A%E4%B8%8D%E5%90%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">17.</span> <span class="toc-text">17、MySQL事务的隔离级别以及不同隔离级别的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18%E3%80%81MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">18.</span> <span class="toc-text">18、MySQL索引失效的场景有哪些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19%E3%80%81-MySQL%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">19.</span> <span class="toc-text">19、&#x3D;&#x3D;MySQL事务的四大特性如何实现&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20%E3%80%81%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9MvCC%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">20.</span> <span class="toc-text">&#x3D;&#x3D;20、谈谈你对MvCC的理解&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%94%9F%E6%88%90%E8%80%85%E6%B6%88%E6%81%AF%E8%80%85%E6%A8%A1%E5%9E%8B%E3%80%82%E3%80%90%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E4%B8%80%E4%B8%AA%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E3%80%91"><span class="toc-number">21.</span> <span class="toc-text">补充：编写一个生成者消息者模型。【两个线程+一个阻塞队列】</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="GitHub Pages + 后端 API 的完整实现指南"/></a><div class="content"><a class="title" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南">GitHub Pages + 后端 API 的完整实现指南</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Python3初始化工作空间"/></a><div class="content"><a class="title" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间">Python3初始化工作空间</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Aop/" title="Aop"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Aop"/></a><div class="content"><a class="title" href="/2025/09/15/Aop/" title="Aop">Aop</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Docker安装"/></a><div class="content"><a class="title" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装">Docker安装</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Elasticsearch/" title="Elasticsearch"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Elasticsearch"/></a><div class="content"><a class="title" href="/2025/09/15/Elasticsearch/" title="Elasticsearch">Elasticsearch</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Orange</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div>welcome to my <img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/爱心.png">blog</img></div><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/">鄂ICP备2022016190号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'CxT2FIJk3B7lLM8Pf1uPXYuQ-gzGzoHsz',
+      appKey: 'L6p0Q1gQvYEOeDpZr5tpGabx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>swap | Orange's_Blog</title><meta name="author" content="Orange"><meta name="copyright" content="Orange"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="swap  📚 Linux 创建 swap 详细指南  ⚙ 适用系统：  CentOS &#x2F; RHEL &#x2F; Rocky &#x2F; AlmaLinux Ubuntu &#x2F; Debian    1️⃣ 查看当前 swap 情况 12345678# 查看 swap 总体使用情况free -h# 查看 swap 设备列表swapon -s# 查看详细cat &#x2F;proc&#x2F;swaps  2️⃣ 创建 swap 文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swap">
+<meta property="og:url" content="http://www.zorange.online/2025/09/15/swap/index.html">
+<meta property="og:site_name" content="Orange&#39;s_Blog">
+<meta property="og:description" content="swap  📚 Linux 创建 swap 详细指南  ⚙ 适用系统：  CentOS &#x2F; RHEL &#x2F; Rocky &#x2F; AlmaLinux Ubuntu &#x2F; Debian    1️⃣ 查看当前 swap 情况 12345678# 查看 swap 总体使用情况free -h# 查看 swap 设备列表swapon -s# 查看详细cat &#x2F;proc&#x2F;swaps  2️⃣ 创建 swap 文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg">
+<meta property="article:published_time" content="2025-09-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-27T01:09:52.667Z">
+<meta property="article:author" content="Orange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/OrangeZSW/blog_img/preview.jpg"><link rel="canonical" href="http://www.zorange.online/2025/09/15/swap/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'swap',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-27 09:09:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/message.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Orange's_Blog"><img class="site-icon" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/logo.png"/><span class="site-name">Orange's_Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">swap</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-27T01:09:52.667Z" title="更新于 2026-01-27 09:09:52">2026-01-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2025/09/15/swap/" data-flag-title="swap"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>swap</h1>
+<hr>
+<h1>📚 Linux 创建 swap 详细指南</h1>
+<blockquote>
+<p>⚙ 适用系统：</p>
+<ul>
+<li>CentOS / RHEL / Rocky / AlmaLinux</li>
+<li>Ubuntu / Debian</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="1️⃣-查看当前-swap-情况">1️⃣ 查看当前 swap 情况</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 swap 总体使用情况</span></span><br><span class="line">free -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 swap 设备列表</span></span><br><span class="line">swapon -s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看详细</span></span><br><span class="line"><span class="built_in">cat</span> /proc/swaps</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="2️⃣-创建-swap-文件">2️⃣ 创建 swap 文件</h2>
+<p>这里以 <strong>创建 4G swap 文件</strong> 为例。</p>
+<h3 id="➡️-2-1-创建-swap-文件">➡️ 2.1 创建 swap 文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /swapfile 创建大小为 4G 的 swap 文件</span></span><br><span class="line">sudo fallocate -l 4G /swapfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 fallocate 不可用，可使用 dd (更兼容)</span></span><br><span class="line"><span class="comment"># sudo dd if=/dev/zero of=/swapfile bs=1M count=4096</span></span><br></pre></td></tr></table></figure>
+<h3 id="➡️-2-2-修改权限">➡️ 2.2 修改权限</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> 600 /swapfile</span><br></pre></td></tr></table></figure>
+<h3 id="➡️-2-3-设置为-swap-格式">➡️ 2.3 设置为 swap 格式</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkswap /swapfile</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3️⃣-启用-swap">3️⃣ 启用 swap</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo swapon /swapfile</span><br></pre></td></tr></table></figure>
+<p>验证是否生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">swapon -s</span><br><span class="line">free -h</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4️⃣-开机自动挂载">4️⃣ 开机自动挂载</h2>
+<p>编辑 <code>/etc/fstab</code>，添加一行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/fstab</span><br></pre></td></tr></table></figure>
+<p>在文件末尾添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile swap swap defaults 0 0</span><br></pre></td></tr></table></figure>
+<p>然后测试是否能正常挂载（避免下次重启失败）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -a</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="5️⃣-调整-swap-使用频率（swappiness）">5️⃣ 调整 swap 使用频率（swappiness）</h2>
+<p>swappiness 表示系统使用 swap 的倾向：</p>
+<ul>
+<li><strong>0</strong> 表示尽可能避免使用 swap（几乎用完物理内存才用）。</li>
+<li><strong>100</strong> 表示尽量使用 swap。</li>
+</ul>
+<p>通常设置为 <strong>10-20</strong> 性能较好。</p>
+<h3 id="➡️-5-1-临时修改">➡️ 5.1 临时修改</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl vm.swappiness=10</span><br></pre></td></tr></table></figure>
+<p>立即生效，但重启失效。</p>
+<h3 id="➡️-5-2-永久修改">➡️ 5.2 永久修改</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<p>添加一行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.swappiness=10</span><br></pre></td></tr></table></figure>
+<p>然后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="6️⃣-扩展-swap-大小">6️⃣ 扩展 swap 大小</h2>
+<p>如果原 swap 不够，可以新增 swap 文件，或删除原文件重新创建。</p>
+<h3 id="➡️-6-1-删除旧-swap（若需要）">➡️ 6.1 删除旧 swap（若需要）</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo swapoff /swapfile</span><br><span class="line">sudo <span class="built_in">rm</span> -f /swapfile</span><br></pre></td></tr></table></figure>
+<p>然后重新按上面步骤再创建更大的 swap 文件。</p>
+<hr>
+<h2 id="7️⃣-额外优化：设置-cache-pressure">7️⃣ 额外优化：设置 cache pressure</h2>
+<p><code>vm.vfs_cache_pressure</code> 决定了内核多积极释放 inode/dentry 缓存。默认是 100。</p>
+<p>可以适当调低到 50：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl vm.vfs_cache_pressure=50</span><br></pre></td></tr></table></figure>
+<p>永久：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<p>添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.vfs_cache_pressure=50</span><br></pre></td></tr></table></figure>
+<p>然后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>✅ 完整快速脚本示例</h1>
+<p>如果想一键执行，可用下面脚本（以 4G，swappiness=10 为例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo fallocate -l 4G /swapfile</span><br><span class="line">sudo <span class="built_in">chmod</span> 600 /swapfile</span><br><span class="line">sudo mkswap /swapfile</span><br><span class="line">sudo swapon /swapfile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/swapfile swap swap defaults 0 0&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/fstab</span><br><span class="line">sudo sysctl vm.swappiness=10</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;vm.swappiness=10&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>🎯 小结：常用命令表</h1>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看 swap</td>
+<td><code>free -h</code> / <code>swapon -s</code></td>
+</tr>
+<tr>
+<td>创建 swap 文件</td>
+<td><code>fallocate -l 4G /swapfile</code></td>
+</tr>
+<tr>
+<td>权限、格式化、启用</td>
+<td><code>chmod 600 /swapfile &amp;&amp; mkswap /swapfile &amp;&amp; swapon /swapfile</code></td>
+</tr>
+<tr>
+<td>设置开机挂载</td>
+<td><code>/etc/fstab</code> 中添加 <code>/swapfile swap swap defaults 0 0</code></td>
+</tr>
+<tr>
+<td>修改 swappiness</td>
+<td><code>sysctl vm.swappiness=10</code></td>
+</tr>
+<tr>
+<td>永久 swappiness</td>
+<td><code>/etc/sysctl.conf</code> 中添加 <code>vm.swappiness=10</code></td>
+</tr>
+<tr>
+<td>移除 swap</td>
+<td><code>swapoff /swapfile &amp;&amp; rm /swapfile</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>swap脚本</h1>
+<hr>
+<h2 id="🚀-脚本增强功能">🚀 脚本增强功能</h2>
+<p>✅ <strong>自动检测内存大小，决定 swap 大小</strong><br>
+✅ <strong>自动检测根分区剩余空间，避免 swap 太大导致磁盘占满</strong><br>
+✅ <strong>如需要，会拆分为多个 swap 文件以分摊 I/O</strong><br>
+✅ <strong>所有输出写入 <code>/var/log/swap_setup.log</code></strong><br>
+✅ <strong>依然自动设置 swappiness 和 cache_pressure，并开机自动挂载</strong></p>
+<hr>
+<h2 id="📜-完整脚本-auto-swap-sh">📜 完整脚本 <code>auto_swap.sh</code></h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># ===============================================</span></span><br><span class="line"><span class="comment"># 自动根据内存和磁盘空间配置 swap</span></span><br><span class="line"><span class="comment"># 支持多 swap 文件分摊 IO，并写日志到 /var/log/swap_setup.log</span></span><br><span class="line"><span class="comment"># ===============================================</span></span><br><span class="line"></span><br><span class="line">log_file=<span class="string">&quot;/var/log/swap_setup.log&quot;</span></span><br><span class="line"><span class="built_in">exec</span> &gt; &gt;(<span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span>) 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== <span class="subst">$(date &#x27;+%F %T&#x27;)</span> Starting swap setup ======&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 获取总内存(MB)</span></span><br><span class="line">mem_total=$(grep MemTotal /proc/meminfo | awk <span class="string">&#x27;&#123;print int($2/1024)&#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Detected memory: <span class="variable">$&#123;mem_total&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 根据内存大小决定 swap 大小</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$mem_total</span>&quot;</span> -lt 2048 ]; <span class="keyword">then</span></span><br><span class="line">    swap_target=2048</span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$mem_total</span>&quot;</span> -lt 8192 ]; <span class="keyword">then</span></span><br><span class="line">    swap_target=<span class="variable">$mem_total</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    swap_target=4096</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Initial calculated swap target: <span class="variable">$&#123;swap_target&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 检查根挂载点剩余空间</span></span><br><span class="line">root_avail=$(<span class="built_in">df</span> --output=avail / | <span class="built_in">tail</span> -1 | awk <span class="string">&#x27;&#123;print int($1/1024)&#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Available disk space on / : <span class="variable">$&#123;root_avail&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 swap 大于剩余空间的80%，调整</span></span><br><span class="line">max_swap=$((root_avail * <span class="number">80</span> / <span class="number">100</span>))</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$swap_target</span>&quot;</span> -gt <span class="string">&quot;<span class="variable">$max_swap</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    swap_target=<span class="variable">$max_swap</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Adjusted swap to <span class="variable">$&#123;swap_target&#125;</span> MB to fit disk capacity (80%).&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 如果还有老 swapfile，先移除</span></span><br><span class="line"><span class="keyword">if</span> swapon --summary | grep -q <span class="string">&#x27;/swapfile&#x27;</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Existing /swapfile found, turning off swap.&quot;</span></span><br><span class="line">    sudo swapoff /swapfile</span><br><span class="line">    sudo <span class="built_in">rm</span> -f /swapfile</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 删除多 swap 文件</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..4&#125;; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -f <span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        sudo swapoff <span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span></span><br><span class="line">        sudo <span class="built_in">rm</span> -f <span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 多 swap 文件分摊 IO</span></span><br><span class="line"><span class="comment"># 比如 如果 swap_target &gt; 2GB，则分 2 个 swap 文件</span></span><br><span class="line">files=1</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$swap_target</span>&quot;</span> -gt 2048 ]; <span class="keyword">then</span></span><br><span class="line">    files=2</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">per_file=$((swap_target / files))</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Will create <span class="variable">$files</span> swap files, each ~<span class="variable">$&#123;per_file&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 <span class="variable">$files</span>); <span class="keyword">do</span></span><br><span class="line">    swapfile=<span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Creating <span class="variable">$swapfile</span> of size <span class="variable">$&#123;per_file&#125;</span> MB&quot;</span></span><br><span class="line">    sudo fallocate -l <span class="variable">$&#123;per_file&#125;</span>M <span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span> || sudo <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=<span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span> bs=1M count=<span class="variable">$per_file</span></span><br><span class="line">    sudo <span class="built_in">chmod</span> 600 <span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span></span><br><span class="line">    sudo mkswap <span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span></span><br><span class="line">    sudo swapon <span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">&quot;<span class="variable">$swapfile</span>&quot;</span> /etc/fstab; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$swapfile</span> swap swap defaults 0 0&quot;</span> | sudo <span class="built_in">tee</span> -a /etc/fstab</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果只有 1 个文件，命名为 /swapfile</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$files</span>&quot;</span> -eq 1 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">mv</span> <span class="string">&quot;/swapfile1&quot;</span> <span class="string">&quot;/swapfile&quot;</span></span><br><span class="line">    sed -i <span class="string">&#x27;s|/swapfile1|/swapfile|g&#x27;</span> /etc/fstab</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 调整 swappiness 和 cache pressure</span></span><br><span class="line">sudo sysctl vm.swappiness=10</span><br><span class="line">sudo sysctl vm.vfs_cache_pressure=50</span><br><span class="line">grep -q <span class="string">&#x27;vm.swappiness&#x27;</span> /etc/sysctl.conf || <span class="built_in">echo</span> <span class="string">&#x27;vm.swappiness=10&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line">grep -q <span class="string">&#x27;vm.vfs_cache_pressure&#x27;</span> /etc/sysctl.conf || <span class="built_in">echo</span> <span class="string">&#x27;vm.vfs_cache_pressure=50&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line">sudo sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 最终结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== Swap setup complete ======&quot;</span></span><br><span class="line">free -h</span><br><span class="line">swapon --show</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== <span class="subst">$(date &#x27;+%F %T&#x27;)</span> Swap setup done ======&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="🚀-使用方式">🚀 使用方式</h2>
+<h3 id="1️⃣-保存脚本">1️⃣ 保存脚本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano auto_swap.sh</span><br></pre></td></tr></table></figure>
+<p>粘贴上面的脚本，保存退出。</p>
+<hr>
+<h3 id="2️⃣-授权执行">2️⃣ 授权执行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x auto_swap.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="3️⃣-运行脚本">3️⃣ 运行脚本</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./auto_swap.sh</span><br></pre></td></tr></table></figure>
+<p>执行过程和所有日志都会写入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/log/swap_setup.log</span><br></pre></td></tr></table></figure>
+<p>你可以随时查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /var/log/swap_setup.log</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="✅-它的优点">✅ 它的优点</h2>
+<ul>
+<li><strong>安全</strong>：永远不会占用超过根分区剩余的 80%，避免导致系统无法写入。</li>
+<li><strong>智能</strong>：自动决定 swap 大小。</li>
+<li><strong>分散 I/O</strong>：大于 2GB 就拆成多个 swap 文件。</li>
+<li><strong>自动挂载</strong>：写入 <code>/etc/fstab</code>。</li>
+<li><strong>优化参数</strong>：设置 <code>swappiness=10</code>，<code>cache_pressure=50</code>。</li>
+<li><strong>可追溯</strong>：所有过程和结果都写到 <code>/var/log/swap_setup.log</code>。</li>
+</ul>
+<hr>
+<p>太棒了！你这个需求非常“专业级”，我们就来搞个 <strong>顶配级自动 swap 管理方案</strong><br>
+👇 我会详细拆解成三个部分，并给出完整可执行脚本示例。</p>
+<hr>
+<h1>🚀 功能一：基于磁盘 I/O 性能自动决定 swap 文件数</h1>
+<p>一般 swap 文件越多，可以分摊到不同磁盘/不同 inode，提高并行 IO 性能（虽不如 RAID）。<br>
+我们可以：</p>
+<ul>
+<li>用 <code>dd</code> 或 <code>fio</code> 简单跑个写入测试。</li>
+<li>根据 MB/s 速度决定 swap 文件数量。</li>
+</ul>
+<p>举个简单规则示例：</p>
+<ul>
+<li>IOPS &lt; 50 MB/s，创建 1 个 swap 文件（避免过多碎片）。</li>
+<li>IOPS 50~150 MB/s，创建 2 个 swap 文件。</li>
+<li>IOPS &gt; 150 MB/s，创建 3 个 swap 文件。</li>
+</ul>
+<hr>
+<h2 id="🚀-功能二：结合-zram-压缩-swap（基于内存）">🚀 功能二：结合 zram 压缩 swap（基于内存）</h2>
+<p>zram 类似在内存里开一个压缩块设备，性能比真实磁盘 swap 高很多（通常 4~10x）。<br>
+适合：</p>
+<ul>
+<li>CPU 比较空闲，内存吃紧时。</li>
+<li>做内存“过度承载”，同时减少物理 swap 触发。</li>
+</ul>
+<hr>
+<h2 id="🚀-功能三：cron-定期检查-swap-磁盘">🚀 功能三：cron 定期检查 swap + 磁盘</h2>
+<p>自动每天或每小时检测 swap 使用率、I/O load、磁盘可用空间，自动写入日志，并可发邮件或推送。</p>
+<hr>
+<h1>✅ 现在整合为超完整的方案</h1>
+<hr>
+<h2 id="📜-完整增强脚本-smart-swap-setup-sh">📜 完整增强脚本 <code>smart_swap_setup.sh</code></h2>
+<h3 id="🔥-自动：">🔥 自动：</h3>
+<ul>
+<li>检测内存</li>
+<li>跑 <code>dd</code> 测 I/O</li>
+<li>根据速度分配 swap 文件数</li>
+<li>启用 zram 压缩 swap</li>
+<li>配置 swappiness</li>
+<li>写 <code>/etc/fstab</code></li>
+<li>输出到 <code>/var/log/swap_manager.log</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># ================================================</span></span><br><span class="line"><span class="comment"># 智能 swap 管理脚本 (内存+磁盘I/O自动化, 多文件, zram 自动检测)</span></span><br><span class="line"><span class="comment"># 日志输出到 /var/log/swap_manager.log</span></span><br><span class="line"><span class="comment"># ================================================</span></span><br><span class="line"></span><br><span class="line">log_file=<span class="string">&quot;/var/log/swap_manager.log&quot;</span></span><br><span class="line"><span class="built_in">exec</span> &gt; &gt;(<span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span>) 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== <span class="subst">$(date &#x27;+%F %T&#x27;)</span> Starting smart swap setup ======&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 检测内存</span></span><br><span class="line">mem_total=$(grep MemTotal /proc/meminfo | awk <span class="string">&#x27;&#123;print int($2/1024)&#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Detected memory: <span class="variable">$&#123;mem_total&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 强制英文运行 dd 测试，避免中文环境匹配失败</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Running IO test with dd...&quot;</span></span><br><span class="line">speed=$(LANG=C <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=test_io.tmp bs=1M count=256 conv=fdatasync 2&gt;&amp;1 | \</span><br><span class="line">    grep -Eo <span class="string">&#x27;[0-9\.]+ (MB/s|MB/秒)&#x27;</span> | awk <span class="string">&#x27;&#123;print int($1)&#125;&#x27;</span>)</span><br><span class="line"><span class="built_in">rm</span> -f test_io.tmp</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$speed</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;IO speed detection failed, defaulting to 1 swap file.&quot;</span></span><br><span class="line">    swap_files=1</span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$speed</span>&quot;</span> -lt 50 ]; <span class="keyword">then</span></span><br><span class="line">    swap_files=1</span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$speed</span>&quot;</span> -lt 150 ]; <span class="keyword">then</span></span><br><span class="line">    swap_files=2</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    swap_files=3</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Measured disk speed: <span class="variable">$&#123;speed:-N/A&#125;</span> MB/s&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Will create <span class="variable">$&#123;swap_files&#125;</span> swap file(s).&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 根据内存决定 swap 总大小</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$mem_total</span>&quot;</span> -lt 2048 ]; <span class="keyword">then</span></span><br><span class="line">    swap_target=2048</span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">&quot;<span class="variable">$mem_total</span>&quot;</span> -lt 8192 ]; <span class="keyword">then</span></span><br><span class="line">    swap_target=<span class="variable">$mem_total</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    swap_target=4096</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Total swap target: <span class="variable">$&#123;swap_target&#125;</span> MB&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 清理旧 swap</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Cleaning old swap configurations...&quot;</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line">sudo sed -i <span class="string">&#x27;/swapfile/d&#x27;</span> /etc/fstab</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;; <span class="keyword">do</span></span><br><span class="line">    [ -f <span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span> ] &amp;&amp; sudo <span class="built_in">rm</span> -f <span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 分配 swap 文件</span></span><br><span class="line">per_swap=$((swap_target / swap_files))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 <span class="variable">$swap_files</span>); <span class="keyword">do</span></span><br><span class="line">    file=<span class="string">&quot;/swapfile<span class="variable">$i</span>&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Creating <span class="variable">$file</span> of size <span class="variable">$&#123;per_swap&#125;</span> MB&quot;</span></span><br><span class="line">    sudo fallocate -l <span class="variable">$&#123;per_swap&#125;</span>M <span class="string">&quot;<span class="variable">$file</span>&quot;</span> || sudo <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=<span class="string">&quot;<span class="variable">$file</span>&quot;</span> bs=1M count=<span class="variable">$per_swap</span></span><br><span class="line">    sudo <span class="built_in">chmod</span> 600 <span class="string">&quot;<span class="variable">$file</span>&quot;</span></span><br><span class="line">    sudo mkswap <span class="string">&quot;<span class="variable">$file</span>&quot;</span></span><br><span class="line">    sudo swapon <span class="string">&quot;<span class="variable">$file</span>&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$file</span> swap swap defaults 0 0&quot;</span> | sudo <span class="built_in">tee</span> -a /etc/fstab</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 启用 zram 并检测设备数量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Installing zram (if needed)...&quot;</span></span><br><span class="line"><span class="keyword">if</span> ! <span class="built_in">command</span> -v zramctl &gt;/dev/null 2&gt;&amp;1; <span class="keyword">then</span></span><br><span class="line">    sudo apt install -y zram-tools || sudo yum install -y zram</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Loading zram kernel module...&quot;</span></span><br><span class="line">sudo modprobe zram</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算当前系统支持的 zram 数量</span></span><br><span class="line">available_zrams=$(<span class="built_in">ls</span> /sys/block/ | grep zram | <span class="built_in">wc</span> -l)</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$available_zrams</span>&quot;</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;No zram device detected, skipping zram setup.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Detected <span class="variable">$available_zrams</span> zram device(s)&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 0 $((available_zrams-<span class="number">1</span>))); <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;mem_total&#125;</span>M&quot;</span> | sudo <span class="built_in">tee</span> /sys/block/zram<span class="variable">$&#123;i&#125;</span>/disksize</span><br><span class="line">        sudo mkswap /dev/zram<span class="variable">$&#123;i&#125;</span></span><br><span class="line">        sudo swapon /dev/zram<span class="variable">$&#123;i&#125;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 系统内核优化参数</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Setting vm.swappiness=10 and vm.vfs_cache_pressure=50&quot;</span></span><br><span class="line">sudo sysctl -w vm.swappiness=10</span><br><span class="line">sudo sysctl -w vm.vfs_cache_pressure=50</span><br><span class="line">grep -q <span class="string">&#x27;vm.swappiness&#x27;</span> /etc/sysctl.conf || <span class="built_in">echo</span> <span class="string">&#x27;vm.swappiness=10&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line">grep -q <span class="string">&#x27;vm.vfs_cache_pressure&#x27;</span> /etc/sysctl.conf || <span class="built_in">echo</span> <span class="string">&#x27;vm.vfs_cache_pressure=50&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 最终结果展示</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== Smart swap setup complete ======&quot;</span></span><br><span class="line">free -h</span><br><span class="line">swapon --show</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="⚙️-使用方式">⚙️ 使用方式</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nano smart_swap_setup.sh</span><br><span class="line"><span class="comment"># 粘贴脚本</span></span><br><span class="line"><span class="built_in">chmod</span> +x smart_swap_setup.sh</span><br><span class="line">sudo ./smart_swap_setup.sh</span><br></pre></td></tr></table></figure>
+<p>执行后：</p>
+<ul>
+<li>自动跑 dd 测试</li>
+<li>决定 swap 文件数</li>
+<li>开启 zram</li>
+<li>写 <code>/etc/fstab</code></li>
+<li>调整参数</li>
+<li>输出到 <code>/var/log/swap_manager.log</code></li>
+</ul>
+<hr>
+<h2 id="🚀-定期-cron-监控-swap-磁盘">🚀 定期 cron 监控 swap + 磁盘</h2>
+<p>例如每 1 小时检查，并记录使用情况。</p>
+<h3 id="swap-check-sh"><code>swap_check.sh</code></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">log_file=<span class="string">&quot;/var/log/swap_health.log&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;====== <span class="subst">$(date &#x27;+%F %T&#x27;)</span> ======&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Disk usage:&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">df</span> -h &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Swap usage:&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line">free -h &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;IO stat:&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line">iostat -xz 1 3 &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;------------------------------------&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装 <code>sysstat</code> 获取 <code>iostat</code>：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install sysstat</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">sudo yum install sysstat</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="加入-cron">加入 cron</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 * * * * /bin/bash /path/to/swap_check.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>🔥 结论：</h1>
+<p>✅ <strong>基于磁盘 IO 智能分配 swap 文件数</strong><br>
+✅ <strong>结合 zram 高速压缩 swap</strong><br>
+✅ <strong>定期 swap &amp; disk 健康检测</strong></p>
+<hr>
+<h1>swap预警脚本</h1>
+<hr>
+<h1>🚀 <code>swap_health.sh</code> 支持邮件 &amp; 微信报警</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># ================================================</span></span><br><span class="line"><span class="comment"># swap_health.sh</span></span><br><span class="line"><span class="comment"># 定时检测系统 swap、内存、磁盘使用情况</span></span><br><span class="line"><span class="comment"># 记录日志到 /var/log/swap_health.log</span></span><br><span class="line"><span class="comment"># swap 使用率超过阈值时，自动发送邮件和微信报警</span></span><br><span class="line"><span class="comment"># ================================================</span></span><br><span class="line"></span><br><span class="line">log_file=<span class="string">&quot;/var/log/swap_health.log&quot;</span></span><br><span class="line">threshold_swap_used_percent=70</span><br><span class="line"></span><br><span class="line"><span class="comment"># --- 配置你的邮箱和微信推送相关信息 ---</span></span><br><span class="line">EMAIL=<span class="string">&quot;your_email@example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 微信推送 URL（企业微信/Server酱等均可）</span></span><br><span class="line"><span class="comment"># 这里示例用 Server酱 https://sct.ftqq.com/ 的推送地址</span></span><br><span class="line">WECHAT_PUSH_URL=<span class="string">&quot;https://sctapi.ftqq.com/你的SCKEY.send&quot;</span></span><br><span class="line"></span><br><span class="line">now=$(<span class="built_in">date</span> <span class="string">&#x27;+%F %T&#x27;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;===== <span class="variable">$now</span> =====&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 检查内存 &amp; swap 使用情况</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[MEMORY]&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line">free -h &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"></span><br><span class="line">swap_total=$(free | awk <span class="string">&#x27;/Swap:/ &#123;print $2&#125;&#x27;</span>)</span><br><span class="line">swap_used=$(free | awk <span class="string">&#x27;/Swap:/ &#123;print $3&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$swap_total</span>&quot;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    swap_used_percent=$(( <span class="number">100</span> * swap_used / swap_total ))</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    swap_used_percent=0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[SWAP] Total: <span class="variable">$swap_total</span> KB, Used: <span class="variable">$swap_used</span> KB, Used%: <span class="variable">$swap_used_percent</span>%&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 检查磁盘</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[DISK]&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"><span class="built_in">df</span> -h &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># 判断是否发送报警</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$swap_used_percent</span>&quot;</span> -gt <span class="string">&quot;<span class="variable">$threshold_swap_used_percent</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    alert_msg=<span class="string">&quot;⚠️ Swap 使用率警告！当前使用率为 <span class="variable">$&#123;swap_used_percent&#125;</span>% (阈值 <span class="variable">$&#123;threshold_swap_used_percent&#125;</span>%)&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[ALERT] <span class="variable">$alert_msg</span>&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 发送邮件报警（需要系统支持 mail 命令）</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$alert_msg</span>&quot;</span> | mail -s <span class="string">&quot;Swap 使用率警告&quot;</span> <span class="string">&quot;<span class="variable">$EMAIL</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 发送微信推送报警</span></span><br><span class="line">    curl -s --get --data-urlencode <span class="string">&quot;title=Swap 使用率警告&quot;</span> --data-urlencode <span class="string">&quot;desp=<span class="variable">$alert_msg</span>&quot;</span> <span class="string">&quot;<span class="variable">$WECHAT_PUSH_URL</span>&quot;</span> &gt; /dev/null</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$log_file</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1>🔧 使用说明</h1>
+<ol>
+<li>修改脚本中：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EMAIL=<span class="string">&quot;your_email@example.com&quot;</span></span><br><span class="line">WECHAT_PUSH_URL=<span class="string">&quot;https://sctapi.ftqq.com/你的SCKEY.send&quot;</span></span><br></pre></td></tr></table></figure>
+<p>替换成你的邮箱地址和微信推送 URL。</p>
+<ol start="2">
+<li>
+<p>确保系统已安装并配置好 <code>mail</code> 命令（如 <code>mailutils</code> 或 <code>mailx</code>）。</p>
+</li>
+<li>
+<p>保存脚本（如 <code>/usr/local/bin/swap_health.sh</code>），赋权限：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/swap_health.sh</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>手动运行测试：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/swap_health.sh</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>查看日志：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/swap_health.log</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>添加定时任务（如每10分钟）：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /usr/local/bin/swap_health.sh</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>📢 关于微信推送</h1>
+<ul>
+<li>上面示例使用 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://sct.ftqq.com/">Server酱</a> 服务，简单易用</li>
+<li>注册后获取 <code>SCKEY</code>，拼成推送 URL</li>
+<li>也可以用企业微信机器人或者其他微信推送工具，调整 <code>curl</code> 部分即可</li>
+</ul>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.zorange.online">Orange</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.zorange.online/2025/09/15/swap/">http://www.zorange.online/2025/09/15/swap/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.zorange.online" target="_blank">Orange's_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/09/15/ssh/" title="ssh"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ssh</div></div></a></div><div class="next-post pull-right"><a href="/2025/09/15/ssm/" title="ssm"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ssm</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Orange</div><div class="author-info__description">welcome to my blog!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/OrangeZSW"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OrangeZSW" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">swap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">📚 Linux 创建 swap 详细指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D-swap-%E6%83%85%E5%86%B5"><span class="toc-number">2.1.</span> <span class="toc-text">1️⃣ 查看当前 swap 情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%88%9B%E5%BB%BA-swap-%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2️⃣ 创建 swap 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-2-1-%E5%88%9B%E5%BB%BA-swap-%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.1.</span> <span class="toc-text">➡️ 2.1 创建 swap 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-2-2-%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="toc-number">2.2.2.</span> <span class="toc-text">➡️ 2.2 修改权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-2-3-%E8%AE%BE%E7%BD%AE%E4%B8%BA-swap-%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.2.3.</span> <span class="toc-text">➡️ 2.3 设置为 swap 格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E5%90%AF%E7%94%A8-swap"><span class="toc-number">2.3.</span> <span class="toc-text">3️⃣ 启用 swap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%EF%B8%8F%E2%83%A3-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-number">2.4.</span> <span class="toc-text">4️⃣ 开机自动挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%EF%B8%8F%E2%83%A3-%E8%B0%83%E6%95%B4-swap-%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87%EF%BC%88swappiness%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">5️⃣ 调整 swap 使用频率（swappiness）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-5-1-%E4%B8%B4%E6%97%B6%E4%BF%AE%E6%94%B9"><span class="toc-number">2.5.1.</span> <span class="toc-text">➡️ 5.1 临时修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-5-2-%E6%B0%B8%E4%B9%85%E4%BF%AE%E6%94%B9"><span class="toc-number">2.5.2.</span> <span class="toc-text">➡️ 5.2 永久修改</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%EF%B8%8F%E2%83%A3-%E6%89%A9%E5%B1%95-swap-%E5%A4%A7%E5%B0%8F"><span class="toc-number">2.6.</span> <span class="toc-text">6️⃣ 扩展 swap 大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9E%A1%EF%B8%8F-6-1-%E5%88%A0%E9%99%A4%E6%97%A7-swap%EF%BC%88%E8%8B%A5%E9%9C%80%E8%A6%81%EF%BC%89"><span class="toc-number">2.6.1.</span> <span class="toc-text">➡️ 6.1 删除旧 swap（若需要）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%EF%B8%8F%E2%83%A3-%E9%A2%9D%E5%A4%96%E4%BC%98%E5%8C%96%EF%BC%9A%E8%AE%BE%E7%BD%AE-cache-pressure"><span class="toc-number">2.7.</span> <span class="toc-text">7️⃣ 额外优化：设置 cache pressure</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">✅ 完整快速脚本示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">🎯 小结：常用命令表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">swap脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E8%84%9A%E6%9C%AC%E5%A2%9E%E5%BC%BA%E5%8A%9F%E8%83%BD"><span class="toc-number">5.1.</span> <span class="toc-text">🚀 脚本增强功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9C-%E5%AE%8C%E6%95%B4%E8%84%9A%E6%9C%AC-auto-swap-sh"><span class="toc-number">5.2.</span> <span class="toc-text">📜 完整脚本 auto_swap.sh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">5.3.</span> <span class="toc-text">🚀 使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E4%BF%9D%E5%AD%98%E8%84%9A%E6%9C%AC"><span class="toc-number">5.3.1.</span> <span class="toc-text">1️⃣ 保存脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E6%8E%88%E6%9D%83%E6%89%A7%E8%A1%8C"><span class="toc-number">5.3.2.</span> <span class="toc-text">2️⃣ 授权执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">5.3.3.</span> <span class="toc-text">3️⃣ 运行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E5%AE%83%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">5.4.</span> <span class="toc-text">✅ 它的优点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">🚀 功能一：基于磁盘 I&#x2F;O 性能自动决定 swap 文件数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E5%8A%9F%E8%83%BD%E4%BA%8C%EF%BC%9A%E7%BB%93%E5%90%88-zram-%E5%8E%8B%E7%BC%A9-swap%EF%BC%88%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%EF%BC%89"><span class="toc-number">6.1.</span> <span class="toc-text">🚀 功能二：结合 zram 压缩 swap（基于内存）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E5%8A%9F%E8%83%BD%E4%B8%89%EF%BC%9Acron-%E5%AE%9A%E6%9C%9F%E6%A3%80%E6%9F%A5-swap-%E7%A3%81%E7%9B%98"><span class="toc-number">6.2.</span> <span class="toc-text">🚀 功能三：cron 定期检查 swap + 磁盘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">✅ 现在整合为超完整的方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9C-%E5%AE%8C%E6%95%B4%E5%A2%9E%E5%BC%BA%E8%84%9A%E6%9C%AC-smart-swap-setup-sh"><span class="toc-number">7.1.</span> <span class="toc-text">📜 完整增强脚本 smart_swap_setup.sh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A5-%E8%87%AA%E5%8A%A8%EF%BC%9A"><span class="toc-number">7.1.1.</span> <span class="toc-text">🔥 自动：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">7.2.</span> <span class="toc-text">⚙️ 使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E5%AE%9A%E6%9C%9F-cron-%E7%9B%91%E6%8E%A7-swap-%E7%A3%81%E7%9B%98"><span class="toc-number">7.3.</span> <span class="toc-text">🚀 定期 cron 监控 swap + 磁盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#swap-check-sh"><span class="toc-number">7.3.1.</span> <span class="toc-text">swap_check.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5-cron"><span class="toc-number">7.3.2.</span> <span class="toc-text">加入 cron</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">8.</span> <span class="toc-text">🔥 结论：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text">swap预警脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">10.</span> <span class="toc-text">🚀 swap_health.sh 支持邮件 &amp; 微信报警</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">11.</span> <span class="toc-text">🔧 使用说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">12.</span> <span class="toc-text">📢 关于微信推送</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="GitHub Pages + 后端 API 的完整实现指南"/></a><div class="content"><a class="title" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南">GitHub Pages + 后端 API 的完整实现指南</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Python3初始化工作空间"/></a><div class="content"><a class="title" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间">Python3初始化工作空间</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Aop/" title="Aop"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Aop"/></a><div class="content"><a class="title" href="/2025/09/15/Aop/" title="Aop">Aop</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Docker安装"/></a><div class="content"><a class="title" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装">Docker安装</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Elasticsearch/" title="Elasticsearch"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Elasticsearch"/></a><div class="content"><a class="title" href="/2025/09/15/Elasticsearch/" title="Elasticsearch">Elasticsearch</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Orange</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div>welcome to my <img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/爱心.png">blog</img></div><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/">鄂ICP备2022016190号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'CxT2FIJk3B7lLM8Pf1uPXYuQ-gzGzoHsz',
+      appKey: 'L6p0Q1gQvYEOeDpZr5tpGabx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

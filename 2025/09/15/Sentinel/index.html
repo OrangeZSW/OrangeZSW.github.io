@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Sentinel | Orange's_Blog</title><meta name="author" content="Orange"><meta name="copyright" content="Orange"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Sentinel 服务雪崩 概述：在微服务系统架构中，服务间调用关系错综复杂，一个微服务往往依赖于多个其它微服务。一个服务的不可用导致整个系统的不可用的现象就被称之为雪崩效应。 如下图所示：  解决方案 超时处理 超时处理：设定超时时间，请求超过一定时间没有响应就返回错误信息，不会无休止等待 隔离处理 隔离处理：将错误隔离在可控的范围之内，不要让其影响到其他的程序的运行。 熔断处理 熔断处理：由断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sentinel">
+<meta property="og:url" content="http://www.zorange.online/2025/09/15/Sentinel/index.html">
+<meta property="og:site_name" content="Orange&#39;s_Blog">
+<meta property="og:description" content="Sentinel 服务雪崩 概述：在微服务系统架构中，服务间调用关系错综复杂，一个微服务往往依赖于多个其它微服务。一个服务的不可用导致整个系统的不可用的现象就被称之为雪崩效应。 如下图所示：  解决方案 超时处理 超时处理：设定超时时间，请求超过一定时间没有响应就返回错误信息，不会无休止等待 隔离处理 隔离处理：将错误隔离在可控的范围之内，不要让其影响到其他的程序的运行。 熔断处理 熔断处理：由断">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg">
+<meta property="article:published_time" content="2025-09-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-27T01:09:52.666Z">
+<meta property="article:author" content="Orange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/OrangeZSW/blog_img/preview.jpg"><link rel="canonical" href="http://www.zorange.online/2025/09/15/Sentinel/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Sentinel',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-27 09:09:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/message.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Orange's_Blog"><img class="site-icon" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/logo.png"/><span class="site-name">Orange's_Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-book"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-heartbeat"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-camera"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/cloud/"><i class="fa-fw fas fa-cloud"></i><span> 网盘</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Sentinel</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-27T01:09:52.666Z" title="更新于 2026-01-27 09:09:52">2026-01-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/2025/09/15/Sentinel/" data-flag-title="Sentinel"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Sentinel</h1>
+<h2 id="服务雪崩">服务雪崩</h2>
+<p>概述：在微服务系统架构中，服务间调用关系错综复杂，一个微服务往往依赖于多个其它微服务。一个服务的不可用导致整个系统的不可用的现象就被称之为雪崩效应。</p>
+<p>如下图所示：</p>
+<p><img src="http://120.26.79.238:9000/blog/img/47ec9b7d45b743de84822380f7348e7d.png" alt="image.png"></p>
+<h3 id="解决方案">解决方案</h3>
+<h4 id="超时处理">超时处理</h4>
+<p>超时处理：设定超时时间，请求超过一定时间没有响应就返回错误信息，不会无休止等待</p>
+<h4 id="隔离处理">隔离处理</h4>
+<p>隔离处理：将错误隔离在可控的范围之内，不要让其影响到其他的程序的运行。</p>
+<h4 id="熔断处理">熔断处理</h4>
+<p>熔断处理：由<strong>断路器</strong>统计业务执行的异常比例，如果超出阈值则会<strong>熔断</strong>该业务，拦截访问该业务的一切请求。</p>
+<h4 id="流量控制">流量控制</h4>
+<p>流量控制：限制业务访问的QPS(每秒的请求数)，避免服务因流量的突增而故障。</p>
+<h2 id="整合sentinel">整合sentinel</h2>
+<p>我们在spzx-cloud-user中整合sentinel，并连接sentinel的控制台，步骤如下：</p>
+<p>1、引入sentinel依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--sentinel--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、配置控制台</p>
+<p>修改application.yaml文件，添加下面内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">transport:</span></span><br><span class="line">        <span class="attr">dashboard:</span> <span class="string">localhost:8080</span>  <span class="comment"># 配置sentinel控制台地址</span></span><br></pre></td></tr></table></figure>
+<p>3、访问spzx-cloud-user的任意接口</p>
+<p>打开浏览器，访问<a target="_blank" rel="noopener external nofollow noreferrer" href="http://localhost:10100/api/user/findUserByUserId/1%EF%BC%8C%E8%BF%99%E6%A0%B7%E6%89%8D%E8%83%BD%E8%A7%A6%E5%8F%91sentinel%E7%9A%84%E7%9B%91%E6%8E%A7%E3%80%82%E7%84%B6%E5%90%8E%E5%86%8D%E8%AE%BF%E9%97%AEsentinel%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0%EF%BC%8C%E6%9F%A5%E7%9C%8B%E6%95%88%E6%9E%9C%EF%BC%9A">http://localhost:10100/api/user/findUserByUserId/1，这样才能触发sentinel的监控。然后再访问sentinel的控制台，查看效果：</a></p>
+<h2 id="流控模式">流控模式</h2>
+<h3 id="控模式简介">控模式简介</h3>
+<p>在添加限流规则时，点击高级选项，可以选择三种<strong>流控模式</strong>：</p>
+<p>1、直接：统计当前资源的请求，触发阈值时对当前资源直接限流，也是默认的模式</p>
+<p>2、关联：统计与当前资源相关的另一个资源，触发阈值时，对当前资源限流</p>
+<p>3、链路：统计从指定链路访问到本资源的请求，触发阈值时，对指定链路限流</p>
+<h4 id="关联模式">关联模式</h4>
+<p>关联模式：统计与当前资源相关的另一个资源，触发阈值时，对当前资源限流</p>
+<p><strong>语法说明</strong>：对/api/user/updateUserById资源的请求进行统计，当访问流量超过阈值时，就对/api/user/findUserByUserId/{userId}进行限流，避免影响/api/user/updateUserById资源。</p>
+<p>使用场景：比如用户支付时需要修改订单状态，同时用户要查询订单。查询和修改操作会争抢数据库锁，产生竞争。业务需求是优先支付和更新订单的业务，因此当修改订单业务触发阈值时，需要对查询订单业务限流。</p>
+<h5 id="关联流控模式的使用场景：">关联流控模式的使用场景：</h5>
+<p>1、两个有竞争关系的资源</p>
+<p>2、一个优先级较高，一个优先级较低</p>
+<p>对高优先级的资源的流量进行统计，当超过阈值对低优先级的资源进行限流。</p>
+<h4 id="链路模式">链路模式</h4>
+<p>链路模式：只针对从指定链路访问到本资源的请求做统计，判断是否超过阈值，如果超过阈值对从该链路请求进行限流。</p>
+<p>配置方式：</p>
+<p>1、/api/user/save --&gt; users</p>
+<p>2、/api/user/query --&gt; users</p>
+<h5 id="实际场景">实际场景</h5>
+<p>当多个cantoller访问同一个资源时（自定义名称，在service上），实现对其中某些请求路径做流控，</p>
+<ol>
+<li>
+<p>在需要进行流控的资源上标记资源名称</p>
+<p>通过**@SentinelResource**标记UserService中的queryUsers方法为一个sentinel监控的资源(默认情况下，sentinel只监控controller方法)</p>
+</li>
+<li>
+<p>更改application.yml文件中的sentinel配置</p>
+<p>链路模式中，是对不同来源的两个链路做监控。但是sentinel默认会给进入spring mvc的所有请求设置同一个root资源，会导致链路模式失效。因此需要关闭这种资源整合。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">web-context-unify:</span> <span class="literal">false</span> <span class="comment"># 关闭context整合</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>对资源进行流控，添加流控规则</p>
+</li>
+</ol>
+<h3 id="流控效果">流控效果</h3>
+<p>流控效果是指请求达到流控阈值时应该采取的措施，包括三种：</p>
+<p>1、快速失败：达到阈值后，新的请求会被立即拒绝并抛出FlowException异常，是默认的处理方式</p>
+<p>2、warm up：预热模式，对超出阈值的请求同样是拒绝并抛出异常，但这种模式阈值会动态变化，从一个较小值逐渐增加到最大阈值</p>
+<p>3、排队等待：让所有的请求按照先后次序进入到一个队列中进行排队，当某一个请求最大的预期等待时间超过了所设定的超时时间时同样是拒绝并抛出异常</p>
+<h4 id="warm-up">warm up</h4>
+<p>阈值一般是一个微服务能承担的最大QPS，但是一个服务刚刚启动时，一切资源尚未初始化（<strong>冷启动</strong>），如果直接将QPS跑到最大值，可能导致服务瞬间宕机。</p>
+<p>warm up也叫<strong>预热模式</strong>，是应对服务冷启动的一种方案。<strong>阈值会动态变化</strong>，从一个较小值逐渐增加到最大阈值。</p>
+<p><strong>工作特点</strong>：请求阈值初始值是 maxThreshold / coldFactor, 持续指定时长(预热时间)后，逐渐提高到maxThreshold值，而coldFactor的默认值是3。</p>
+<p><img src="http://120.26.79.238:9000/blog/img/78d8e6e08ce44c6bbb4195be6a188b3e.png" alt="image.png"></p>
+<h4 id="排队等待">排队等待</h4>
+<p><strong>排队等待</strong>：让所有的请求按照先后次序进入到一个队列中进行排队，当某一个请求最大的预期等待时间超过了所设定的超时时间时同样是拒绝并抛出异常</p>
+<p>例如：QPS = 5，意味着每200ms处理一个队列中的请求；timeout = 2000，意味着<strong>预期等待时长</strong>超过2000ms的请求会被拒绝并抛出异常。</p>
+<p>那什么叫做预期等待时长呢？</p>
+<p>比如现在一下子来了12 个请求，因为每200ms执行一个请求，那么：</p>
+<p>1、第6个请求的<strong>预期等待时长</strong> =  200 * （6 - 1） = 1000ms</p>
+<p>2、第12个请求的预期等待时长 = 200 * （12-1） = 2200ms</p>
+<h3 id="热点参数限流">热点参数限流</h3>
+<h4 id="配置介绍">配置介绍</h4>
+<p>之前的限流是统计访问某个资源的所有请求，判断是否超过QPS阈值。而热点参数限流是<strong>分别统计参数值相同的请求</strong>，判断是否超过QPS阈值。</p>
+<blockquote>
+<p>对同一个接口，不同的参数进行限流</p>
+</blockquote>
+<p>实现步骤：</p>
+<p>1、标记资源</p>
+<p>给UserController中的/api/user/findUserByUserId/{userId}资源添加注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SentinelResource(&quot;hot&quot;)</span>  <span class="comment">// 声明资源名称</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/findUserByUserId/&#123;userId&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">findUserByUserId</span><span class="params">(<span class="meta">@PathVariable(value = &quot;userId&quot;)</span> Long userId ,</span></span><br><span class="line"><span class="params">                             <span class="meta">@RequestHeader(name = &quot;Truth&quot; , required = false)</span>String header)</span> &#123;</span><br><span class="line">    log.info(<span class="string">&quot;UserController...findUserByUserId方法执行了... ,header: &#123;&#125; , dateformat: &#123;&#125; &quot;</span> , header , patternProperties.getDateformat());</span><br><span class="line">    <span class="keyword">return</span> userService.findUserByUserId(userId) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、设置热点参数限流规则</p>
+<p>可以给资源设置默认的规则，也可以对特殊参数设置对应的规则</p>
+<h3 id="服务降级">服务降级</h3>
+<p>隔离处理：将错误隔离在可控的范围之内，不要让其影响到其他的程序的运行。</p>
+<h4 id="案例演示">案例演示</h4>
+<p>为了让测试效果更加明显一点，可以让访问/api/user/findUserByUserId/{userId}接口的线程出异常，然后用jemeter给spzx-cloud-order服务中的调用用户微服务的接口发送请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(value = &quot;/findUserByUserId/&#123;userId&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">findUserByUserId</span><span class="params">(<span class="meta">@PathVariable(value = &quot;userId&quot;)</span> Long userId ,</span></span><br><span class="line"><span class="params">                             <span class="meta">@RequestHeader(name = &quot;Truth&quot; , required = false)</span>String header)</span> &#123;</span><br><span class="line">    log.info(<span class="string">&quot;UserController...findUserByUserId方法执行了... ,header: &#123;&#125; , dateformat: &#123;&#125; &quot;</span> , header , patternProperties.getDateformat());</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> userService.findUserByUserId(userId) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会发现报错，上述请求失败以后，直接返回返回500的错误状态码给用户,而这个错误请求并不是由于用户访问查询订单信息报错导致的，而是由于根据订单查询用户时报错的。因此直接给用户返回500的错误状态码其实不太友好，友好的做法当远程调用失败以后，返回一个默认的用户信息给前端，这种备用方案就是我们的降级方案。服务降级,如下所示：</p>
+<p>实现步骤：</p>
+<p>1、在spzx-cloud-order微服务中添加sentinel的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--sentinel--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.并spzx-cloud-order微服务的application.yml文件中</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 微服务整合sentinel</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">transport:</span></span><br><span class="line">        <span class="attr">dashboard:</span> <span class="string">localhost:8080</span></span><br></pre></td></tr></table></figure>
+<p>实现步骤：</p>
+<p>1、在spzx-cloud-order模块中定义一个类让其实现<strong>UserFeignClient</strong>接口，重写queryById方法，在该方法中编写降级逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  com.atguigu.spzx.cloud.feign.fallback;</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserFeignClientFallback</span> <span class="keyword">implements</span> <span class="title class_">UserFeignClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">queryById</span><span class="params">(Long userId)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;UserFeignClientFallback...queryById...方法执行了...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、在UserFeignClient接口中注册配置该降级类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value = &quot;spzx-cloud-user&quot;, fallback = UserFeignClientFallback.class)</span>		</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserFeignClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/user/findUserByUserId/&#123;userId&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> User <span class="title function_">queryById</span><span class="params">(<span class="meta">@PathVariable(&quot;userId&quot;)</span> Long userId)</span> ;	<span class="comment">// 根据userId查询用户信息的接口方法</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、把该降级类纳入到spring容器中</p>
+<p>方案一：在spzx-cloud-order的启动类上通过@Import注解进行导入</p>
+<p>方案二：使用Spring Boot3的自动化配置原理完成,SPI机制。</p>
+<p>即：在resources目录下创建一个META-INF/spring文件夹，在该文件夹下创建一个org.springframework.boot.autoconfigure.AutoConfiguration.imports文件，文件的中的内容如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.atguigu.spzx.feign.order.fallback.UserFeignClientFallback</span><br></pre></td></tr></table></figure>
+<p>方案三：直接在UserFeignClientFallback类上加@Component注解。</p>
+<p>4、在spzx-cloud-order微服务的application.yml文件中</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># feign整合sentinel:第四步</span></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">sentinel:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>4、重启服务，重新配置隔离规则，并进行测试</p>
+<h3 id="熔断处理-v2">熔断处理</h3>
+<h4 id="原理">原理</h4>
+<p>熔断降级是解决雪崩问题的重要手段。其思路是由<strong>断路器</strong>统计服务调用的异常比例、异常数、慢请求比例，如果超出阈值则会<strong>熔断</strong>该服务。即拦截访</p>
+<p>问该服务的一切请求；而当服务恢复时，断路器会放行访问该服务的请求。</p>
+<p>断路器（熔断器）控制熔断和放行是通过状态机来完成的：</p>
+<p><img src="http://120.26.79.238:9000/blog/img/c98cf25d1dee4f6c911c21597d9d38e2.png" alt="image.png"></p>
+<p>状态机包括三个状态：</p>
+<p>1、closed：关闭状态，断路器放行所有请求，并开始统计异常比例、异常数、慢请求比例。超过阈值则切换到open状态</p>
+<p>2、open：打开状态，服务调用被<strong>熔断</strong>，访问被熔断服务的请求会被拒绝，快速失败，直接走降级逻辑。Open状态5秒后会进入half-open状态</p>
+<p>3、half-open：半开状态，放行一次请求，根据执行结果来判断接下来的操作。</p>
+<p>① 请求成功：则切换到closed状态</p>
+<p>② 请求失败：则切换到open状态</p>
+<p>断路器熔断判断策略有三种：慢调用、异常比例、异常数</p>
+<h4 id="慢调用比例">慢调用比例</h4>
+<p>慢调用**：业务的响应时长（RT）大于指定时长的请求认定为慢调用请求。sentinel会统计指定时间内，请求数量超过设定的最小数量的请求并且慢调</p>
+<p>用比例的比例。</p>
+<p>如果慢调用比例大于设定的阈值，则触发熔断。</p>
+<h4 id="异常比例和异常数">异常比例和异常数</h4>
+<p><strong>异常比例或异常数</strong>：统计指定时间内的调用，如果调用次数超过指定请求数，并且出现异常的比例达到设定的比例阈值（或超过指定异常数），则触发熔断。</p>
+<h3 id="自定义sentinel异常结果">自定义sentinel异常结果</h3>
+<p>默认情况下，发生限流、降级、授权拦截时，都会抛出异常到调用方。如果要自定义异常时的返回结果，需要实现BlockExceptionHandler 接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BlockExceptionHandler</span> &#123;</span><br><span class="line">  <span class="comment">//处理请求被限流、降级、授权拦截时抛出的异常：BlockException</span></span><br><span class="line">   <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(HttpServletRequest var1, HttpServletResponse var2, BlockException var3)</span> <span class="keyword">throws</span> Exception; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而 BlockException 包含很多个子类，分别对应不同的场景：</p>
+<p><img src="http://120.26.79.238:9000/blog/img/9964b748a4e644f5880e4afbf11d5ba2.png" alt="image.png"></p>
+<p>我们在 <strong>用户微服务</strong> 中定义类，实现 BlockExceptionHandler 接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.cloud.user.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.block.BlockException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.block.flow.FlowException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.csp.sentinel.slots.system.SystemBlockException;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义配置限流降级错误信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBlockExceptionHandler</span> <span class="keyword">implements</span> <span class="title class_">BlockExceptionHandler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, BlockException e)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">ResultObject</span> <span class="variable">resultObject</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">//根据限流降级的策略规则，不同的异常返回不同的提示语，</span></span><br><span class="line">        <span class="keyword">if</span> (e <span class="keyword">instanceof</span> FlowException) &#123;</span><br><span class="line">            resultObject = ResultObject.builder().code(<span class="number">100</span>).message(<span class="string">&quot;接口限流了&quot;</span>).build();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> DegradeException)&#123;</span><br><span class="line">            resultObject = ResultObject.builder().code(<span class="number">101</span>).message(<span class="string">&quot;服务降级了&quot;</span>).build();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> ParamFlowException)&#123;</span><br><span class="line">            resultObject = ResultObject.builder().code(<span class="number">102</span>).message(<span class="string">&quot;热点参数限流了&quot;</span>).build();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> SystemBlockException)&#123;</span><br><span class="line">            resultObject = ResultObject.builder().code(<span class="number">103</span>).message(<span class="string">&quot;触发系统保护规则了&quot;</span>).build();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(e <span class="keyword">instanceof</span> AuthorityException)&#123;</span><br><span class="line">            resultObject = ResultObject.builder().code(<span class="number">104</span>).message(<span class="string">&quot;授权规则不通过&quot;</span>).build();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());</span><br><span class="line">        response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        response.setContentType(MediaType.APPLICATION_JSON_VALUE);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>().writeValue(response.getWriter(),resultObject);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//如果需要跳转到指定页面使用如下处理：</span></span><br><span class="line">        <span class="comment">//request.getRequestDispatcher(&quot;/index.jsp&quot;).forward(request,response);</span></span><br><span class="line">        <span class="comment">//跳转到网站</span></span><br><span class="line">        <span class="comment">//response.sendRedirect(&quot;https://blog.csdn.net/weixin_44985880&quot;);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>注：在上面的自定义类中，如果不需要返回自定义的响应结果，而是跳转到对应页面，可以将返回结果处理换成方法中最后的两种处理方法即可。</strong></p>
+<h2 id="规则持久化">规则持久化</h2>
+<h3 id="规则持久化概述">规则持久化概述</h3>
+<p>默认情况下sentinel没有对规则进行持久化，让对服务进行重启以后，Sentinel规则将消失，生产环境需要将配置规则进行持久化</p>
+<p>持久化思想：<strong>将限流配置规则持久化进Nacos保存</strong>，只要刷新spzx-cloud-order某个rest地址，sentinel控制台的流控规则就能看到，只要Nacos里面的配置不删除，针对spzx-cloud-order上Sentinel上的流控规则持续有效</p>
+<h3 id="Nacos添加规则配置">Nacos添加规则配置</h3>
+<p>在nacos配置中心中添加规则配置</p>
+<p>规则配置内容如下所示：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="attr">&quot;resource&quot;:</span> <span class="string">&quot;/testA&quot;</span>,</span><br><span class="line">         <span class="attr">&quot;limitApp&quot;:</span> <span class="string">&quot;default&quot;</span>,</span><br><span class="line">         <span class="attr">&quot;grade&quot;:</span> <span class="number">1</span>,</span><br><span class="line">         <span class="attr">&quot;count&quot;:</span> <span class="number">1</span>,</span><br><span class="line">         <span class="attr">&quot;strategy&quot;:</span> <span class="number">0</span>,</span><br><span class="line">         <span class="attr">&quot;controlBehavior&quot;:</span> <span class="number">0</span>,</span><br><span class="line">         <span class="attr">&quot;clusterMode&quot;:</span> <span class="literal">false</span> </span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>规则说明：</p>
+<p><img src="http://120.26.79.238:9000/blog/img/94c3ccf37e2441b5b46504f038a31923.png" alt="image.png"></p>
+<h3 id="读取nacos规则配置">读取nacos规则配置</h3>
+<p>微服务可以从nacos配置中心读取规则配置信息然后进行使用。</p>
+<p>具体步骤如下所示：</p>
+<p>1、在spzx-cloud-order微服务中的pom.xml文件中添加如下依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-nacos<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、在spzx-cloud-order微服务的application.yml文件添加如下配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置数据库的连接信息</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">sentinel:</span></span><br><span class="line">      <span class="attr">transport:</span></span><br><span class="line">        <span class="attr">dashboard:</span> <span class="string">localhost:8080</span></span><br><span class="line">      <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">ds1:</span></span><br><span class="line">          <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">serverAddr:</span> <span class="number">192.168</span><span class="number">.136</span><span class="number">.142</span><span class="string">:8848</span></span><br><span class="line">            <span class="attr">dataId:</span> <span class="string">sentinel-rules</span></span><br><span class="line">            <span class="attr">groupId:</span> <span class="string">DEFAULT_GROUP</span></span><br><span class="line">            <span class="attr">dataType:</span> <span class="string">json</span></span><br><span class="line">            <span class="attr">ruleType:</span> <span class="string">flow</span>  <span class="comment"># 还可以是：degrade、authority、param-flow,system</span></span><br></pre></td></tr></table></figure>
+<p>3、重启spzx-cloud-order微服务，访问任意一个接口，此时就可以在sentinel的控制台看到对应的流控规则了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.zorange.online">Orange</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.zorange.online/2025/09/15/Sentinel/">http://www.zorange.online/2025/09/15/Sentinel/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.zorange.online" target="_blank">Orange's_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/09/15/Result%E5%8C%85%E8%A3%85/" title="Result包装"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Result包装</div></div></a></div><div class="next-post pull-right"><a href="/2025/09/15/ShardingSphere/" title="ShardingSphere"><img class="cover" src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="onerror=null;src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ShardingSphere</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Orange</div><div class="author-info__description">welcome to my blog!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/OrangeZSW"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/OrangeZSW" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%9B%AA%E5%B4%A9"><span class="toc-number">1.1.</span> <span class="toc-text">服务雪崩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.1.1.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E5%A4%84%E7%90%86"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">超时处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E5%A4%84%E7%90%86"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">隔离处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%86%94%E6%96%AD%E5%A4%84%E7%90%86"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">熔断处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">流量控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E5%90%88sentinel"><span class="toc-number">1.2.</span> <span class="toc-text">整合sentinel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E6%8E%A7%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">流控模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E6%A8%A1%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">控模式简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">关联模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E6%B5%81%E6%8E%A7%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="toc-number">1.3.1.1.1.</span> <span class="toc-text">关联流控模式的使用场景：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E8%B7%AF%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">链路模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.1.2.1.</span> <span class="toc-text">实际场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E6%8E%A7%E6%95%88%E6%9E%9C"><span class="toc-number">1.3.2.</span> <span class="toc-text">流控效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#warm-up"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">warm up</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E9%98%9F%E7%AD%89%E5%BE%85"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">排队等待</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E7%82%B9%E5%8F%82%E6%95%B0%E9%99%90%E6%B5%81"><span class="toc-number">1.3.3.</span> <span class="toc-text">热点参数限流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">配置介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7"><span class="toc-number">1.3.4.</span> <span class="toc-text">服务降级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">案例演示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%86%94%E6%96%AD%E5%A4%84%E7%90%86-v2"><span class="toc-number">1.3.5.</span> <span class="toc-text">熔断处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%85%A2%E8%B0%83%E7%94%A8%E6%AF%94%E4%BE%8B"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">慢调用比例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%AF%94%E4%BE%8B%E5%92%8C%E5%BC%82%E5%B8%B8%E6%95%B0"><span class="toc-number">1.3.5.3.</span> <span class="toc-text">异常比例和异常数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89sentinel%E5%BC%82%E5%B8%B8%E7%BB%93%E6%9E%9C"><span class="toc-number">1.3.6.</span> <span class="toc-text">自定义sentinel异常结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">1.4.</span> <span class="toc-text">规则持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E6%8C%81%E4%B9%85%E5%8C%96%E6%A6%82%E8%BF%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">规则持久化概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nacos%E6%B7%BB%E5%8A%A0%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.2.</span> <span class="toc-text">Nacos添加规则配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96nacos%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.3.</span> <span class="toc-text">读取nacos规则配置</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="GitHub Pages + 后端 API 的完整实现指南"/></a><div class="content"><a class="title" href="/2026/01/27/GitHub%20Pages%20+%20%E5%90%8E%E7%AB%AF%20API%20%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="GitHub Pages + 后端 API 的完整实现指南">GitHub Pages + 后端 API 的完整实现指南</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Python3初始化工作空间"/></a><div class="content"><a class="title" href="/2026/01/27/Python3%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/" title="Python3初始化工作空间">Python3初始化工作空间</a><time datetime="2026-01-27T01:09:52.665Z" title="发表于 2026-01-27 09:09:52">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Aop/" title="Aop"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Aop"/></a><div class="content"><a class="title" href="/2025/09/15/Aop/" title="Aop">Aop</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Docker安装"/></a><div class="content"><a class="title" href="/2025/09/15/Docker%E5%AE%89%E8%A3%85/" title="Docker安装">Docker安装</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/15/Elasticsearch/" title="Elasticsearch"><img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg" onerror="this.onerror=null;this.src='http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/404.jpg'" alt="Elasticsearch"/></a><div class="content"><a class="title" href="/2025/09/15/Elasticsearch/" title="Elasticsearch">Elasticsearch</a><time datetime="2025-09-15T16:00:00.000Z" title="发表于 2025-09-16 00:00:00">2025-09-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/428565553df343e6afb6b6b694e85432.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Orange</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div>welcome to my <img src="http://orange-note-img.oss-cn-wuhan-lr.aliyuncs.com/blog/爱心.png">blog</img></div><a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn/">鄂ICP备2022016190号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'CxT2FIJk3B7lLM8Pf1uPXYuQ-gzGzoHsz',
+      appKey: 'L6p0Q1gQvYEOeDpZr5tpGabx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
